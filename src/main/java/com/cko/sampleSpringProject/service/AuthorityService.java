@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class AuthorityService {
 
     @Autowired
-    AuthorityDAO authorityDAO;
+    private AuthorityDAO authorityDAO;
 
 
     public void insert(Authority authority) {

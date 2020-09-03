@@ -1,10 +1,13 @@
 package com.cko.sampleSpringProject.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Authority implements GrantedAuthority {
 
     @Id
@@ -15,27 +18,8 @@ public class Authority implements GrantedAuthority {
     @Column(name = "authority", unique = true)
     private String authority;
 
-    public Authority() {
-    }
-
     public Authority(String authority) {
         this.authority = authority;
     }
 
-    @Override
-    public String getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(String authority) {
-        this.authority = authority;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
