@@ -24,4 +24,10 @@ public class MainController {
 
         return new ModelAndView("login");
     }
+
+    @GetMapping("/video")
+    public ModelAndView testVideoPage() {
+
+        return new ModelAndView("video");
+    }
 }

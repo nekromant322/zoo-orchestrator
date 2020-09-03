@@ -71,8 +71,10 @@ public class InitData {
             AnimalRequest animalRequest = new AnimalRequest();
             animalRequest.setRequestStatus(RequestStatus.NEW);
             animalRequest.setAnimalType(AnimalType.values()[rnd.nextInt(AnimalType.values().length)]);
-            animalRequest.setBeginDate(LocalDate.of(2021, 6, 15));
-            animalRequest.setEndDate(LocalDate.of(2021, 6, 22));
+            int randomDay = rnd.nextInt(20);
+            int randomMonth = rnd.nextInt(12);
+            animalRequest.setBeginDate(LocalDate.of(2021, randomMonth, randomDay));
+            animalRequest.setEndDate(LocalDate.of(2021, randomMonth, randomDay + 5));
             animalRequest.setRoomType(RoomType.values()[rnd.nextInt(RoomType.values().length)]);
             animalRequest.setVideoNeeded(rnd.nextBoolean());
             animalRequest.setPhoneNumber(faker.phoneNumber().phoneNumber());

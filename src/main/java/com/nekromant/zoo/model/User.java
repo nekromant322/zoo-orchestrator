@@ -1,5 +1,6 @@
 package com.nekromant.zoo.model;
 
+import com.nekromant.zoo.enums.Discount;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -27,6 +28,9 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
     private List<Authority> authorities;
+
+    @Enumerated(EnumType.STRING)
+    private Discount discount = Discount.NONE;
 
     public User() {
     }
@@ -62,6 +66,13 @@ public class User implements UserDetails {
     }
 
 
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
