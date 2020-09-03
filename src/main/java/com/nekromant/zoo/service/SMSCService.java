@@ -1,4 +1,4 @@
-package com.cko.sampleSpringProject.service;
+package com.nekromant.zoo.service;
 /*
  * SMSC.RU API (smsc.ru) версия 1.3 (03.07.2019) smsc's sms sender package
  */

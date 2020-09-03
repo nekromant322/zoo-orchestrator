@@ -1,7 +1,7 @@
-package com.cko.sampleSpringProject.service;
+package com.nekromant.zoo.service;
 
-import com.cko.sampleSpringProject.dao.AnimalRequestDAO;
-import com.cko.sampleSpringProject.model.AnimalRequest;
+import com.nekromant.zoo.dao.AnimalRequestDAO;
+import com.nekromant.zoo.model.AnimalRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

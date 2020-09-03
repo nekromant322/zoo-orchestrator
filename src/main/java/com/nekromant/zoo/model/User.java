@@ -1,4 +1,4 @@
-package com.cko.sampleSpringProject.model;
+package com.nekromant.zoo.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

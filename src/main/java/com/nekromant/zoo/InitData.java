@@ -1,10 +1,10 @@
-package com.cko.sampleSpringProject;
+package com.nekromant.zoo;
 
-import com.cko.sampleSpringProject.model.Authority;
-import com.cko.sampleSpringProject.model.User;
-import com.cko.sampleSpringProject.service.AuthorityService;
-import com.cko.sampleSpringProject.service.SMSCService;
-import com.cko.sampleSpringProject.service.UserService;
+import com.nekromant.zoo.model.Authority;
+import com.nekromant.zoo.model.User;
+import com.nekromant.zoo.service.AuthorityService;
+import com.nekromant.zoo.service.SMSCService;
+import com.nekromant.zoo.service.UserService;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

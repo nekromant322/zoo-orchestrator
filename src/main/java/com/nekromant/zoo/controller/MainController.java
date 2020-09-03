@@ -1,4 +1,4 @@
-package com.cko.sampleSpringProject.controller;
+package com.nekromant.zoo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

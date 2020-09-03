@@ -1,9 +1,9 @@
-package com.cko.sampleSpringProject.model;
+package com.nekromant.zoo.model;
 
-import com.cko.sampleSpringProject.enums.RequestStatus;
-import com.cko.sampleSpringProject.enums.AnimalType;
-import com.cko.sampleSpringProject.enums.Location;
-import com.cko.sampleSpringProject.enums.RoomType;
+import com.nekromant.zoo.enums.RequestStatus;
+import com.nekromant.zoo.enums.AnimalType;
+import com.nekromant.zoo.enums.Location;
+import com.nekromant.zoo.enums.RoomType;
 import lombok.Data;
 
 import javax.persistence.*;

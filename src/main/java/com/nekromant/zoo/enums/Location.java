@@ -1,4 +1,4 @@
-package com.cko.sampleSpringProject.enums;
+package com.nekromant.zoo.enums;
 
 public enum Location {
     MOSCOW,

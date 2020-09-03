@@ -1,7 +1,7 @@
-package com.cko.sampleSpringProject.service;
+package com.nekromant.zoo.service;
 
-import com.cko.sampleSpringProject.dao.UserDAO;
-import com.cko.sampleSpringProject.model.User;
+import com.nekromant.zoo.dao.UserDAO;
+import com.nekromant.zoo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

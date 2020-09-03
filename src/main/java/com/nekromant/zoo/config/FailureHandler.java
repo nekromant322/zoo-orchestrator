@@ -1,4 +1,4 @@
-package com.cko.sampleSpringProject.config;
+package com.nekromant.zoo.config;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;

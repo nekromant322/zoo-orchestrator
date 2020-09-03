@@ -1,7 +1,7 @@
-package com.cko.sampleSpringProject.service;
+package com.nekromant.zoo.service;
 
-import com.cko.sampleSpringProject.dao.AuthorityDAO;
-import com.cko.sampleSpringProject.model.Authority;
+import com.nekromant.zoo.dao.AuthorityDAO;
+import com.nekromant.zoo.model.Authority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package com.cko.sampleSpringProject.dao;
+package com.nekromant.zoo.dao;
 
-import com.cko.sampleSpringProject.model.Authority;
+import com.nekromant.zoo.model.Authority;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AuthorityDAO extends CrudRepository<Authority, Long> {

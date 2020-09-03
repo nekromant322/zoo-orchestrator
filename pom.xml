@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.cko</groupId>
-    <artifactId>sampleSpringApplication</artifactId>
+    <artifactId>Zoo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>sampleSpringApplication</name>
+    <name>Zoo</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

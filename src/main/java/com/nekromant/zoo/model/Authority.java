@@ -1,4 +1,4 @@
-package com.cko.sampleSpringProject.model;
+package com.nekromant.zoo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

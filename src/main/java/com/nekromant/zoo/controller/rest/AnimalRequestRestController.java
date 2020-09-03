@@ -1,6 +1,6 @@
-package com.cko.sampleSpringProject.controller.rest;
+package com.nekromant.zoo.controller.rest;
 
-import com.cko.sampleSpringProject.model.AnimalRequest;
+import com.nekromant.zoo.model.AnimalRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

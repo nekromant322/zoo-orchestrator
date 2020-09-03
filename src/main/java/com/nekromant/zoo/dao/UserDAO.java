@@ -1,6 +1,6 @@
-package com.cko.sampleSpringProject.dao;
+package com.nekromant.zoo.dao;
 
-import com.cko.sampleSpringProject.model.User;
+import com.nekromant.zoo.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserDAO extends CrudRepository<User,Long> {
