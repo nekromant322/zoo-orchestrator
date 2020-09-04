@@ -30,4 +30,10 @@ public class MainController {
 
         return new ModelAndView("video");
     }
+
+    @GetMapping("/chart")
+    public ModelAndView testChartPage() {
+
+        return new ModelAndView("chart");
+    }
 }

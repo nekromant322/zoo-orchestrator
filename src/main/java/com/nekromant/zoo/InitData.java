@@ -71,10 +71,29 @@ public class InitData {
             AnimalRequest animalRequest = new AnimalRequest();
             animalRequest.setRequestStatus(RequestStatus.NEW);
             animalRequest.setAnimalType(AnimalType.values()[rnd.nextInt(AnimalType.values().length)]);
-            int randomDay = rnd.nextInt(20);
-            int randomMonth = rnd.nextInt(12);
+            int randomDay = rnd.nextInt(20) + 1;
+            int randomMonth = rnd.nextInt(12) + 1;
             animalRequest.setBeginDate(LocalDate.of(2021, randomMonth, randomDay));
             animalRequest.setEndDate(LocalDate.of(2021, randomMonth, randomDay + 5));
+            animalRequest.setRoomType(RoomType.values()[rnd.nextInt(RoomType.values().length)]);
+            animalRequest.setVideoNeeded(rnd.nextBoolean());
+            animalRequest.setPhoneNumber(faker.phoneNumber().phoneNumber());
+            animalRequest.setEmail(faker.bothify("????##@gmail.com"));
+            animalRequest.setName(faker.name().firstName());
+            animalRequest.setSurname(faker.name().lastName());
+            animalRequest.setAnimalName(faker.funnyName().name());
+            animalRequest.setLocation(Location.values()[rnd.nextInt(Location.values().length)]);
+            animalRequestService.insert(animalRequest);
+        }
+
+        for (int i = 0; i < 20; i++) {
+            AnimalRequest animalRequest = new AnimalRequest();
+            animalRequest.setRequestStatus(RequestStatus.DONE);
+            animalRequest.setAnimalType(AnimalType.values()[rnd.nextInt(AnimalType.values().length)]);
+            int randomDay = rnd.nextInt(20) + 1;
+            int randomMonth = rnd.nextInt(12) + 1;
+            animalRequest.setBeginDate(LocalDate.of(2020, randomMonth, randomDay));
+            animalRequest.setEndDate(LocalDate.of(2020, randomMonth, randomDay + 5));
             animalRequest.setRoomType(RoomType.values()[rnd.nextInt(RoomType.values().length)]);
             animalRequest.setVideoNeeded(rnd.nextBoolean());
             animalRequest.setPhoneNumber(faker.phoneNumber().phoneNumber());
