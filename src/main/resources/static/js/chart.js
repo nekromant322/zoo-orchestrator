@@ -73,6 +73,12 @@ function redrawChart(dataByMonths) {
                         beginAtZero: true
                     }
                 }]
+            },
+            legend: {
+                display: true,
+                labels: {
+                    fontColor: 'rgb(54, 162, 235)'
+                }
             }
         }
     });
