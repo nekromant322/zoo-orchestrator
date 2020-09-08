@@ -86,7 +86,7 @@ public class InitData {
             animalRequestService.insert(animalRequest);
         }
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 50; i++) {
             AnimalRequest animalRequest = new AnimalRequest();
             animalRequest.setRequestStatus(RequestStatus.DONE);
             animalRequest.setAnimalType(AnimalType.values()[rnd.nextInt(AnimalType.values().length)]);
