@@ -36,4 +36,9 @@ public class MainController {
 
         return new ModelAndView("chart");
     }
+    @GetMapping("/photogallery")
+    public ModelAndView testPhotoGallery() {
+
+        return new ModelAndView("photoGallery");
+    }
 }
