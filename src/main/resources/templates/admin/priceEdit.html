@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Зоогостиница | Цены</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/priceEdit.css">
+
+</head>
+
+<body>
+
+<header th:replace="fragments/common.html :: header"></header>
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <form action="/price/new" method="post">
+            <p class="inputName">Сommon Room</p>
+            <input type="number" name="commonRoomPrice" th:value="${actualPrice.commonRoomPrice}">
+            <p class="inputName">Large Room</p>
+            <input type="number" name="largeRoomPrice" th:value="${actualPrice.largeRoomPrice}">
+
+            <p class="inputName">Vip Room</p>
+            <input type="number" name="vipRoomPrice" th:value="${actualPrice.vipRoomPrice}">
+            <p class="inputName">Video</p>
+            <input type="number" name="videoPrice" th:value="${actualPrice.videoPrice}">
+            <input type="submit" class="fadeIn fourth" value="Сохранить">
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

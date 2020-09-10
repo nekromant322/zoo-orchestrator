@@ -1,22 +1,22 @@
 package com.nekromant.zoo;
 
+import com.nekromant.zoo.dao.PriceDAO;
 import com.nekromant.zoo.enums.AnimalType;
 import com.nekromant.zoo.enums.Location;
 import com.nekromant.zoo.enums.RequestStatus;
 import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Authority;
+import com.nekromant.zoo.model.Price;
 import com.nekromant.zoo.model.User;
-import com.nekromant.zoo.service.AnimalRequestService;
-import com.nekromant.zoo.service.AuthorityService;
-import com.nekromant.zoo.service.SMSCService;
-import com.nekromant.zoo.service.UserService;
+import com.nekromant.zoo.service.*;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -26,14 +26,13 @@ import java.util.Random;
 public class InitData {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    AuthorityService authorityService;
+    private AuthorityService authorityService;
 
     @Autowired
-    SMSCService smscSender;
-
+    private SMSCService smscSender;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -41,12 +40,16 @@ public class InitData {
     @Autowired
     private AnimalRequestService animalRequestService;
 
+    @Autowired
+    private PriceDAO priceDAO;
+
     private Faker faker = new Faker(new Locale("ru"));
 
 
     public void initData() {
         initUserAndRoles();
         initAnimalRequest();
+        initPrices();
     }
 
     private void initUserAndRoles() {
@@ -86,7 +89,7 @@ public class InitData {
             animalRequestService.insert(animalRequest);
         }
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 5; i++) {
             AnimalRequest animalRequest = new AnimalRequest();
             animalRequest.setRequestStatus(RequestStatus.DONE);
             animalRequest.setAnimalType(AnimalType.values()[rnd.nextInt(AnimalType.values().length)]);
@@ -104,5 +107,12 @@ public class InitData {
             animalRequest.setLocation(Location.values()[rnd.nextInt(Location.values().length)]);
             animalRequestService.insert(animalRequest);
         }
+    }
+
+    private void initPrices() {
+        Price actualPrice = new Price(0L, 100, 200, 300, 50, LocalDateTime.now());
+        Price oldPrice = new Price(0L, 77, 88, 99, 55, LocalDateTime.of(2020,06,21,0,0));
+        priceDAO.save(oldPrice);
+        priceDAO.save(actualPrice);
     }
 }
