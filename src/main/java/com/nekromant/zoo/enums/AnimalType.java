@@ -1,10 +1,13 @@
 package com.nekromant.zoo.enums;
 
 public enum AnimalType {
-    DOG,
-    CAT,
-    REPTILE,
-    RAT,
-    BIRD,
-    OTHER
+    DOG("dog"),
+    CAT("cat"),
+    REPTILE("reptile"),
+    RAT("rat"),
+    BIRD("bird"),
+    OTHER("other");
+
+    AnimalType(String name) {
+    }
 }

@@ -7,10 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
-    @GetMapping("/animals")
+    @GetMapping("/newAnimalRequest")
     public ModelAndView animalsPage() {
 
-        return new ModelAndView("animals");
+        return new ModelAndView("newAnimalRequest");
     }
 
     @GetMapping("/main")

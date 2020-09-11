@@ -36,9 +36,11 @@
     color: #fff;
     transition: 0.5s;
 }
-.container .box:hover{
+
+.container .box:hover {
     background: #8d06cc;
 }
+
 .container .box img {
     position: relative;
     max-width: 100px;
@@ -50,4 +52,12 @@
         grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
         grid-template-rows: minmax(auto, auto);
     }
+}
+
+#animal-choose {
+    display: grid;
+}
+
+#room-choose {
+    display: none;
 }
