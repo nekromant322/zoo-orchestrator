@@ -29,11 +29,14 @@ public class VkPhotoService {
     @Value("${vk.album.id}")
     private String ALBUM_ID;
 
+    @Value("${vk.owner.id}")
+    private int OWNER_ID;
+
     private VkApiClient vk = new VkApiClient(new HttpTransportClient());
 
     public List<String> getPhotoUrl() throws ClientException, ApiException {
         ServiceActor serviceActor = new ServiceActor(Integer.parseInt(APP_ID), CLIENT_ID,SERVICE_TOKEN);
-        GetResponse response = vk.photos().get(serviceActor).ownerId(-198597086).albumId(ALBUM_ID).count(5).execute();
+        GetResponse response = vk.photos().get(serviceActor).ownerId(OWNER_ID).albumId(ALBUM_ID).count(5).execute();
         List<Photo> photoList = response.getItems();
         List<String> photosUrl = new ArrayList<>();
         for (int i = 0; i < photoList.size();i++) {
