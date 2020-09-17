@@ -117,13 +117,18 @@
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version>
-
         </dependency>
         <dependency>
             <groupId>com.vk.api</groupId>
             <artifactId>sdk</artifactId>
             <version>1.0.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots</artifactId>
+            <version>3.5</version>
+        </dependency>
+
 
     </dependencies>
 
