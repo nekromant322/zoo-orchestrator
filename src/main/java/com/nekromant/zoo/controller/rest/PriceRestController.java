@@ -24,27 +24,5 @@ public class PriceRestController {
     }
 
     @PostMapping("/calc")
-    public int calculateTotalPriceForRequest(@RequestBody AnimalRequest animalRequest) {
-
-        LocalDate begin = animalRequest.getBeginDate();
-        LocalDate end = animalRequest.getEndDate();
-        Period period = Period.between(begin, end);
-        int difference = period.getDays();
-        int price = 0;
-
-        if (animalRequest.getRoomType() == COMMON) {
-            price = difference * priceService.getActualPrice().getCommonRoomPrice();
-        }
-        if (animalRequest.getRoomType() == LARGE) {
-            price = difference * priceService.getActualPrice().getLargeRoomPrice();
-        }
-        if (animalRequest.getRoomType() == VIP) {
-            price = difference * priceService.getActualPrice().getVipRoomPrice();
-        }
-        if (animalRequest.getVideoNeeded() == true) {
-            price += priceService.getActualPrice().getVideoPrice();
-        }
-
-        return price;
-    }
+    public int calculateTotalPriceForRequest(@RequestBody AnimalRequest animalRequest) { return priceService.calculateTotalPrice(animalRequest); }
 }
