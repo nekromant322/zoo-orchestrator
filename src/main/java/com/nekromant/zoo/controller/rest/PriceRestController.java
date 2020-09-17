@@ -1,11 +1,15 @@
 package com.nekromant.zoo.controller.rest;
 
+import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Price;
 import com.nekromant.zoo.service.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.Period;
+
+import static com.nekromant.zoo.enums.RoomType.*;
 
 @RestController
 @RequestMapping("/api/price")
@@ -19,4 +23,6 @@ public class PriceRestController {
         return priceService.getActualPrice();
     }
 
+    @PostMapping("/calc")
+    public int calculateTotalPriceForRequest(@RequestBody AnimalRequest animalRequest) { return priceService.calculateTotalPrice(animalRequest); }
 }
