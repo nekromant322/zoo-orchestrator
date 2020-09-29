@@ -2,9 +2,8 @@ package com.nekromant.zoo.config;
 
 import com.nekromant.zoo.telegram.bot.ZooBot;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.telegram.telegrambots.ApiContext;
+import org.springframework.context.annotation.Profile;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
@@ -12,6 +11,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 import javax.annotation.PostConstruct;
 
 @Configuration
+@Profile("Telegram-bot")
 public class TelegramBotConfig {
 
     static {
