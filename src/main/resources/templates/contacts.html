@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Зоогостиница</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/common/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/common/contacts.css">
+
+</head>
+
+<body>
+
+    <header th:replace="fragments/common.html :: header">
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    </header>
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">mail@mail.ru</h5>
+                                <p class="card-text">Связаться с нами по электронной почте</p>
+                                <a href="#mailto:" class="btn btn-dark">Написать</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">8-XXX-XXX-XX-XX</h5>
+                                <p class="card-text">Наш номер телефона</p>
+                                <a href="tel:" class="btn btn-dark">Позвонить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Как нас найти?</h5>
+                        <p class="card-text">Студгородок МИЭТ, улица Юности, Зеленоград, Москва, Россия</p>
+
+                    </div>
+                    <div id="wrapper-9cd199b9cc5410cd3b1ad21cab2e54d3">
+                        <div id="map-9cd199b9cc5410cd3b1ad21cab2e54d3"></div>
+                        <script>
+                            (function() {
+                                var setting = {
+                                    "height": 540,
+                                    "width": 1110,
+                                    "zoom": 17,
+                                    "queryString": "Студгородок МИЭТ, улица Юности, Зеленоград, Москва, Россия",
+                                    "place_id": "ChIJrVj8Ja4VtUYRyHtXNYz8u_g",
+                                    "satellite": false,
+                                    "centerCoord": [],
+                                    "cid": "0xf8bbfc8c35577bc8",
+                                    "lang": "ru",
+                                    "id": "map-9cd199b9cc5410cd3b1ad21cab2e54d3",
+                                    "embed_id": "278277"
+                                };
+                                var d = document;
+                                var s = d.createElement('script');
+                                s.src = 'https://1map.com/js/script-for-user.js?embed_id=278277';
+                                s.async = true;
+                                s.onload = function(e) {
+                                    window.OneMap.initMap(setting)
+                                };
+                                var to = d.getElementsByTagName('script')[0];
+                                to.parentNode.insertBefore(s, to);
+                            })();
+
+                        </script><a href="https://1map.com/ru/map-embed">1 Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <!--
+        <div class="col">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="" id="first-string">⚫ Как с нами связаться</h1>
+
+                    <p class="lead"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron">
+                    <h1 class="display-5">Наша электронная почта</h1>
+                    <h3 class="display-6">Yalublyusobak@mail.ru</h3>
+                    <p class="lead">Пишете нам на электронную почту по любым вопросам!</p>
+                    <hr class="my-4">
+                    <p>Вам ответят в течение 10 минут</p>
+                    <a class="btn btn-primary btn-lg" href="#" role="button">Написать</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="jumbotron">
+                    <h1 class="display-5">Наш номер телефона</h1>
+                    <h2 class="display-6"><b>8-XXX-XXX-XX-XX</b></h2>
+                    <p class="lead">С вами свяжется один из наших операторов</p>
+                    <hr class="my-4">
+                    <p>Стоимость зависит от услуг вашего оператора</p>
+                    <a class="btn btn-primary btn-lg" href="tel:89150934943" role="button">Позвонить</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1>⚫ Как нас найти</h1>
+                    <iframe src="https://www.google.com/maps/d/embed?mid=13ayDaKa8ks2drQFnUCayaj98ZDetPjSG" width="960" height="480" id="main-map"></iframe>
+                    <p class="lead"></p>
+                </div>
+            </div>
+        </div>
+-->
+
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
