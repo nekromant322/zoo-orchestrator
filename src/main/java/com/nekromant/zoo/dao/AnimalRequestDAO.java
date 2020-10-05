@@ -9,4 +9,5 @@ import java.util.List;
 public interface AnimalRequestDAO extends CrudRepository<AnimalRequest, Long> {
 
     List<AnimalRequest> findAllByRequestStatus(RequestStatus requestStatus);
+
 }

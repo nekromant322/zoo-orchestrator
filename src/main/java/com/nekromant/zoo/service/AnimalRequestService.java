@@ -2,12 +2,14 @@ package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.enums.RequestStatus;
+import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.model.AnimalRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Month;
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class AnimalRequestService {
@@ -15,8 +17,8 @@ public class AnimalRequestService {
     @Autowired
     private AnimalRequestDAO animalRequestDAO;
 
-    public void insert(AnimalRequest animalRequest) {
-        animalRequestDAO.save(animalRequest);
+    public AnimalRequest insert(AnimalRequest animalRequest) {
+        return animalRequestDAO.save(animalRequest);
     }
 
     public HashMap<Month, Integer> getNumbersOfDoneRequestForYear(int year) {
@@ -25,6 +27,15 @@ public class AnimalRequestService {
                 .collect(HashMap::new,
                         (map, value) -> map.merge(value.getBeginDate().getMonth(), 1, Integer::sum),
                         HashMap::putAll);
+    }
+
+    public void updateRoomTypeByRequestId(long id, RoomType roomType) {
+        Optional<AnimalRequest> optionalAnimalRequest = animalRequestDAO.findById(id);
+        if (optionalAnimalRequest.isPresent()) {
+            AnimalRequest animalRequest = optionalAnimalRequest.get();
+            animalRequest.setRoomType(roomType);
+            animalRequestDAO.save(animalRequest);
+        }
     }
 
     //TODO реализация после того, как будет реализован прайс

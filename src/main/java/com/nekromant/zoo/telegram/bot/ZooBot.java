@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
@@ -35,7 +34,7 @@ public class ZooBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        String message = update.getMessage().getText();
+        String message = getMessageOrCallbackQuery(update);
         sendMsg(commandHandler.getSendMessage(update));
     }
 
@@ -51,6 +50,16 @@ public class ZooBot extends TelegramLongPollingBot {
             execute(message);
         } catch (TelegramApiException e) {
             e.printStackTrace();
+        }
+    }
+
+    private String getMessageOrCallbackQuery(Update update){
+        if (update.hasCallbackQuery()) {
+            return update.getCallbackQuery().getData();
+        } else if (update.hasMessage() && update.getMessage().hasText()) {
+            return update.getMessage().getText();
+        } else {
+            return "UNKNOWN_MEDIA";
         }
     }
 

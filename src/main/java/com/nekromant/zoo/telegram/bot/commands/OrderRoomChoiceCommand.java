@@ -1,7 +1,9 @@
 package com.nekromant.zoo.telegram.bot.commands;
 
+import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.service.PriceService;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
@@ -9,31 +11,42 @@ import java.util.List;
 
 public class OrderRoomChoiceCommand extends TelegramBotCommand {
 
+    public final static String ORDER_ROOM_PREFIX = "/order_room";
+    public final static String ORDER_ROOM_DELIMETER = ":";
+
     private PriceService priceService;
 
     public OrderRoomChoiceCommand(PriceService priceService) {
         this.priceService = priceService;
     }
 
-    public ReplyKeyboardMarkup getResponseMenu() {
+    public InlineKeyboardMarkup getResponseMenu() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("We have rooms for this price");
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        List<KeyboardRow> keyboardRows = new ArrayList<>();
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
         KeyboardRow firstRow = new KeyboardRow();
         firstRow.add("Common room: " + priceService.getActualPrice().getCommonRoomPrice());
-        keyboardRows.add(firstRow);
+        addNewOneButtonWidthRowToKeyboard(inlineKeyboardMarkup,
+                "Common room: " + priceService.getActualPrice().getCommonRoomPrice(),
+                ORDER_ROOM_PREFIX + ORDER_ROOM_DELIMETER + RoomType.COMMON.name()
+                );
+        addNewOneButtonWidthRowToKeyboard(inlineKeyboardMarkup,
+                "Large room: " + priceService.getActualPrice().getLargeRoomPrice(),
+                ORDER_ROOM_PREFIX + ORDER_ROOM_DELIMETER + RoomType.LARGE.name()
+        );
+        addNewOneButtonWidthRowToKeyboard(inlineKeyboardMarkup,
+                "VIP room: " + priceService.getActualPrice().getVipRoomPrice(),
+                ORDER_ROOM_PREFIX + ORDER_ROOM_DELIMETER + RoomType.VIP.name()
+        );
+        return inlineKeyboardMarkup;
+    }
 
-        KeyboardRow secondRow = new KeyboardRow();
-        secondRow.add("Large room: " + priceService.getActualPrice().getLargeRoomPrice());
-        keyboardRows.add(secondRow);
-
-        KeyboardRow thirdRow = new KeyboardRow();
-        thirdRow.add("VIP room: " + priceService.getActualPrice().getVipRoomPrice());
-        keyboardRows.add(thirdRow);
-
-        replyKeyboardMarkup.setKeyboard(keyboardRows);
-        return replyKeyboardMarkup;
+    private void addNewOneButtonWidthRowToKeyboard(InlineKeyboardMarkup keyboard, String buttonText, String callbackText) {
+        List<InlineKeyboardButton> row = new ArrayList<>();
+        InlineKeyboardButton button = new InlineKeyboardButton(buttonText);
+        button.setCallbackData(callbackText);
+        row.add(button);
+        keyboard.getKeyboard().add(row);
     }
 }
