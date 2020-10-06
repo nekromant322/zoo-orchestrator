@@ -4,16 +4,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class сontactsService {
+public class ContactsService {
 
     @Value("${contacts.email}")
-    private String email;
-    @Value("${contacts.phoneNumber}")
-    private int number;
+    private String EMAIL;
+    @Value("${contacts.phone.number}")
+    private String PHONE_NUMBER;
     @Value("${contacts.location}")
-    private String location;
+    private String LOCATION;
     @Value("${contacts.lat}")
-    private float lat1;
+    private float LAT;
     @Value("${contacts.lng}")
-    private String lng1;
+    private float LNG;
 }
