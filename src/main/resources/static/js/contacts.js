@@ -1,6 +1,6 @@
     //
     // // Создает обработчик события window.onLoad
-    // YMaps.jQuery(function () {
+    //YMaps.jQuery(function () {
     //     // Создает экземпляр карты и привязывает его к созданному контейнеру
     //     var map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);
     //
