@@ -1,6 +1,7 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.dao.AnimalRequestDAO;
+import com.nekromant.zoo.enums.AnimalType;
 import com.nekromant.zoo.enums.RequestStatus;
 import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.model.AnimalRequest;
@@ -34,6 +35,15 @@ public class AnimalRequestService {
         if (optionalAnimalRequest.isPresent()) {
             AnimalRequest animalRequest = optionalAnimalRequest.get();
             animalRequest.setRoomType(roomType);
+            animalRequestDAO.save(animalRequest);
+        }
+    }
+
+    public void updateAnimalTypeByRequestId(long id, AnimalType animalType) {
+        Optional<AnimalRequest> optionalAnimalRequest = animalRequestDAO.findById(id);
+        if (optionalAnimalRequest.isPresent()) {
+            AnimalRequest animalRequest = optionalAnimalRequest.get();
+            animalRequest.setAnimalType(animalType);
             animalRequestDAO.save(animalRequest);
         }
     }

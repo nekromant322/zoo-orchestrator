@@ -4,7 +4,6 @@ import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.service.PriceService;
 import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 public class OrderRoomChoiceCommand extends TelegramBotCommand {
 
     public final static String ORDER_ROOM_PREFIX = "/order_room";
-    public final static String ORDER_ROOM_DELIMETER = ":";
+    public final static String ORDER_ROOM_DELIMITER = ":";
 
     private PriceService priceService;
 
@@ -21,23 +20,18 @@ public class OrderRoomChoiceCommand extends TelegramBotCommand {
     }
 
     public InlineKeyboardMarkup getResponseMenu() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("We have rooms for this price");
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-
-        KeyboardRow firstRow = new KeyboardRow();
-        firstRow.add("Common room: " + priceService.getActualPrice().getCommonRoomPrice());
         addNewOneButtonWidthRowToKeyboard(inlineKeyboardMarkup,
                 "Common room: " + priceService.getActualPrice().getCommonRoomPrice(),
-                ORDER_ROOM_PREFIX + ORDER_ROOM_DELIMETER + RoomType.COMMON.name()
+                ORDER_ROOM_PREFIX + ORDER_ROOM_DELIMITER + RoomType.COMMON.name()
                 );
         addNewOneButtonWidthRowToKeyboard(inlineKeyboardMarkup,
                 "Large room: " + priceService.getActualPrice().getLargeRoomPrice(),
-                ORDER_ROOM_PREFIX + ORDER_ROOM_DELIMETER + RoomType.LARGE.name()
+                ORDER_ROOM_PREFIX + ORDER_ROOM_DELIMITER + RoomType.LARGE.name()
         );
         addNewOneButtonWidthRowToKeyboard(inlineKeyboardMarkup,
                 "VIP room: " + priceService.getActualPrice().getVipRoomPrice(),
-                ORDER_ROOM_PREFIX + ORDER_ROOM_DELIMETER + RoomType.VIP.name()
+                ORDER_ROOM_PREFIX + ORDER_ROOM_DELIMITER + RoomType.VIP.name()
         );
         return inlineKeyboardMarkup;
     }

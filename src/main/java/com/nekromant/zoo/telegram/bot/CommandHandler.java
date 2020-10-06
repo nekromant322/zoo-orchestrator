@@ -1,10 +1,12 @@
 package com.nekromant.zoo.telegram.bot;
 
 import com.nekromant.zoo.dao.TelegramUserDAO;
+import com.nekromant.zoo.enums.AnimalType;
 import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.service.AnimalRequestService;
 import com.nekromant.zoo.service.PriceService;
+import com.nekromant.zoo.telegram.bot.commands.OrderAnimalTypeChoiceCommand;
 import com.nekromant.zoo.telegram.bot.commands.OrderRoomChoiceCommand;
 import com.nekromant.zoo.telegram.bot.model.TelegramUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ public class CommandHandler {
     //TODO: change stub messages to normal one
     private static final String START_MESSAGE = "Put start message here. For order send /order";
     private static final String ORDER_MESSAGE = "Put order message here";
+    private static final String ORDER_ANIMAL_TYPE_MESSAGE = "Choose animal type";
     private static final String UNKNOWN_COMMAND_MESSAGE = "Unknown command";
 
     @Autowired
@@ -36,15 +39,17 @@ public class CommandHandler {
         String message = getMessageOrCallbackQuery(update);
         switch (message) {
             case (START):
-                createTelegramUserIfNotExist(update.getMessage().getChatId().longValue());
+                createTelegramUserIfNotExist(update.getMessage().getChatId());
                 return getStartUpMsg(update);
             case (ORDER):
                 return getOrderRoomChoiceMenu(update);
             default:
                 if (message.startsWith(OrderRoomChoiceCommand.ORDER_ROOM_PREFIX)) {
                     setUpRoomTypeForUserRequest(update);
+                    return getAnimalTypeChoiceMenu(update);
+                } else if(message.startsWith(OrderAnimalTypeChoiceCommand.ORDER_ANIMAL_PREFIX)) {
+                    setUpAnimalTypeForUserRequest(update);
                 }
-
         }
         return getUnknownCommandMessage(update);
     }
@@ -64,6 +69,16 @@ public class CommandHandler {
         sendMessage.setText(ORDER_MESSAGE);
         OrderRoomChoiceCommand orderRoomChoiceCommand = new OrderRoomChoiceCommand(priceService);
         sendMessage.setReplyMarkup(orderRoomChoiceCommand.getResponseMenu());
+        return sendMessage;
+    }
+
+    private SendMessage getAnimalTypeChoiceMenu(Update update) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+        sendMessage.setChatId(update.getCallbackQuery().getMessage().getChatId().toString());
+        OrderAnimalTypeChoiceCommand orderAnimalTypeChoiceCommand = new OrderAnimalTypeChoiceCommand();
+        sendMessage.setReplyMarkup(orderAnimalTypeChoiceCommand.getResponseMenu());
+        sendMessage.setText(ORDER_ANIMAL_TYPE_MESSAGE);
         return sendMessage;
     }
 
@@ -110,6 +125,14 @@ public class CommandHandler {
                 .getAnimalRequestId().getId();
         animalRequestService.updateRoomTypeByRequestId(
                 animalRequestIdForUser,
-                RoomType.valueOf(update.getCallbackQuery().getData().toString().split(OrderRoomChoiceCommand.ORDER_ROOM_DELIMETER)[1]));
+                RoomType.valueOf(update.getCallbackQuery().getData().toString().split(OrderRoomChoiceCommand.ORDER_ROOM_DELIMITER)[1]));
+    }
+
+    private void setUpAnimalTypeForUserRequest(Update update) {
+        long animalRequestIdForUser = telegramUserDAO.findByChatId(update.getCallbackQuery().getMessage().getChatId())
+                .getAnimalRequestId().getId();
+        animalRequestService.updateAnimalTypeByRequestId(
+                animalRequestIdForUser,
+                AnimalType.valueOf(update.getCallbackQuery().getData().split(OrderAnimalTypeChoiceCommand.ORDER_ANIMAL_DELIMITER)[1]));
     }
 }
