@@ -19,9 +19,9 @@ public class ContactsController {
         ModelAndView modelAndView = new ModelAndView("contacts");
 //        modelAndView.addObject("phoneNumber", PhoneNumber);
 //
-//        modelAndView.addObject("locationX", LocationX);
-//        modelAndView.addObject("locationY", LocationY);
-//        List<Contacts> filmsList = ContactsDAO.findAll();
+//        modelAndView.addObject("lat", LocationX);
+//        modelAndView.addObject("lng", LocationY);
+//        List<Contacts> contactsList = ContactsDAO.findAll();
         return new ModelAndView("contacts");
     }
 

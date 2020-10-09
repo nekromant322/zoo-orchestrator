@@ -2,6 +2,7 @@ package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.controller.ContactsController;
 import org.asynchttpclient.ClientStats;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 
 @Service
 public class ContactsService {
+
 
     @Value("${contacts.email}")
     private String EMAIL;
@@ -24,21 +26,11 @@ public class ContactsService {
     private float LNG;
     HashMap<String, String> contactsInfo = new HashMap<String, String>();
 
-    public String getEMAIL() {
-        return EMAIL;
-    }
-    public String getPHONE_NUMBER() {
-        return PHONE_NUMBER;
-    }
-    public String getLOCATION() {
-        return LOCATION;
-    }
-    public float getLAT() {
-        return LAT;
-    }
-    public float getLNG() {
-        return LNG;
-    }
+
+//    public List<ContactsService> findAll() {
+//        return this.contactsRepository.findAll();
+//    }
+
 
 
 //    contactsInfo.put()
