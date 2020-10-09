@@ -14,7 +14,9 @@
             var map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);
 
             // Устанавливает центр и масштаб карты
-            map.setCenter(new YMaps.GeoPoint(37.64, 55.76), 10);
+            var point = new YMaps.GeoPoint(37.609218,55.753559);
+            map.setCenter(point, 10);
+
         }
         YMaps.load(init);
 //        // Создает обработчик события window.onLoad
