@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Application</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/css/login.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/common/header.css">
+</head>
+
+<body>
+<header th:replace="fragments/common.html :: header"> </header>
+
+    <table style="color: azure; border-spacing: 11px 1px;">
+        <thead>
+        <tr>
+            <th> id </th>
+            <th> Animal type </th>
+            <th> Begin Date </th>
+            <th> End Date </th>
+            <th> Room type</th>
+            <th> Video needed </th>
+            <th> Phone number </th>
+            <th> Email </th>
+            <th> Name </th>
+            <th> Surname </th>
+            <th> Animal name </th>
+            <th> Location </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="animalRequest : ${animalRequests}">
+            <td><span th:text="${animalRequest.id}"> id </span></td>
+            <td><span th:text="${animalRequest.animalType}"> Animal type </span></td>
+            <td><span th:text="${animalRequest.beginDate.toString()}"> begin </span></td>
+            <td><span th:text="${animalRequest.endDate.toString()}"> end </span></td>
+            <td><span th:text="${animalRequest.roomType}"> room type </span></td>
+            <td><span th:text="${animalRequest.videoNeeded}"> video </span></td>
+            <td><span th:text="${animalRequest.phoneNumber}"> phone </span></td>
+            <td><span th:text="${animalRequest.email}"> email </span></td>
+            <td><span th:text="${animalRequest.name}"> name </span></td>
+            <td><span th:text="${animalRequest.surname}"> surname </span></td>
+            <td><span th:text="${animalRequest.animalName}"> animal type </span></td>
+            <td><span th:text="${animalRequest.location}"> location </span></td>
+            <td><a th:href="@{/}">Accept</a></td>
+            <td><a th:href="@{/}">Decline</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</body>
+</html>

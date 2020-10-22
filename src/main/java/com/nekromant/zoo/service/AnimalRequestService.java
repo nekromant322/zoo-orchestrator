@@ -31,4 +31,8 @@ public class AnimalRequestService {
     public HashMap<Month, Integer> getMoneyYearnedForYear(int year) {
         return new HashMap<>();
     }
+
+    public Iterable<AnimalRequest> getAllNewAnimalRequest(){
+        return animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
+    }
 }
