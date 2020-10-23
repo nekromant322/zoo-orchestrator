@@ -11,7 +11,7 @@
 <body>
 <header th:replace="fragments/common.html :: header"> </header>
 
-    <table style="color: azure; border-spacing: 11px 1px;">
+    <table border="2" align="center" width="100%" style="color: azure; top: 10%">
         <thead>
         <tr>
             <th> id </th>
@@ -42,8 +42,14 @@
             <td><span th:text="${animalRequest.surname}"> surname </span></td>
             <td><span th:text="${animalRequest.animalName}"> animal type </span></td>
             <td><span th:text="${animalRequest.location}"> location </span></td>
-            <td><a th:href="@{/}">Accept</a></td>
-            <td><a th:href="@{/}">Decline</a></td>
+            <td>
+                <form method="POST" th:action="@{/AnimalRequest/onlyNew/{id}/accept(id=${animalRequest.id})}">
+                    <button type="submit" name="submit" value="value" class="link-button">Accept</button>
+                </form>
+                <form method="POST" th:action="@{/AnimalRequest/onlyNew/{id}/decline(id=${animalRequest.id})}">
+                    <button type="submit" name="submit" value="value" class="link-button">Decline</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

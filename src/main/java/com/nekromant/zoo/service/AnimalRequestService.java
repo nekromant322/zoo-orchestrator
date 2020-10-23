@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Month;
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class AnimalRequestService {
@@ -34,5 +35,23 @@ public class AnimalRequestService {
 
     public Iterable<AnimalRequest> getAllNewAnimalRequest(){
         return animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
+    }
+
+    public void acceptAnimalRequest(String id) {
+        Optional<AnimalRequest> animalRequest = animalRequestDAO.findById(Long.parseLong(id));
+        if(animalRequest.isPresent()){
+            AnimalRequest request = animalRequest.get();
+            request.setRequestStatus(RequestStatus.APPLIED);
+            animalRequestDAO.save(request);
+        }
+    }
+
+    public void declineAnimalRequest(String id) {
+        Optional<AnimalRequest> animalRequest = animalRequestDAO.findById(Long.parseLong(id));
+        if(animalRequest.isPresent()){
+            AnimalRequest request = animalRequest.get();
+            request.setRequestStatus(RequestStatus.DENIED);
+            animalRequestDAO.save(request);
+        }
     }
 }
