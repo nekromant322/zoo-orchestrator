@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <title>Application</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="/css/login.css" rel="stylesheet">
+    <link href="/static/css/login.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/common/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/newAnimalRequestPage.css">
 </head>
 
 <body>
 <header th:replace="fragments/common.html :: header"> </header>
 
-    <table border="2" align="center" width="100%" style="color: azure; top: 10%">
+    <table class="table">
         <thead>
-        <tr>
+        <tr class="tr">
             <th> id </th>
             <th> Animal type </th>
             <th> Begin Date </th>
@@ -29,7 +30,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="animalRequest : ${animalRequests}">
+        <tr class="tr" th:each="animalRequest : ${animalRequests}">
             <td><span th:text="${animalRequest.id}"> id </span></td>
             <td><span th:text="${animalRequest.animalType}"> Animal type </span></td>
             <td><span th:text="${animalRequest.beginDate.toString()}"> begin </span></td>
@@ -43,11 +44,11 @@
             <td><span th:text="${animalRequest.animalName}"> animal type </span></td>
             <td><span th:text="${animalRequest.location}"> location </span></td>
             <td>
-                <form method="POST" th:action="@{/AnimalRequest/onlyNew/{id}/accept(id=${animalRequest.id})}">
-                    <button type="submit" name="submit" value="value" class="link-button">Accept</button>
+                <form method="POST" th:action="@{/AnimalRequest/onlyNew/accept/{id}(id=${animalRequest.id})}">
+                    <button type="submit" name="submit" value="value" class="buttonAccept">Accept</button>
                 </form>
-                <form method="POST" th:action="@{/AnimalRequest/onlyNew/{id}/decline(id=${animalRequest.id})}">
-                    <button type="submit" name="submit" value="value" class="link-button">Decline</button>
+                <form method="POST" th:action="@{/AnimalRequest/onlyNew/decline/{id}(id=${animalRequest.id})}">
+                    <button type="submit" name="submit" value="value" class="buttonDecline">Decline</button>
                 </form>
             </td>
         </tr>

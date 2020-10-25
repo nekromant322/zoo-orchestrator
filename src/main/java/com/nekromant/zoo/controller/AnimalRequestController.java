@@ -1,7 +1,6 @@
 package com.nekromant.zoo.controller;
 
 import com.nekromant.zoo.enums.RequestStatus;
-import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.service.AnimalRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,20 +19,20 @@ public class AnimalRequestController {
 
     @GetMapping("/onlyNew")
     public ModelAndView onlyNewAnimalRequestPage(){
-        ModelAndView mav = new ModelAndView("newAnimalRequestPage");
+        ModelAndView mav = new ModelAndView("admin/newAnimalRequestPage");
         mav.addObject("animalRequests", animalRequestService.getAllNewAnimalRequest());
         return mav;
     }
 
-    @PostMapping("/onlyNew/{id}/accept")
+    @PostMapping("/onlyNew/accept/{id}")
     public RedirectView acceptAnimalRequestPage(@PathVariable String id){
-        animalRequestService.acceptAnimalRequest(id);
+        animalRequestService.acceptAnimalRequest(id,RequestStatus.APPLIED);
         return new RedirectView("/AnimalRequest/onlyNew");
     }
 
-    @PostMapping("/onlyNew/{id}/decline")
+    @PostMapping("/onlyNew/decline/{id}")
     public RedirectView declineAnimalRequest(@PathVariable String id){
-        animalRequestService.declineAnimalRequest(id);
+        animalRequestService.acceptAnimalRequest(id,RequestStatus.DENIED);
         return new RedirectView("/AnimalRequest/onlyNew");
     }
 }

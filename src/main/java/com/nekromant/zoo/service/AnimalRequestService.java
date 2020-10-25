@@ -37,20 +37,11 @@ public class AnimalRequestService {
         return animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
     }
 
-    public void acceptAnimalRequest(String id) {
+    public void acceptAnimalRequest(String id, RequestStatus requestStatus) {
         Optional<AnimalRequest> animalRequest = animalRequestDAO.findById(Long.parseLong(id));
         if(animalRequest.isPresent()){
             AnimalRequest request = animalRequest.get();
-            request.setRequestStatus(RequestStatus.APPLIED);
-            animalRequestDAO.save(request);
-        }
-    }
-
-    public void declineAnimalRequest(String id) {
-        Optional<AnimalRequest> animalRequest = animalRequestDAO.findById(Long.parseLong(id));
-        if(animalRequest.isPresent()){
-            AnimalRequest request = animalRequest.get();
-            request.setRequestStatus(RequestStatus.DENIED);
+            request.setRequestStatus(requestStatus);
             animalRequestDAO.save(request);
         }
     }
