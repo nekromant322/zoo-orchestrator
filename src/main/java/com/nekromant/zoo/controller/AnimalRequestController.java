@@ -26,13 +26,13 @@ public class AnimalRequestController {
 
     @PostMapping("/onlyNew/accept/{id}")
     public RedirectView acceptAnimalRequestPage(@PathVariable String id){
-        animalRequestService.acceptAnimalRequest(id,RequestStatus.APPLIED);
+        animalRequestService.acceptAnimalRequest(id);
         return new RedirectView("/AnimalRequest/onlyNew");
     }
 
     @PostMapping("/onlyNew/decline/{id}")
     public RedirectView declineAnimalRequest(@PathVariable String id){
-        animalRequestService.acceptAnimalRequest(id,RequestStatus.DENIED);
+        animalRequestService.declineAnimalRequest(id);
         return new RedirectView("/AnimalRequest/onlyNew");
     }
 }

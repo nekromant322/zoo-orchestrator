@@ -37,7 +37,15 @@ public class AnimalRequestService {
         return animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
     }
 
-    public void acceptAnimalRequest(String id, RequestStatus requestStatus) {
+    public void acceptAnimalRequest(String id) {
+        changeStatusAnimalRequest(id, RequestStatus.APPLIED);
+    }
+
+    public void declineAnimalRequest(String id) {
+        changeStatusAnimalRequest(id, RequestStatus.DENIED);
+    }
+
+    private void changeStatusAnimalRequest(String id, RequestStatus requestStatus) {
         Optional<AnimalRequest> animalRequest = animalRequestDAO.findById(Long.parseLong(id));
         if(animalRequest.isPresent()){
             AnimalRequest request = animalRequest.get();
