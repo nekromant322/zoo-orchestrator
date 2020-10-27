@@ -1,6 +1,6 @@
 package com.nekromant.zoo.controller;
 
-import com.nekromant.zoo.service.VkPhotoService;
+import com.nekromant.zoo.service.PhotoHolder;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class PhotoGalleryController {
 
     @Autowired
-    private VkPhotoService vkPhotoService;
+    private PhotoHolder photoHolder;
 
     @GetMapping("/photogallery")
     public ModelAndView testPhotoGallery() throws ClientException, ApiException {
         ModelAndView modelAndView = new ModelAndView("photoGallery");
-        modelAndView.addObject("urls",vkPhotoService.getPhotoUrl());
+        modelAndView.addObject("urls",photoHolder.getUrlPhotos());
         return modelAndView;
     }
 
