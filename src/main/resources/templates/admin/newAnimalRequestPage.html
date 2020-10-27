@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Application</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/common/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/newAnimalRequestPage.css">
+</head>
+
+<body>
+<header th:replace="fragments/common.html :: header"></header>
+<table class="table">
+    <thead role="rowgroup">
+    <tr role="row">
+        <th role="columnheader"> id</th>
+        <th role="columnheader"> Animal type</th>
+        <th role="columnheader"> Begin Date</th>
+        <th role="columnheader"> End Date</th>
+        <th role="columnheader"> Room type</th>
+        <th role="columnheader"> Video needed</th>
+        <th role="columnheader"> Phone number</th>
+        <th role="columnheader"> Email</th>
+        <th role="columnheader"> Name</th>
+        <th role="columnheader"> Surname</th>
+        <th role="columnheader"> Animal name</th>
+        <th role="columnheader"> Location</th>
+    </tr>
+    </thead>
+    <tbody role="rowgroup">
+    <tr role="row" th:each="animalRequest : ${animalRequests}">
+        <td role="cell"><span th:text="${animalRequest.id}"> id </span></td>
+        <td role="cell"><span th:text="${animalRequest.animalType}"> Animal type </span></td>
+        <td role="cell"><span th:text="${animalRequest.beginDate.toString()}"> begin </span></td>
+        <td role="cell"><span th:text="${animalRequest.endDate.toString()}"> end </span></td>
+        <td role="cell"><span th:text="${animalRequest.roomType}"> room type </span></td>
+        <td role="cell"><span th:text="${animalRequest.videoNeeded}"> video </span></td>
+        <td role="cell"><span th:text="${animalRequest.phoneNumber}"> phone </span></td>
+        <td role="cell"><span th:text="${animalRequest.email}"> email </span></td>
+        <td role="cell"><span th:text="${animalRequest.name}"> name </span></td>
+        <td role="cell"><span th:text="${animalRequest.surname}"> surname </span></td>
+        <td role="cell"><span th:text="${animalRequest.animalName}"> animal type </span></td>
+        <td role="cell"><span th:text="${animalRequest.location}"> location </span></td>
+        <td>
+            <form method="POST" th:action="@{/AnimalRequest/onlyNew/accept/{id}(id=${animalRequest.id})}">
+                <button type="submit" name="submit" value="value" class="buttonAccept">Accept</button>
+            </form>
+            <form method="POST" th:action="@{/AnimalRequest/onlyNew/decline/{id}(id=${animalRequest.id})}">
+                <button type="submit" name="submit" value="value" class="buttonDecline">Decline</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
