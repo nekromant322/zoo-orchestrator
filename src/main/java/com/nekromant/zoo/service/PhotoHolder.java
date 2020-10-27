@@ -1,7 +1,7 @@
 package com.nekromant.zoo.service;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface PhotoHolder {
-    Collection<String> getUrlPhotos();
+    List<String> getUrlPhotos();
 }

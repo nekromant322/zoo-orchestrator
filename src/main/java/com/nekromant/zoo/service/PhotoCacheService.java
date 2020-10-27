@@ -15,7 +15,7 @@ public class PhotoCacheService implements PhotoHolder {
     @PostConstruct
     private void init(){
         urlPhotos = new ArrayList<>();
-        urlPhotos.add("https://i.pinimg.com/originals/19/78/b7/1978b7e72ffaa03e685d261a08d8d53f.jpg");
+        urlPhotos.add("https://sun1-30.userapi.com/c846520/v846520687/bbb6e/BiBx0iDk1ro.jpg");
     }
 
     public void addPhotos(List<Photo> photos){
@@ -32,6 +32,6 @@ public class PhotoCacheService implements PhotoHolder {
     }
 
     public List<String> getUrlPhotos() {
-        return urlPhotos.subList(0, urlPhotos.size() - 1);
+        return urlPhotos.subList(0, urlPhotos.size());
     }
 }
