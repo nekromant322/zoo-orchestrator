@@ -10,7 +10,9 @@ import org.springframework.context.annotation.PropertySource;
         "classpath:config/datasource.properties",
         "classpath:config/jpa.properties",
         "classpath:config/SMSC.properties",
-        "classpath:config/vkService.properties"
+        "classpath:config/vkService.properties",
+        "classpath:config/contacts.properties",
+        "classpath:config/yandex.properties"
 })
 public class ZooApplication {
 
