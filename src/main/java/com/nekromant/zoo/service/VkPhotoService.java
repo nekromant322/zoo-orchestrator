@@ -40,8 +40,11 @@ public class VkPhotoService {
 
     private VkApiClient vk = new VkApiClient(new HttpTransportClient());
 
+    /**
+     *  Scheduled method added photos from vk album to {@link PhotoCacheService}
+     */
     @Scheduled(cron = "0 0 1 * * *")
-    public void getPhotoUrl() {
+    private void getPhotoUrl() {
         try {
             ServiceActor serviceActor = new ServiceActor(Integer.parseInt(APP_ID), CLIENT_ID, SERVICE_TOKEN);
             GetResponse response = vk.photos().get(serviceActor).ownerId(OWNER_ID).albumId(ALBUM_ID).count(1000).execute();
