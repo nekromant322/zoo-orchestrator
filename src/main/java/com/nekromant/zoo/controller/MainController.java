@@ -36,9 +36,4 @@ public class MainController {
 
         return new ModelAndView("chart");
     }
-    @GetMapping("/contacts")
-    public ModelAndView contactsPage() {
-
-        return new ModelAndView("contacts");
-    }
 }

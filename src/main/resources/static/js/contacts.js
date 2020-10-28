@@ -1,11 +1,17 @@
-    //
-    // // Создает обработчик события window.onLoad
-    //YMaps.jQuery(function () {
-    //     // Создает экземпляр карты и привязывает его к созданному контейнеру
-    //     var map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);
-    //
-    //     // Устанавливает начальные параметры отображения карты: центр карты и коэффициент масштабирования
-    //     map.setCenter(new YMaps.GeoPoint(37.64, 55.76), 10);
-    // })
-    // var map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);
-    // map.setCenter(new YMaps.GeoPoint(37.64, 55.76), 10);
+ymaps.ready(init);
+function init(){
+    let lat = parseFloat($("#lat").val());
+    let lng = parseFloat($("#lng").val());
+    const zoom = 13;
+    // Создание карты.
+    var myMap = new ymaps.Map("YMapsID", {
+        // Координаты центра карты.
+        // Порядок по умолчанию: «широта, долгота».
+        // Чтобы не определять координаты центра карты вручную,
+        // воспользуйтесь инструментом Определение координат.
+        center: [lat, lng],
+        // Уровень масштабирования. Допустимые значения:
+        // от 0 (весь мир) до 19.
+        zoom: 15
+    });
+}
