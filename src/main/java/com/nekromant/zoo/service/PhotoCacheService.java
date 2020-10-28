@@ -11,11 +11,14 @@ import java.util.stream.Collectors;
 @Service
 public class PhotoCacheService implements PhotoHolder {
     private List<String> urlPhotos;
+    private static final String photo1 = "/img/defaultPhotogalleryImg/1.jpg";
+    private static final String photo2 = "/img/defaultPhotogalleryImg/2.jpg";
 
     @PostConstruct
     private void init(){
         urlPhotos = new ArrayList<>();
-        urlPhotos.add("https://sun1-30.userapi.com/c846520/v846520687/bbb6e/BiBx0iDk1ro.jpg");
+        urlPhotos.add(photo1);
+        urlPhotos.add(photo2);
     }
 
     public void addPhotos(List<Photo> photos){

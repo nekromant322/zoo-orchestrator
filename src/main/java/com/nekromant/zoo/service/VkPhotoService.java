@@ -9,12 +9,14 @@ import com.vk.api.sdk.objects.photos.Photo;
 import com.vk.api.sdk.objects.photos.responses.GetResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@EnableScheduling
 @Service
 public class VkPhotoService {
 
@@ -38,6 +40,7 @@ public class VkPhotoService {
 
     private VkApiClient vk = new VkApiClient(new HttpTransportClient());
 
+    @Scheduled(cron = "0 0 1 * * *")
     public void getPhotoUrl() {
         try {
             ServiceActor serviceActor = new ServiceActor(Integer.parseInt(APP_ID), CLIENT_ID, SERVICE_TOKEN);
