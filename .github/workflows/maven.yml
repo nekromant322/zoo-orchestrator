@@ -22,3 +22,8 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+      env: 
+        VK_APP_ID : 7591749
+        VK_CLIENT_ID : oxxDZtLfco5lVlbdXTkg
+        VK_SERVICE_TOKEN : 0f890a330f890a330f890a33720ffadd7600f890f890a3350d03e8b7f506dc4b35201a3
+        YANDEX_MAP_API_KEY : 6fdff1ef-9fc7-424b-9322-5147e58b2e00
