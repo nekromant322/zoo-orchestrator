@@ -10,7 +10,8 @@
       - git checkout master
       - git pull origin master
       - git checkout -b feature/task-name
-
+  - По завершении создать пул реквест и прикрепить в trello в комментарий к задаче
+  
 ### Полезные ссылки
 **Trello**  https://trello.com/b/TACgpFnq/zoo  
 **Тестовая H2 DB**  http://localhost:8080/h2-console
