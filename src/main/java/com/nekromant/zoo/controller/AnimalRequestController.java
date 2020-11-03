@@ -19,9 +19,9 @@ public class AnimalRequestController {
 
     @GetMapping("/onlyNew")
     public ModelAndView onlyNewAnimalRequestPage(){
-        ModelAndView mav = new ModelAndView("admin/newAnimalRequestPage");
-        mav.addObject("animalRequests", animalRequestService.getAllNewAnimalRequest());
-        return mav;
+        ModelAndView modelAndView = new ModelAndView("admin/newAnimalRequestPage");
+        modelAndView.addObject("animalRequests", animalRequestService.getAllNewAnimalRequest());
+        return modelAndView;
     }
 
     @PostMapping("/onlyNew/accept/{id}")
