@@ -130,3 +130,39 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     background-color: rgb(183, 75, 75);
 }
 
+
+.overlay {
+    position: fixed;
+    z-index: 5;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.6);
+    display: none;
+}
+.overlay.active {
+    display: block;
+}
+.overlay .flex-popap {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.overlay .flex-popap .popap {
+    position: relative;
+    background-color: #fff;
+    padding: 35px 25px;
+    margin: 0 10px;
+    max-width: 450px;
+    overflow: auto;
+}
+.popap span {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}

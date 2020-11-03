@@ -53,4 +53,8 @@ public class AnimalRequestService {
             animalRequestDAO.save(request);
         }
     }
+
+    public Optional<AnimalRequest> findById(String id){
+        return animalRequestDAO.findById(Long.parseLong(id));
+    }
 }

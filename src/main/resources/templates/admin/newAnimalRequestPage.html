@@ -6,10 +6,22 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/common/header.css">
     <link rel="stylesheet" type="text/css" href="/css/newAnimalRequestPage.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/js/newAnimalRequestPage.js"></script>
 </head>
 
 <body>
 <header th:replace="fragments/common.html :: header"></header>
+
+<div class="overlay" id="modal-2">
+    <div class="flex-popap">
+        <div class="popap">
+            <button type="submit" name="submit" value="value" onclick="decl()" class="buttonDecline">Decline</button>
+            <button type="submit" name="submit" value="value" onclick="bl()" class="buttonDecline">Black list</button>
+        </div>
+    </div>
+</div>
+
 <table class="table">
     <thead role="rowgroup">
     <tr role="row">
@@ -45,9 +57,7 @@
             <form method="POST" th:action="@{/AnimalRequest/onlyNew/accept/{id}(id=${animalRequest.id})}">
                 <button type="submit" name="submit" value="value" class="buttonAccept">Accept</button>
             </form>
-            <form method="POST" th:action="@{/AnimalRequest/onlyNew/decline/{id}(id=${animalRequest.id})}">
-                <button type="submit" name="submit" value="value" class="buttonDecline">Decline</button>
-            </form>
+            <button th:onclick="|show_popap('modal-2','${animalRequest.id}')|" class="buttonDecline">Decline</button>
         </td>
     </tr>
     </tbody>
