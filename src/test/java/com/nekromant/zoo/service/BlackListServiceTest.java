@@ -25,9 +25,7 @@ public class BlackListServiceTest {
     BlackListService blackListService;
 
     //create Mocks
-    @Mock
     BlackListDAO blackListDAO = Mockito.mock(BlackListDAO.class);
-    @Mock
     AnimalRequestService animalRequestService = Mockito.mock(AnimalRequestService.class);
 
     @Test
@@ -48,7 +46,7 @@ public class BlackListServiceTest {
     }
 
     @Test
-    public void insertByAnimalRequestNullId() {
+    public void insertByAnimalRequestIdDoesntFailWithNull() {
         //behavior
         String id = "2";
         AnimalRequest animalRequest = null;

@@ -2,9 +2,11 @@ package com.nekromant.zoo.mapper;
 
 import com.nekromant.zoo.dto.AnimalRequestDTO;
 import com.nekromant.zoo.model.AnimalRequest;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AnimalRequestMapper {
-    public static AnimalRequestDTO entityToDto(AnimalRequest animalRequest){
+    public AnimalRequestDTO entityToDto(AnimalRequest animalRequest){
         return new AnimalRequestDTO(
                 animalRequest.getId(),
                 animalRequest.getAnimalType(),

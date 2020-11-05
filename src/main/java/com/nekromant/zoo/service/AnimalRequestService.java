@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AnimalRequestService {
@@ -23,6 +23,9 @@ public class AnimalRequestService {
 
     @Autowired
     private BlackListService blackListService;
+
+    @Autowired
+    private AnimalRequestMapper animalRequestMapper;
 
     public void insert(AnimalRequest animalRequest) {
         animalRequestDAO.save(animalRequest);
@@ -43,20 +46,20 @@ public class AnimalRequestService {
 
     public Iterable<AnimalRequestDTO> getAllNewAnimalRequest(){
         List<BlackList> blackList = blackListService.getAll();
-        return animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW)
-                .stream()
-                .map(AnimalRequestMapper::entityToDto)
-                .map(animalRequestDTO -> {
-                    for(BlackList bl : blackList){
-                        if(bl.getEmail().compareTo(animalRequestDTO.getEmail()) == 0
-                        || bl.getPhoneNumber().compareTo(animalRequestDTO.getPhoneNumber()) == 0) {
-                            animalRequestDTO.setBanned(true);
-                            break;
-                        }
-                    }
-                    return animalRequestDTO;
-                })
-                .collect(Collectors.toList());
+        List<AnimalRequest> animalRequestList = animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
+        List<AnimalRequestDTO> dtoList = new ArrayList<>();
+        for(AnimalRequest animalRequest : animalRequestList){
+            AnimalRequestDTO dto = animalRequestMapper.entityToDto(animalRequest);
+            for(BlackList bl : blackList){
+                if(bl.getEmail().compareTo(animalRequest.getEmail()) == 0
+                 || bl.getPhoneNumber().compareTo(animalRequest.getPhoneNumber()) == 0){
+                    dto.setBanned(true);
+                    break;
+                }
+            }
+            dtoList.add(dto);
+        }
+        return dtoList;
     }
 
     public void acceptAnimalRequest(String id) {

@@ -33,11 +33,9 @@ public class BlackListService {
     }
 
     /**
-     * @return List<BlackList> - all BlackLists
+     * @return List {@link BlackList} - all BlackLists
      */
     public List<BlackList> getAll() {
-        List<BlackList> blackList = new ArrayList<>();
-        blackListDAO.findAll().forEach(blackList::add);
-        return blackList;
+        return blackListDAO.findAll();
     }
 }
