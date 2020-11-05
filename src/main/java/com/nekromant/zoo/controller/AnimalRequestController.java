@@ -14,8 +14,10 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/AnimalRequest")
 public class AnimalRequestController {
+    private static String UNUSED_CONSTANT = 123;
+    
     @Autowired
-    AnimalRequestService animalRequestService;
+    private AnimalRequestService animalRequestService;
 
     @GetMapping("/onlyNew")
     public ModelAndView onlyNewAnimalRequestPage(){
