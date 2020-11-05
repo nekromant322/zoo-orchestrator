@@ -53,6 +53,7 @@
         <td role="cell"><span th:text="${animalRequest.surname}"> surname </span></td>
         <td role="cell"><span th:text="${animalRequest.animalName}"> animal type </span></td>
         <td role="cell"><span th:text="${animalRequest.location}"> location </span></td>
+        <td role="cell"><span th:text="${animalRequest.banned}"> location </span></td>
         <td>
             <form method="POST" th:action="@{/AnimalRequest/onlyNew/accept/{id}(id=${animalRequest.id})}">
                 <button type="submit" name="submit" value="value" class="buttonAccept">Accept</button>
