@@ -6,23 +6,38 @@ import com.nekromant.zoo.model.BlackList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BlackListService {
     @Autowired
-    BlackListDAO blackListDAO;
+    private BlackListDAO blackListDAO;
 
     @Autowired
-    AnimalRequestService animalRequestService;
+    private AnimalRequestService animalRequestService;
 
-    public void insert(BlackList blackList){
-        blackListDAO.save(blackList);
+
+    /**
+     * Find animalRequest by id
+     * Creates Black list with email and phone number animalRequest found
+     * @param id primary index of animalRequest
+     */
+    public void insertByAnimalRequestId(String id) {
+        Optional<AnimalRequest> animalRequest = animalRequestService.findById(id);
+        if(animalRequest.isPresent()) {
+            blackListDAO.save(new BlackList(0, animalRequest.get().getEmail(), animalRequest.get().getPhoneNumber()));
+            animalRequestService.declineAnimalRequest(id);
+        }
     }
 
-    public void insertById(String id) {
-        Optional<AnimalRequest> animalRequest = animalRequestService.findById(id);
-        blackListDAO.save(new BlackList(0,animalRequest.get().getEmail(),animalRequest.get().getPhoneNumber()));
-        animalRequestService.declineAnimalRequest(id);
+    /**
+     * @return List<BlackList> - all BlackLists
+     */
+    public List<BlackList> getAll() {
+        List<BlackList> blackList = new ArrayList<>();
+        blackListDAO.findAll().forEach(blackList::add);
+        return blackList;
     }
 }

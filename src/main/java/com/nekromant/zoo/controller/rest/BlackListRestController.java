@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/blackList")
 public class BlackListRestController {
     @Autowired
-    BlackListService blackListService;
+    private BlackListService blackListService;
 
     @PostMapping("/{id}")
     void addToBlackList(@PathVariable String id){
-        blackListService.insertById(id);
+        blackListService.insertByAnimalRequestId(id);
     }
 }

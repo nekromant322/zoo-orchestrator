@@ -1,20 +1,28 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.dao.AnimalRequestDAO;
+import com.nekromant.zoo.dto.AnimalRequestDTO;
 import com.nekromant.zoo.enums.RequestStatus;
+import com.nekromant.zoo.mapper.AnimalRequestMapper;
 import com.nekromant.zoo.model.AnimalRequest;
+import com.nekromant.zoo.model.BlackList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Month;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AnimalRequestService {
 
     @Autowired
     private AnimalRequestDAO animalRequestDAO;
+
+    @Autowired
+    private BlackListService blackListService;
 
     public void insert(AnimalRequest animalRequest) {
         animalRequestDAO.save(animalRequest);
@@ -33,8 +41,22 @@ public class AnimalRequestService {
         return new HashMap<>();
     }
 
-    public Iterable<AnimalRequest> getAllNewAnimalRequest(){
-        return animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
+    public Iterable<AnimalRequestDTO> getAllNewAnimalRequest(){
+        List<BlackList> blackList = blackListService.getAll();
+        return animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW)
+                .stream()
+                .map(AnimalRequestMapper::entityToDto)
+                .map(animalRequestDTO -> {
+                    for(BlackList bl : blackList){
+                        if(bl.getEmail().compareTo(animalRequestDTO.getEmail()) == 0
+                        || bl.getPhoneNumber().compareTo(animalRequestDTO.getPhoneNumber()) == 0) {
+                            animalRequestDTO.setBanned(true);
+                            break;
+                        }
+                    }
+                    return animalRequestDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     public void acceptAnimalRequest(String id) {

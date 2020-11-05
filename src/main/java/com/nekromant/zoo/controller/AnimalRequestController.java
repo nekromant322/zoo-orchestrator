@@ -1,6 +1,5 @@
 package com.nekromant.zoo.controller;
 
-import com.nekromant.zoo.enums.RequestStatus;
 import com.nekromant.zoo.service.AnimalRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/AnimalRequest")
 public class AnimalRequestController {
     @Autowired
-    AnimalRequestService animalRequestService;
+    private AnimalRequestService animalRequestService;
 
     @GetMapping("/onlyNew")
     public ModelAndView onlyNewAnimalRequestPage(){
