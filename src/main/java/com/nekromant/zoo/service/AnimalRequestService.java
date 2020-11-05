@@ -34,7 +34,8 @@ public class AnimalRequestService {
     }
 
     public Iterable<AnimalRequest> getAllNewAnimalRequest(){
-        return animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
+        Iterable<AnimalRequest> iterable = animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
+        return iterable;
     }
 
     public void acceptAnimalRequest(String id) {
