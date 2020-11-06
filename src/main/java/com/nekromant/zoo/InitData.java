@@ -1,16 +1,13 @@
 package com.nekromant.zoo;
 
+import com.github.javafaker.Faker;
 import com.nekromant.zoo.dao.PriceDAO;
 import com.nekromant.zoo.enums.AnimalType;
 import com.nekromant.zoo.enums.Location;
 import com.nekromant.zoo.enums.RequestStatus;
 import com.nekromant.zoo.enums.RoomType;
-import com.nekromant.zoo.model.AnimalRequest;
-import com.nekromant.zoo.model.Authority;
-import com.nekromant.zoo.model.Price;
-import com.nekromant.zoo.model.User;
+import com.nekromant.zoo.model.*;
 import com.nekromant.zoo.service.*;
-import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -41,6 +38,9 @@ public class InitData {
     private AnimalRequestService animalRequestService;
 
     @Autowired
+    private RoomService roomService;
+
+    @Autowired
     private PriceDAO priceDAO;
 
     private Faker faker = new Faker(new Locale("ru"));
@@ -50,6 +50,7 @@ public class InitData {
         initUserAndRoles();
         initAnimalRequest();
         initPrices();
+        initRooms();
     }
 
     private void initUserAndRoles() {
@@ -76,8 +77,8 @@ public class InitData {
             animalRequest.setAnimalType(AnimalType.values()[rnd.nextInt(AnimalType.values().length)]);
             int randomDay = rnd.nextInt(20) + 1;
             int randomMonth = rnd.nextInt(12) + 1;
-            animalRequest.setBeginDate(LocalDate.of(2021, randomMonth, randomDay));
-            animalRequest.setEndDate(LocalDate.of(2021, randomMonth, randomDay + 5));
+            animalRequest.setBeginDate(LocalDate.of(2010, randomMonth, randomDay));
+            animalRequest.setEndDate(LocalDate.of(2010, randomMonth, randomDay + 5));
             animalRequest.setRoomType(RoomType.values()[rnd.nextInt(RoomType.values().length)]);
             animalRequest.setVideoNeeded(rnd.nextBoolean());
             animalRequest.setPhoneNumber(faker.phoneNumber().phoneNumber());
@@ -95,8 +96,8 @@ public class InitData {
             animalRequest.setAnimalType(AnimalType.values()[rnd.nextInt(AnimalType.values().length)]);
             int randomDay = rnd.nextInt(20) + 1;
             int randomMonth = rnd.nextInt(12) + 1;
-            animalRequest.setBeginDate(LocalDate.of(2020, randomMonth, randomDay));
-            animalRequest.setEndDate(LocalDate.of(2020, randomMonth, randomDay + 5));
+            animalRequest.setBeginDate(LocalDate.of(2010, randomMonth, randomDay));
+            animalRequest.setEndDate(LocalDate.of(2010, randomMonth, randomDay + 5));
             animalRequest.setRoomType(RoomType.values()[rnd.nextInt(RoomType.values().length)]);
             animalRequest.setVideoNeeded(rnd.nextBoolean());
             animalRequest.setPhoneNumber(faker.phoneNumber().phoneNumber());
@@ -107,6 +108,21 @@ public class InitData {
             animalRequest.setLocation(Location.values()[rnd.nextInt(Location.values().length)]);
             animalRequestService.insert(animalRequest);
         }
+        AnimalRequest animalRequestBookServiceCheck = new AnimalRequest(0L,
+                RequestStatus.APPLIED,
+                AnimalType.DOG,
+                LocalDate.of(2010, 1, 1),
+                LocalDate.of(2010, 1, 2),
+                RoomType.VIP,
+                true,
+                faker.phoneNumber().phoneNumber(),
+                faker.bothify("????##@gmail.com"),
+                faker.funnyName().name(),
+                faker.funnyName().name(),
+                faker.name().name(),
+                Location.MOSCOW
+                );
+        animalRequestService.insert(animalRequestBookServiceCheck);
     }
 
     private void initPrices() {
@@ -114,5 +130,15 @@ public class InitData {
         Price oldPrice = new Price(0L, 77, 88, 99, 55, LocalDateTime.of(2020,06,21,0,0));
         priceDAO.save(oldPrice);
         priceDAO.save(actualPrice);
+    }
+
+    private void initRooms(){
+        Room room1 = new Room(0,AnimalType.DOG,RoomType.VIP,true,"", LocalDate.of(2010, 1, 1));
+        Room room2 = new Room(0,AnimalType.BIRD,RoomType.COMMON,true,"",LocalDate.of(2010, 1, 1));
+        Room room3 = new Room(0,AnimalType.OTHER,RoomType.LARGE,true,"",LocalDate.of(2010, 1, 1));
+
+        roomService.insert(room1);
+        roomService.insert(room2);
+        roomService.insert(room3);
     }
 }

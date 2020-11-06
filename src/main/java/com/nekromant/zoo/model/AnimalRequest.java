@@ -4,13 +4,17 @@ import com.nekromant.zoo.enums.RequestStatus;
 import com.nekromant.zoo.enums.AnimalType;
 import com.nekromant.zoo.enums.Location;
 import com.nekromant.zoo.enums.RoomType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AnimalRequest {
 
     @Id

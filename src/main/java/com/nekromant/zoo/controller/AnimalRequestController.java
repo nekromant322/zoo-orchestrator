@@ -1,6 +1,5 @@
 package com.nekromant.zoo.controller;
 
-import com.nekromant.zoo.enums.RequestStatus;
 import com.nekromant.zoo.service.AnimalRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/AnimalRequest")
 public class AnimalRequestController {
-    private static String UNUSED_CONSTANT = 123;
     
     @Autowired
     private AnimalRequestService animalRequestService;
