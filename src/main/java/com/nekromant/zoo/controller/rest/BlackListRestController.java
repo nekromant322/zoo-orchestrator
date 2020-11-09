@@ -14,7 +14,7 @@ public class BlackListRestController {
     private BlackListService blackListService;
 
     @PostMapping("/{id}")
-    void addToBlackList(@PathVariable String id){
+    void addToBlackListWithAnimalRequestId(@PathVariable String id){
         blackListService.insertByAnimalRequestId(id);
     }
 }
