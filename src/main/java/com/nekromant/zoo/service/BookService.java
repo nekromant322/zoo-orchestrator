@@ -26,23 +26,35 @@ public class BookService {
      * @param id - {@link AnimalRequest}
      * @return new {@link Book} or null
      */
+    //todo razdilit na 2 vizaova perepisat' javadoc
     public Book autoBookAnimalRequest(String id){
         AnimalRequest animalRequest = animalRequestService.findById(id);
         if(animalRequest.getRequestStatus() != RequestStatus.APPLIED) return null;
 
-        Room room = roomService.findSpareByAnimalRequest(animalRequest);
-        if(room == null) return null;
+        List<Room> rooms = roomService.findByAnimalRequest(animalRequest);
+        if(rooms.size() == 0) return null;
 
-        Book book = new Book(0L,
+
+        Room spareRoom = null;
+        for(Room room : rooms){
+            Book book = bookDAO.findSpareByRoomId(
+                    room.getId(),
+                    animalRequest.getEndDate(),
+                    animalRequest.getBeginDate()
+            ).orElse(null);
+            if(book == null) spareRoom = room;
+        }
+        if(spareRoom == null) return null;
+
+        Book book = new Book(
+                0L,
                 animalRequest.getId(),
-                room.getId(),
+                spareRoom.getId(),
                 animalRequest.getBeginDate(),
-                animalRequest.getEndDate());
-
+                animalRequest.getEndDate()
+                );
         bookDAO.save(book);
 
-        room.setEndDate(animalRequest.getEndDate());
-        roomService.insert(room);
         animalRequestService.setInProgressAnimalRequest(id);
         return book;
     }
@@ -51,27 +63,27 @@ public class BookService {
         return bookDAO.findAll();
     }
 
-    /**
-     * Booking room with {@link AnimalRequest} id and {@link Room}
-     * {@link AnimalRequest} request status must be {@link RequestStatus} APPLIED
-     * @param id
-     * @param room
-     * @return
-     */
-    public Book bookRoom(String id, Room room) {
-        AnimalRequest animalRequest = animalRequestService.findById(id);
-        if(animalRequest.getRequestStatus() != RequestStatus.APPLIED) return null;
-
-        Book book = new Book(0L,
-                animalRequest.getId(),
-                room.getId(),
-                animalRequest.getBeginDate(),
-                animalRequest.getEndDate());
-
-        room.setEndDate(animalRequest.getEndDate());
-        roomService.insert(room);
-        animalRequestService.setInProgressAnimalRequest(id);
-        bookDAO.save(book);
-        return book;
-    }
+//    /**
+//     * Booking room with {@link AnimalRequest} id and {@link Room}
+//     * {@link AnimalRequest} request status must be {@link RequestStatus} APPLIED
+//     * @param id
+//     * @param room
+//     * @return
+//     */
+//    public Book bookRoom(String id, Room room) {
+//        AnimalRequest animalRequest = animalRequestService.findById(id);
+//        if(animalRequest.getRequestStatus() != RequestStatus.APPLIED) return null;
+//
+//        Book book = new Book(0L,
+//                animalRequest.getId(),
+//                room.getId(),
+//                animalRequest.getBeginDate(),
+//                animalRequest.getEndDate());
+//
+//        room.setEndDate(animalRequest.getEndDate());
+//        roomService.insert(room);
+//        animalRequestService.setInProgressAnimalRequest(id);
+//        bookDAO.save(book);
+//        return book;
+//    }
 }

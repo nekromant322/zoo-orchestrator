@@ -22,9 +22,9 @@ public class Book {
     @Column
     private long roomId;
 
-    @Column
+    @Column(columnDefinition = "DATE")
     private LocalDate beginDate;
 
-    @Column
+    @Column(columnDefinition = "DATE")
     private LocalDate endDate;
 }

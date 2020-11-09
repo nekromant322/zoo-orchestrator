@@ -20,13 +20,14 @@ public class BookRestController {
         return bookService.findAll();
     }
 
-    @PostMapping("{id}")
-    public Book autoBook(@PathVariable String id){
+    @PostMapping("/{id}")
+    public Book autoBookAnimalRequest(@PathVariable String id){
         return bookService.autoBookAnimalRequest(id);
     }
 
     @PostMapping("/room/{id}")
     public Book book(@PathVariable String id, @RequestBody Room room){
-        return bookService.bookRoom(id,room);
+        //return bookService.bookRoom(id,room);
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package com.nekromant.zoo;
 
 import com.github.javafaker.Faker;
+import com.nekromant.zoo.dao.BookDAO;
 import com.nekromant.zoo.dao.PriceDAO;
 import com.nekromant.zoo.enums.AnimalType;
 import com.nekromant.zoo.enums.Location;
@@ -42,6 +43,9 @@ public class InitData {
 
     @Autowired
     private PriceDAO priceDAO;
+
+    @Autowired
+    private BookDAO bookDAO;
 
     private Faker faker = new Faker(new Locale("ru"));
 
@@ -111,8 +115,8 @@ public class InitData {
         AnimalRequest animalRequestBookServiceCheck = new AnimalRequest(0L,
                 RequestStatus.APPLIED,
                 AnimalType.DOG,
-                LocalDate.of(2010, 1, 1),
-                LocalDate.of(2010, 1, 2),
+                LocalDate.of(2010, 1, 10),
+                LocalDate.of(2010, 1, 15),
                 RoomType.VIP,
                 true,
                 faker.phoneNumber().phoneNumber(),
@@ -133,12 +137,20 @@ public class InitData {
     }
 
     private void initRooms(){
-        Room room1 = new Room(0,AnimalType.DOG,RoomType.VIP,true,"", LocalDate.of(2010, 1, 1));
-        Room room2 = new Room(0,AnimalType.BIRD,RoomType.COMMON,true,"",LocalDate.of(2010, 1, 1));
-        Room room3 = new Room(0,AnimalType.OTHER,RoomType.LARGE,true,"",LocalDate.of(2010, 1, 1));
+        Room room1 = new Room(0,AnimalType.DOG,RoomType.VIP,true,"");
+        Room room2 = new Room(0,AnimalType.BIRD,RoomType.COMMON,true,"");
+        Room room3 = new Room(0,AnimalType.OTHER,RoomType.LARGE,true,"");
 
         roomService.insert(room1);
         roomService.insert(room2);
         roomService.insert(room3);
     }
+
+    private void initBooks(){
+        Book book1 = new Book(0L,11,1,LocalDate.of(2010,1,3),LocalDate.of(2010,1,7));
+        Book book2 = new Book(0L,11,1,LocalDate.of(2010,1,21),LocalDate.of(2010,1,22));
+        bookDAO.save(book1);
+        bookDAO.save(book2);
+    }
+
 }
