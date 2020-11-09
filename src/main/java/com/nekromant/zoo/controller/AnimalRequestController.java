@@ -13,14 +13,16 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/AnimalRequest")
 public class AnimalRequestController {
+    private static String UNUSED_CONSTANT = 123;
+    
     @Autowired
     private AnimalRequestService animalRequestService;
 
     @GetMapping("/onlyNew")
     public ModelAndView onlyNewAnimalRequestPage(){
-        ModelAndView mav = new ModelAndView("admin/newAnimalRequestPage");
-        mav.addObject("animalRequests", animalRequestService.getAllNewAnimalRequest());
-        return mav;
+        ModelAndView modelAndView = new ModelAndView("admin/newAnimalRequestPage");
+        modelAndView.addObject("animalRequests", animalRequestService.getAllNewAnimalRequest());
+        return modelAndView;
     }
 
     @PostMapping("/onlyNew/accept/{id}")
