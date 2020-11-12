@@ -15,4 +15,7 @@ public interface RoomDAO extends CrudRepository<Room,Long> {
     List<Room> findAllByAnimalRequest(@Param("animalType") AnimalType animalType,
                                       @Param("roomType") RoomType roomType,
                                       @Param("video") Boolean videoNeeded);
+
+    @Override
+    List<Room> findAll();
 }

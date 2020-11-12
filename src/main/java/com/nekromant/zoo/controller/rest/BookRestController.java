@@ -4,12 +4,11 @@ import com.nekromant.zoo.model.Book;
 import com.nekromant.zoo.model.Room;
 import com.nekromant.zoo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api/books")
 public class BookRestController {
     @Autowired
@@ -20,14 +19,8 @@ public class BookRestController {
         return bookService.findAll();
     }
 
-    @PostMapping("/{id}")
-    public Book autoBookAnimalRequest(@PathVariable String id){
-        return bookService.autoBookAnimalRequest(id);
-    }
-
-    @PostMapping("/room/{id}")
+    @PostMapping("/bookRoom/{id}")
     public Book book(@PathVariable String id, @RequestBody Room room){
-        //return bookService.bookRoom(id,room);
-        return null;
+        return bookService.bookAnimalRequest(id,room);
     }
 }

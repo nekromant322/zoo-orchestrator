@@ -55,6 +55,8 @@ public class InitData {
         initAnimalRequest();
         initPrices();
         initRooms();
+        initBooks();
+        initBusyBook();
     }
 
     private void initUserAndRoles() {
@@ -137,9 +139,9 @@ public class InitData {
     }
 
     private void initRooms(){
-        Room room1 = new Room(0,AnimalType.DOG,RoomType.VIP,true,"");
-        Room room2 = new Room(0,AnimalType.BIRD,RoomType.COMMON,true,"");
-        Room room3 = new Room(0,AnimalType.OTHER,RoomType.LARGE,true,"");
+        Room room1 = new Room(0L,AnimalType.DOG,RoomType.VIP,true,"");
+        Room room2 = new Room(0L,AnimalType.BIRD,RoomType.COMMON,true,"");
+        Room room3 = new Room(0L,AnimalType.OTHER,RoomType.LARGE,true,"");
 
         roomService.insert(room1);
         roomService.insert(room2);
@@ -153,4 +155,15 @@ public class InitData {
         bookDAO.save(book2);
     }
 
+    private void initBusyBook(){
+        Book left = new Book(0L,11,1,LocalDate.of(2010,1,3),LocalDate.of(2010,1,11));
+        Book right = new Book(0L,11,1,LocalDate.of(2010,1,14),LocalDate.of(2010,1,17));
+        Book inside = new Book(0L,11,1,LocalDate.of(2010,1,11),LocalDate.of(2010,1,12));
+        Book outside = new Book(0L,11,1,LocalDate.of(2010,1,3),LocalDate.of(2010,1,20));
+
+        bookDAO.save(left);
+        bookDAO.save(right);
+        bookDAO.save(inside);
+        bookDAO.save(outside);
+    }
 }

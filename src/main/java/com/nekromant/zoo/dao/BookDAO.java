@@ -7,14 +7,14 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public interface BookDAO extends CrudRepository<Book,Long> {
     List<Book> findAll();
-    List<Book> findAllByRoomId(long id);
 
-    @Query("select distinct b from Book b where b.roomId = :roomId and ((b.beginDate between :begDate and :endDate) or (b.endDate between :begDate and :endDate))")
-    Optional<Book> findSpareByRoomId(@Param("roomId") long id,
+    @Query("select b from Book b where b.roomId = :roomId and ((:endDate between b.beginDate and b.endDate) or " +
+            "(:beginDate between b.beginDate and b.endDate) or " +
+            "((:beginDate < b.beginDate) and (:endDate > b.endDate)))")
+    List<Book> findBookByRoomIdAndDate(@Param("roomId") long id,
                                      @Param("beginDate") LocalDate beginDate,
                                      @Param("endDate") LocalDate endDate);
 }
