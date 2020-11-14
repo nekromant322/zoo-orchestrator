@@ -13,7 +13,6 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/AnimalRequest")
 public class AnimalRequestController {
-    private static String UNUSED_CONSTANT = 123;
     
     @Autowired
     private AnimalRequestService animalRequestService;
