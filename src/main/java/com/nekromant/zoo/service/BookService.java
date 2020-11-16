@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -33,8 +34,8 @@ public class BookService {
      */
     @Transactional
     public Book bookAnimalRequest(String id, Room room) {
-        AnimalRequest animalRequest = animalRequestService.findById(id);
-        return bookRoom(room, animalRequest);
+        Optional<AnimalRequest> animalRequest = animalRequestService.findById(id);
+        return animalRequest.map(request -> bookRoom(room, request)).orElse(null);
     }
 
     private Book bookRoom(Room room, AnimalRequest animalRequest) {
