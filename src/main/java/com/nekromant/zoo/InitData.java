@@ -161,9 +161,9 @@ public class InitData {
         Book inside = new Book(0L,11,1,LocalDate.of(2010,1,11),LocalDate.of(2010,1,12));
         Book outside = new Book(0L,11,1,LocalDate.of(2010,1,3),LocalDate.of(2010,1,20));
 
-        bookDAO.save(left);
-        bookDAO.save(right);
-        bookDAO.save(inside);
-        bookDAO.save(outside);
+//        bookDAO.save(left);
+//        bookDAO.save(right);
+//        bookDAO.save(inside);
+//        bookDAO.save(outside);
     }
 }

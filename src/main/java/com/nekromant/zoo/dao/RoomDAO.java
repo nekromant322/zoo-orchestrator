@@ -12,7 +12,7 @@ import java.util.List;
 public interface RoomDAO extends CrudRepository<Room,Long> {
 
     @Query("select distinct r from Room r where r.animalType = :animalType and r.roomType = :roomType and r.videoSupported = :video")
-    List<Room> findAllByAnimalRequest(@Param("animalType") AnimalType animalType,
+    List<Room> findAllByParametrs(@Param("animalType") AnimalType animalType,
                                       @Param("roomType") RoomType roomType,
                                       @Param("video") Boolean videoNeeded);
 

@@ -1,6 +1,7 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.dao.RoomDAO;
+import com.nekromant.zoo.dto.RoomParametersDTO;
 import com.nekromant.zoo.enums.AnimalType;
 import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.model.Book;
@@ -31,10 +32,10 @@ public class RoomService {
      * @param video boolean need to record in a room
      * @return
      */
-    public List<Room> findByAnimalRequest(AnimalType animalType,
+    public List<Room> findByParameters(AnimalType animalType,
                                           RoomType roomType,
                                           boolean video){
-        return roomDAO.findAllByAnimalRequest(
+        return roomDAO.findAllByParametrs(
                 animalType,
                 roomType,
                 video
@@ -45,27 +46,23 @@ public class RoomService {
         return roomDAO.findAll();
     }
 
+
     /**
-     * Finds suitable rooms based on
-     * @param animalType {@link AnimalType}
-     * @param roomType {@link RoomType}
-     * @param video - boolean need to record in a room
-     * @param begin - begin date
-     * @param end - end date
-     * @return - List {@link Room} found
+     * @param roomParametersDTO - {@link RoomParametersDTO}
+     * @return List spare {@link Room} or empty list
      */
-    public List<Room> findAllSpareRoom(AnimalType animalType,
-                                       RoomType roomType,
-                                       boolean video,
-                                       LocalDate begin,
-                                       LocalDate end){
+    public List<Room> findAllSpareRoom(RoomParametersDTO roomParametersDTO){
         List<Room> spareRooms = new ArrayList<>();
-        List<Room> rooms = findByAnimalRequest(animalType, roomType, video);
+        List<Room> rooms = findByParameters(
+                roomParametersDTO.getAnimalType(),
+                roomParametersDTO.getRoomType(),
+                roomParametersDTO.isVideoNeeded()
+        );
         for(Room room : rooms) {
             List<Book> books = bookService.findByRoomIdAndDate(
                     String.valueOf(room.getId()),
-                    begin,
-                    end
+                    roomParametersDTO.getBegin(),
+                    roomParametersDTO.getEnd()
             );
             if(books.size() == 0) spareRooms.add(room);
         }

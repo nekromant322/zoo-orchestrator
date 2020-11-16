@@ -1,6 +1,7 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.dao.RoomDAO;
+import com.nekromant.zoo.dto.RoomParametersDTO;
 import com.nekromant.zoo.enums.AnimalType;
 import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.model.Book;
@@ -36,17 +37,17 @@ public class RoomServiceTest {
         RoomType roomType = RoomType.VIP;
         boolean video = true;
 
-        Mockito.when(roomDAO.findAllByAnimalRequest(animalType,roomType,video)).thenReturn(
+        Mockito.when(roomDAO.findAllByParametrs(animalType,roomType,video)).thenReturn(
                 Arrays.asList(new Room(0L,AnimalType.DOG,RoomType.VIP,true,""))
         );
 
-        Assert.assertNotNull((roomDAO.findAllByAnimalRequest(AnimalType.DOG,RoomType.VIP,true)));
+        Assert.assertNotNull((roomService.findByParameters(AnimalType.DOG,RoomType.VIP,true)));
     }
 
     @Test
     public void findAllSpareRoom() {
         Mockito.when(bookService.findByRoomIdAndDate(any(),any(),any())).thenReturn(Collections.emptyList());
-        Mockito.when(roomService.findByAnimalRequest(AnimalType.DOG,RoomType.VIP,true)).thenReturn(
+        Mockito.when(roomService.findByParameters(AnimalType.DOG,RoomType.VIP,true)).thenReturn(
                 Arrays.asList(new Room(0L,
                 AnimalType.DOG,
                 RoomType.VIP,
@@ -54,12 +55,14 @@ public class RoomServiceTest {
                 ""))
         );
 
-        Assert.assertNotNull(roomService.findAllSpareRoom(
+        Assert.assertNotNull(roomService.findAllSpareRoom(new RoomParametersDTO(
                 AnimalType.DOG,
                 RoomType.VIP,
-                true, LocalDate.now(),
-                LocalDate.now())
-        );
+                true,
+                LocalDate.now(),
+                LocalDate.now()
+                )
+        ));
     }
 
     @Test
@@ -97,7 +100,7 @@ public class RoomServiceTest {
                                 LocalDate.of(2020,4,27))
                 )
         );
-        Mockito.when(roomService.findByAnimalRequest(AnimalType.DOG,RoomType.VIP,true)).thenReturn(
+        Mockito.when(roomService.findByParameters(AnimalType.DOG,RoomType.VIP,true)).thenReturn(
                 Arrays.asList(new Room(0L,
                         AnimalType.DOG,
                         RoomType.VIP,
@@ -107,10 +110,11 @@ public class RoomServiceTest {
 
         Assert.assertEquals(
                 roomService.findAllSpareRoom(
+                        new RoomParametersDTO(
                         AnimalType.DOG,
                         RoomType.VIP,
                         true,
                         LocalDate.of(2020,4,14),
-                        LocalDate.of(2002,4,21)).size(), 0);
+                        LocalDate.of(2002,4,21))).size(), 0);
     }
 }

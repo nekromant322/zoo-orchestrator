@@ -32,8 +32,6 @@ public class BookService {
      */
     public Book bookAnimalRequest(String id, Room room) {
         AnimalRequest animalRequest = animalRequestService.findById(id);
-        if(animalRequest.getRequestStatus() != RequestStatus.APPLIED) return null;
-
         return bookRoom(room, animalRequest);
     }
 

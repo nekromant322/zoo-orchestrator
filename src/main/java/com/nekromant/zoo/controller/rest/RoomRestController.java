@@ -1,5 +1,6 @@
 package com.nekromant.zoo.controller.rest;
 
+import com.nekromant.zoo.dto.RoomParametersDTO;
 import com.nekromant.zoo.enums.AnimalType;
 import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.model.Room;
@@ -27,11 +28,7 @@ public class RoomRestController {
     }
 
     @PostMapping("/spareRooms")
-    public List<Room> getSpareRoom(@RequestBody AnimalType animalType,
-                                   @RequestBody RoomType roomType,
-                                   @RequestBody boolean video,
-                                   @RequestBody LocalDate begin,
-                                   @RequestBody LocalDate end){
-        return roomService.findAllSpareRoom(animalType, roomType, video, begin, end);
+    public List<Room> getSpareRoom(@RequestBody RoomParametersDTO roomParametersDTO){
+        return roomService.findAllSpareRoom(roomParametersDTO);
     }
 }
