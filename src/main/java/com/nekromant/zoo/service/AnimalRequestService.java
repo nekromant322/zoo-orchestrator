@@ -46,14 +46,6 @@ public class AnimalRequestService {
         changeStatusAnimalRequest(id, RequestStatus.DENIED);
     }
 
-    public void setInProgressAnimalRequest(String id){
-        changeStatusAnimalRequest(id,RequestStatus.IN_PROGRESS);
-    }
-
-    public void setDoneAnimalRequest(String id){
-        changeStatusAnimalRequest(id,RequestStatus.DONE);
-    }
-
     private void changeStatusAnimalRequest(String id, RequestStatus requestStatus) {
         Optional<AnimalRequest> animalRequest = animalRequestDAO.findById(Long.parseLong(id));
         if(animalRequest.isPresent()){
