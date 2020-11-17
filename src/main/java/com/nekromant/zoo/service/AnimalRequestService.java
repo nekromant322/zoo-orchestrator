@@ -70,8 +70,9 @@ public class AnimalRequestService {
         changeStatusAnimalRequest(id, RequestStatus.DENIED);
     }
 
-    public void setInProgressAnimalRequest(String id){
+    public boolean setInProgressAnimalRequest(String id){
         changeStatusAnimalRequest(id,RequestStatus.IN_PROGRESS);
+        return true;
     }
 
     public void setDoneAnimalRequest(String id){
