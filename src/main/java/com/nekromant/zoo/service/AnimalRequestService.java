@@ -62,30 +62,30 @@ public class AnimalRequestService {
         return dtoList;
     }
 
-    public void acceptAnimalRequest(String id) {
-        changeStatusAnimalRequest(id, RequestStatus.APPLIED);
+    public AnimalRequest acceptAnimalRequest(String id) {
+        return changeStatusAnimalRequest(id, RequestStatus.APPLIED);
     }
 
-    public void declineAnimalRequest(String id) {
-        changeStatusAnimalRequest(id, RequestStatus.DENIED);
+    public AnimalRequest declineAnimalRequest(String id) {
+        return changeStatusAnimalRequest(id, RequestStatus.DENIED);
     }
 
-    public boolean setInProgressAnimalRequest(String id){
-        changeStatusAnimalRequest(id,RequestStatus.IN_PROGRESS);
-        return true;
+    public AnimalRequest setInProgressAnimalRequest(String id){
+        return changeStatusAnimalRequest(id,RequestStatus.IN_PROGRESS);
     }
 
-    public void setDoneAnimalRequest(String id){
-        changeStatusAnimalRequest(id,RequestStatus.DONE);
+    public AnimalRequest setDoneAnimalRequest(String id){
+        return changeStatusAnimalRequest(id,RequestStatus.DONE);
     }
 
-    private void changeStatusAnimalRequest(String id, RequestStatus requestStatus) {
+    private AnimalRequest changeStatusAnimalRequest(String id, RequestStatus requestStatus) {
         Optional<AnimalRequest> animalRequest = animalRequestDAO.findById(Long.parseLong(id));
         if(animalRequest.isPresent()){
             AnimalRequest request = animalRequest.get();
             request.setRequestStatus(requestStatus);
             animalRequestDAO.save(request);
         }
+        return animalRequest.orElse(null);
     }
 
     public Optional<AnimalRequest> findById(String id){

@@ -36,6 +36,15 @@ public class BookServiceTest {
     @Mock
     AnimalRequestService animalRequestService;
 
+    private Room fillDefaultRoom(){
+        return new Room(
+                0L,
+                AnimalType.DOG,
+                RoomType.VIP,
+                true,
+                ""
+        );
+    }
 
     @Test
     public void bookAnimalRequestTransactionTest() {
@@ -57,13 +66,7 @@ public class BookServiceTest {
                             Location.MOSCOW
                     )
         ));
-        Room room = new Room(
-                0L,
-                AnimalType.DOG,
-                RoomType.VIP,
-                true,
-                ""
-        );
+        Room room = fillDefaultRoom();
 
         Mockito.when(animalRequestService.setInProgressAnimalRequest(any())).thenThrow(new RuntimeException());
         try {
