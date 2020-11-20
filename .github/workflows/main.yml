@@ -15,6 +15,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "zoohotel" #Must be unique in Heroku
           heroku_email: "zooohotel@yandex.ru"
+          usedocker: true  
         env:
           HD_VK_APP_ID : ${{ secrets.VK_APP_ID }}
           HD_VK_CLIENT_ID : ${{ secrets.VK_CLIENT_ID }}
