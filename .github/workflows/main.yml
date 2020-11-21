@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build with Maven
-        run: mvn clean install -B --file Zoo/pom.xml
+        run: mvn -B package --file pom.xml
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
         with:
