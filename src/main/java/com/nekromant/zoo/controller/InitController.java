@@ -17,7 +17,10 @@ public class InitController {
 
     @GetMapping
     public RedirectView init(){
-        if(!init) initData.initData();
+        if(!init) {
+            initData.initData();
+            init = true;
+        }
         return new RedirectView("/AnimalRequest/onlyNew");
     }
 }
