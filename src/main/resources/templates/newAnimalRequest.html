@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/css/newAnimalRequest.css">
     <link rel="stylesheet" type="text/css" href="/css/common/header.css">
     <link rel="stylesheet" type="text/css" href="/css/common/fadeIn.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 
@@ -79,6 +80,21 @@
             <input class="personalDataInput" type="text" id="name-input">
             <p class="inputName">Имя</p>
             <input class="personalDataInput" type="text" id="surname-input">
+            <p class="inputPhone">Номер телефона</p>
+            <input class="personalDataInput" type="text" id="phoneNumber-input">
+            <p class="inputEmail">Почта</p>
+            <input class="personalDataInput" type="text" id="email-input">
+            <p class="inputAnimalName">Кличка питомца</p>
+            <input class="personalDataInput" type="text" id="animalName-input">
+            <p class="inputDataBegin">Дата заезда</p>
+            <input class="personalDataInput" type="text" id="dateBegin">
+            <p class="inputDataEnd">Дата выезда</p>
+            <input class="personalDataInput" type="text" id="dateEnd">
+            <p class="inputLocation">Местоположение</p>
+            <select class="selectLocation" name="country">
+                <option value="MOSKOW">Москва</option>
+                <option value="SPB">СПБ</option>
+            </select>
         </form>
         <button class="fadeIn fourth sendRequestBtn">Отправить заявку</button>
     </div>
@@ -94,6 +110,14 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $( function() {
+        $( "#dateBegin" ).datepicker();
+        $( "#dateEnd" ).datepicker();
+    });
+</script>
 </body>
 </html>
 
