@@ -9,4 +9,5 @@ public interface PriceDAO extends CrudRepository<Price, Long> {
      * @return {@link Price} актуальная цена
      */
     Price findTopByOrderByLastUpdatedDesc();
+    String newStr = "jhghjk"
 }
