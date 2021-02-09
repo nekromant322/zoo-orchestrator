@@ -12,7 +12,7 @@ import java.time.Month;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/api/chart")
+@RequestMapping("/api/chartPage")
 public class ChartRestController {
 
     @Autowired

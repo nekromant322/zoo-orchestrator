@@ -7,33 +7,33 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
-    @GetMapping("/animalRequest")
+    @GetMapping("/animalRequestPage")
     public ModelAndView animalsPage() {
 
-        return new ModelAndView("animalRequest");
+        return new ModelAndView("animalRequestPage");
     }
 
-    @GetMapping("/main")
+    @GetMapping("/mainPage")
     public ModelAndView mainPage() {
 
-        return new ModelAndView("main");
+        return new ModelAndView("mainPage");
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginPage")
     public ModelAndView loginPage() {
 
-        return new ModelAndView("login");
+        return new ModelAndView("loginPage");
     }
 
-    @GetMapping("/video")
+    @GetMapping("/videoPage")
     public ModelAndView testVideoPage() {
 
-        return new ModelAndView("video");
+        return new ModelAndView("videoPage");
     }
 
-    @GetMapping("/chart")
+    @GetMapping("/chartPage")
     public ModelAndView testChartPage() {
 
-        return new ModelAndView("chart");
+        return new ModelAndView("chartPage");
     }
 }

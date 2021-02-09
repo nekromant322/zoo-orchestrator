@@ -14,9 +14,9 @@ public class PhotoGalleryController {
     @Autowired
     private PhotoHolder photoHolder;
 
-    @GetMapping("/photogallery")
+    @GetMapping("/photoGalleryPage")
     public ModelAndView testPhotoGallery() throws ClientException, ApiException {
-        ModelAndView modelAndView = new ModelAndView("photoGallery");
+        ModelAndView modelAndView = new ModelAndView("photoGalleryPage");
         modelAndView.addObject("urls",photoHolder.getUrlPhotos());
         return modelAndView;
     }
