@@ -43,7 +43,7 @@
 
 .container .box img {
     position: relative;
-    max-width: 100px;
+    max-width: 90px;
     margin-bottom: 10px;
 }
 
@@ -61,13 +61,14 @@
 #room-choose {
     display: none;
 }
+
 #dates-choose {
     display: none;
 }
+
 #personal-data-choose {
     display: none;
 }
-
 
 
 #formContent {
@@ -76,7 +77,7 @@
     background: #363434;
     padding: 30px;
     margin-top: 30px;
-    width: 90%;
+    width: 80%;
     max-width: 450px;
     position: relative;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
@@ -94,11 +95,12 @@
     display: inline-block;
     text-transform: uppercase;
     font-size: 13px;
+
     -webkit-box-shadow: 0 10px 30px 0 rgba(159, 31, 219, 0.4);
     box-shadow: 0 10px 30px 0 rgba(159, 31, 219, 0.4);
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
-    margin: 5px 20px 40px 20px;
+    margin: 40px 20px 10px;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
@@ -106,7 +108,7 @@
     transition: all 0.3s ease-in-out;
 }
 
-.sendRequestBtn:hover{
+.sendRequestBtn:hover {
     background-color: #9f1fdb;
 }
 
@@ -122,15 +124,13 @@
 input[type=text] {
     background-color: #f6f6f6;
     color: #0d0d0d;
-    padding: 15px 32px;
+    padding: 10px 3px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    font-size: 14px;
+    margin: 5px 10px 15px;
     width: 85%;
-    border: 2px solid #f6f6f6;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
     -ms-transition: all 0.5s ease-in-out;
@@ -150,16 +150,15 @@ input[type=text]::placeholder {
 }
 
 .personalDataInput {
-    background-color: #a0a0a0;
+    background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
-    padding: 15px 32px;
+    padding: 10px 3px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin-top: 10px;
-    margin-bottom: 1px;
+    font-size: 14px;
+    margin: 5px 10px 15px;
     width: 85%;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -171,18 +170,16 @@ input[type=text]::placeholder {
 }
 
 
-
 .inputName {
     background-color: #a0a0a0;
     border: none;
     color: #0d0d0d;
-    padding: 15px 32px;
+    padding: 10px 3px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin-top: 10px;
-    margin-bottom: 1px;
+    font-size: 14px;
+    margin: 5px 10px 5px;
     width: 85%;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -202,3 +199,61 @@ input[type=text]::placeholder {
     min-height: 100%;
     padding: 20px;
 }
+
+
+#next-button {
+    padding: 20px 25px;
+    margin: 25px 40% 1px;
+
+}
+
+#begin-date-input.personalDataInput {
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 10px 3px 10px 35px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 10px 30% 5px;
+    width: auto;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#end-date-input.personalDataInput {
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 10px 3px 10px 35px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 10px 30% 5px;
+    width: auto;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.inputDate {
+    background-color: #a0a0a0;
+    border: none;
+    color: #0d0d0d;
+    padding: 10px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 25px 30% 1px;
+    width: auto;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#video-input.personalDataInput {
+    background-color: #a682c4;
+    border: none;
+    color: #0d0d0d;
+    padding: 10px 3px;
+    text-align: center;
+}
+
