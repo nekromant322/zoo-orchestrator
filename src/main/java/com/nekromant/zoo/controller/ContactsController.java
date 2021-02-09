@@ -27,9 +27,9 @@ public class ContactsController {
     @Value("${map.api.key}")
     private String MAP_API_KEY;
 
-    @GetMapping("/contacts")
+    @GetMapping("/contactsPage")
     public ModelAndView contactsPage() {
-        ModelAndView modelAndView = new ModelAndView("contacts");
+        ModelAndView modelAndView = new ModelAndView("contactsPage");
         modelAndView.addObject("phoneNumber", PHONE_NUMBER);
         modelAndView.addObject("email", EMAIL);
         modelAndView.addObject("location", EMAIL);

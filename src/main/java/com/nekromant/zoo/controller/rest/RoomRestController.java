@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/room")
+@RequestMapping("/api/roomPage")
 public class RoomRestController {
     @Autowired
     private RoomService roomService;
