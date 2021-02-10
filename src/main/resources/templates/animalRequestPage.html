@@ -1,0 +1,127 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animals</title>
+    <link rel="stylesheet" type="text/css" href="/css/animalRequest.css">
+    <link rel="stylesheet" type="text/css" href="/css/common/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/common/fadeIn.css">
+</head>
+<body>
+
+<header th:replace="fragments/commonPage.html :: header"></header>
+<div class="container fadeIn first" id="animal-choose">
+    <div class="box" onclick="chooseAnimalType('DOG')">
+        <div class="content">
+            <img src="/img/animals/dog.png">
+            <p>Шабака</p>
+        </div>
+    </div>
+    <div class="box" onclick="chooseAnimalType('CAT')">
+        <div class="content">
+            <img src="/img/animals/cat.png">
+            <p>Кот</p>
+        </div>
+    </div>
+    <div class="box" onclick="chooseAnimalType('REPTILE')">
+        <div class="content">
+            <img src="/img/animals/snake.png">
+            <p>Рептилия</p>
+        </div>
+    </div>
+    <div class="box" onclick="chooseAnimalType('RAT')">
+        <div class="content">
+            <img src="/img/animals/rat.png">
+            <p>Грызун</p>
+        </div>
+    </div>
+    <div class="box" onclick="chooseAnimalType('BIRD')">
+        <div class="content">
+            <img src="/img/animals/chicken.png">
+            <p>Птица</p>
+        </div>
+    </div>
+    <div class="box" onclick="chooseAnimalType('OTHER')">
+        <div class="content">
+            <img src="/img/animals/unicorn.png">
+            <p>Диковинная живность</p>
+        </div>
+    </div>
+</div>
+
+<div class="container fadeIn first" id="room-choose">
+    <div class="box">
+        <div class="content" onclick="chooseRoomType('COMMON')">
+            <img src="/img/rooms/common.png">
+            <p>Обычная</p>
+        </div>
+    </div>
+    <div class="box" onclick="chooseRoomType('LARGE')">
+        <div class="content">
+            <img src="/img/rooms/large.png">
+            <p>Большая</p>
+        </div>
+    </div>
+    <div class="box" onclick="chooseRoomType('VIP')">
+        <div class="content">
+            <img src="/img/rooms/vip.png">
+            <p>VIP</p>
+        </div>
+    </div>
+</div>
+
+<div id="dates-choose">
+    <p class="inputDate">Дата начала</p>
+    <input class="personalDataInput" type="date" id="begin-date-input">
+    <p class="inputDate">Дата окончания</p>
+    <input class="personalDataInput" type="date" id="end-date-input">
+    <button class="fadeIn fourth sendRequestBtn" id="next-button" onclick="chooseDates()">Дальше</button>
+</div>
+
+<div class="wrapper fadeInDown" id="personal-data-choose">
+    <div id="formContent">
+        <form>
+
+
+            <p class="inputName">Имя животного</p>
+            <input class="personalDataInput" type="text" id="animal-name-input">
+
+            <p class="inputName">Город</p>
+            <select id="location-input" class="personalDataInput">
+                <option th:value="MOSCOW">Москва</option>
+                <option th:value="SPB">Санкт-Петербург</option>
+            </select>
+
+            <p class="inputName">Имя</p>
+            <input class="personalDataInput" type="text" id="name-input">
+            <p class="inputName">Фамилия</p>
+            <input class="personalDataInput" type="text" id="surname-input">
+            <p class="inputName">Номер телефона</p>
+            <input class="personalDataInput" type="tel" pattern="^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$"
+                   id="phone-input">
+            <p class="inputName">Email</p>
+            <input class="personalDataInput" type="email" id="email-input">
+            <p id="video" class="personalDataInput">Включить услугу видеонаблюдения <input type="checkbox"
+                                                                                           id="video-input"></p>
+
+        </form>
+        <button class="fadeIn fourth sendRequestBtn" onclick="sendRequest()">Отправить заявку</button>
+    </div>
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/jquery.noty.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/jquery.noty.css"/>
+<script src="/js/animalRequest.js"></script>
+</body>
+</html>
