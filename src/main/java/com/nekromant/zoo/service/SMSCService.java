@@ -31,10 +31,6 @@ public class SMSCService {
 
     @Value("${SMSC.post}")
     boolean SMSC_POST;
-//boolean SMSC_HTTPS   = false;         // использовать HTTPS протокол
-//    String SMSC_CHARSET  = "utf-8";       // кодировка сообщения: koi8-r, windows-1251 или utf-8 (по умолчанию)
-//    boolean SMSC_DEBUG   = true;         // флаг отладки
-//    boolean SMSC_POST    = false;         // Использовать метод POST
 
 
     /**
@@ -169,17 +165,6 @@ public class SMSCService {
         return line;
     }
 
-//    private static String _implode(String[] ary, String delim) {
-//        String out = "";
-//
-//        for (int i = 0; i < ary.length; i++) {
-//            if (i != 0)
-//                out += delim;
-//            out += ary[i];
-//        }
-//
-//        return out;
-//    }
 
 
 // Examples:
