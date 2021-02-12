@@ -20,6 +20,11 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+
+
+    @Column(name = "phone")
+    private String phoneNumber;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.REFRESH,CascadeType.MERGE})
     @JoinTable(
@@ -72,6 +77,13 @@ public class User implements UserDetails {
 
     public void setDiscount(Discount discount) {
         this.discount = discount;
+    }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override

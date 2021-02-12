@@ -19,6 +19,14 @@ public class MailSender {
     @Value("${emailPassword}")
     private String emailPassword;
 
+    public MailSender() {
+    }
+
+    public MailSender(String emailLog, String emailPass) {
+        emailLogin = emailLog;
+       emailPassword = emailPass;
+    }
+
     @Autowired
     private Environment env;
 
