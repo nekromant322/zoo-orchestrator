@@ -24,5 +24,5 @@
 
 Layering
 
-![alt text](https://i.imgur.com/YZXoH4k.png)
+![alt text](https://i.imgur.com/h6IBLvF.png)
 
