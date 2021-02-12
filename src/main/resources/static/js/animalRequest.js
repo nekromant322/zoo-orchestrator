@@ -1,5 +1,5 @@
 var animalRequest = {};
-var steps = ["#animal-choose", "#room-choose","#dates-choose", "#personal-data-choose"];
+var steps = ["#animal-choose", "#room-choose", "#dates-choose", "#personal-data-choose"];
 var currentStep = 0;
 
 function chooseAnimalType(animalType) {
@@ -24,6 +24,7 @@ function chooseDates() {
         opacity: 0.10
     }, 500, goToNextStep());
 }
+
 function goToNextStep() {
     $(steps[currentStep]).css("display", "none");
     if (currentStep <= steps.length) {
@@ -38,8 +39,8 @@ function sendRequest() {
     animalRequest.email = $("#email-input").val();
     animalRequest.name = $("#name-input").val();
     animalRequest.surname = $("#surname-input").val();
-animalRequest.requestStatus = "NEW";
-    if ($("#video-input").val()==="on"){
+    animalRequest.requestStatus = "NEW";
+    if ($("#video-input").val() === "on") {
         animalRequest.videoNeeded = true;
     } else {
         animalRequest.videoNeeded = false;
@@ -53,30 +54,46 @@ animalRequest.requestStatus = "NEW";
         contentType: 'application/json',
         data: JSON.stringify(animalRequest),
         success: function () {
-          alert('Заявка отправлена')
+            alert('Заявка отправлена')
         },
-        error:function(error) {
+        error: function (error) {
             alert(error)
         }
     })
 }
 
-function minDate(){
+function minDate() {
     var today = new Date();
     var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
+    var mm = today.getMonth() + 1; //January is 0!
     var yyyy = today.getFullYear();
-    if(dd<10){
-        dd='0'+dd
+    if (dd < 10) {
+        dd = '0' + dd
     }
-    if(mm<10){
-        mm='0'+mm
+    if (mm < 10) {
+        mm = '0' + mm
     }
 
-    today = yyyy+'-'+mm+'-'+dd;
-    $('#begin-date-input').attr('min',today)
+    today = yyyy + '-' + mm + '-' + dd;
+    $('#begin-date-input').attr('min', today)
 }
-$(document).ready(function(){
+
+$(document).ready(function () {
     minDate()
 })
 
+$('#video-input').onchange(function (){
+    $.ajax({
+        url: '/api/pricePage/calc',
+        dataType: 'json',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(animalRequest),
+        success: function (result) {
+            $("#calculatedPrice").val(result)
+        },
+        error: function (error) {
+            alert(error)
+        }
+    })
+})
