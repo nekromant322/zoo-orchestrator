@@ -1,15 +1,14 @@
 package com.nekromant.zoo.service;
 
+import com.cko.zoo.dto.RoomParametersDTO;
+import com.cko.zoo.enums.AnimalType;
+import com.cko.zoo.enums.RoomType;
 import com.nekromant.zoo.dao.RoomDAO;
-import com.nekromant.zoo.dto.RoomParametersDTO;
-import com.nekromant.zoo.enums.AnimalType;
-import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.model.Book;
 import com.nekromant.zoo.model.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +26,14 @@ public class RoomService {
 
     /**
      * Find List {@link Room} by -
-     * @param animalType {@link AnimalType}
-     * @param roomType {@link RoomType}
+     * @param animalType {@link com.cko.zoo.enums.AnimalType}
+     * @param roomType {@link com.cko.zoo.enums.RoomType}
      * @param video boolean need to record in a room
      * @return
      */
     public List<Room> findByParameters(AnimalType animalType,
-                                          RoomType roomType,
-                                          boolean video){
+                                       RoomType roomType,
+                                       boolean video){
         return roomDAO.findAllByParametrs(
                 animalType,
                 roomType,
@@ -56,7 +55,7 @@ public class RoomService {
         List<Room> rooms = findByParameters(
                 roomParametersDTO.getAnimalType(),
                 roomParametersDTO.getRoomType(),
-                roomParametersDTO.isVideoNeeded()
+                roomParametersDTO.isVideoSupported()
         );
         for(Room room : rooms) {
             List<Book> books = bookService.findByRoomIdAndDate(

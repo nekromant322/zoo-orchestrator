@@ -1,5 +1,6 @@
 package com.nekromant.zoo.controller.rest;
 
+import com.cko.zoo.dto.RoomDTO;
 import com.nekromant.zoo.model.Book;
 import com.nekromant.zoo.model.Room;
 import com.nekromant.zoo.service.BookService;
@@ -20,7 +21,7 @@ public class BookRestController {
     }
 
     @PostMapping("/bookRoom/{id}")
-    public Book book(@PathVariable String id, @RequestBody Room room){
-        return bookService.bookAnimalRequest(id,room);
+    public Book book(@PathVariable String id, @RequestBody RoomDTO roomDTO){
+        return bookService.bookAnimalRequest(id,roomDTO);
     }
 }

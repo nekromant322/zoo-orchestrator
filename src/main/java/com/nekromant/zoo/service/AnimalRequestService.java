@@ -1,11 +1,13 @@
 package com.nekromant.zoo.service;
 
+import com.cko.zoo.dto.AnimalRequestDTO;
+import com.cko.zoo.enums.RequestStatus;
 import com.nekromant.zoo.dao.AnimalRequestDAO;
-import com.nekromant.zoo.dto.AnimalRequestDTO;
-import com.nekromant.zoo.enums.RequestStatus;
 import com.nekromant.zoo.mapper.AnimalRequestMapper;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.BlackList;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +29,8 @@ public class AnimalRequestService {
     @Autowired
     private AnimalRequestMapper animalRequestMapper;
 
-    public void insert(AnimalRequest animalRequest) {
-        animalRequestDAO.save(animalRequest);
+    public void insert(AnimalRequestDTO animalRequestDTO) {
+        animalRequestDAO.save(animalRequestMapper.dtoToEntity(animalRequestDTO));
     }
 
     public HashMap<Month, Integer> getNumbersOfDoneRequestForYear(int year) {

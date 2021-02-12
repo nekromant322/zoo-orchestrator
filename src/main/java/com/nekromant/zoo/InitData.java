@@ -1,12 +1,13 @@
 package com.nekromant.zoo;
 
+import com.cko.zoo.enums.AnimalType;
+import com.cko.zoo.enums.Location;
+import com.cko.zoo.enums.RequestStatus;
+import com.cko.zoo.enums.RoomType;
 import com.github.javafaker.Faker;
+import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.BookDAO;
 import com.nekromant.zoo.dao.PriceDAO;
-import com.nekromant.zoo.enums.AnimalType;
-import com.nekromant.zoo.enums.Location;
-import com.nekromant.zoo.enums.RequestStatus;
-import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.model.*;
 import com.nekromant.zoo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class InitData {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private AnimalRequestService animalRequestService;
+    private AnimalRequestDAO animalRequestDAO;
 
     @Autowired
     private RoomService roomService;
@@ -93,7 +94,7 @@ public class InitData {
             animalRequest.setSurname(faker.name().lastName());
             animalRequest.setAnimalName(faker.funnyName().name());
             animalRequest.setLocation(Location.values()[rnd.nextInt(Location.values().length)]);
-            animalRequestService.insert(animalRequest);
+            animalRequestDAO.save(animalRequest);
         }
 
         for (int i = 0; i < 5; i++) {
@@ -112,7 +113,7 @@ public class InitData {
             animalRequest.setSurname(faker.name().lastName());
             animalRequest.setAnimalName(faker.funnyName().name());
             animalRequest.setLocation(Location.values()[rnd.nextInt(Location.values().length)]);
-            animalRequestService.insert(animalRequest);
+            animalRequestDAO.save(animalRequest);
         }
         AnimalRequest animalRequestBookServiceCheck = new AnimalRequest(0L,
                 RequestStatus.APPLIED,
@@ -128,7 +129,7 @@ public class InitData {
                 faker.name().name(),
                 Location.MOSCOW
                 );
-        animalRequestService.insert(animalRequestBookServiceCheck);
+        animalRequestDAO.save(animalRequestBookServiceCheck);
     }
 
     private void initPrices() {

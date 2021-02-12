@@ -1,7 +1,7 @@
 package com.nekromant.zoo.dao;
 
-import com.nekromant.zoo.enums.AnimalType;
-import com.nekromant.zoo.enums.RoomType;
+import com.cko.zoo.enums.AnimalType;
+import com.cko.zoo.enums.RoomType;
 import com.nekromant.zoo.model.Room;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

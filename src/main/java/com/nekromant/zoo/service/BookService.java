@@ -1,7 +1,7 @@
 package com.nekromant.zoo.service;
 
+import com.cko.zoo.dto.RoomDTO;
 import com.nekromant.zoo.dao.BookDAO;
-import com.nekromant.zoo.enums.RequestStatus;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Book;
 import com.nekromant.zoo.model.Room;
@@ -27,22 +27,22 @@ public class BookService {
 
     /**
      * Booking room with {@link AnimalRequest} id and {@link Room}
-     * {@link AnimalRequest} request status must be {@link RequestStatus} APPLIED
+     * {@link AnimalRequest} request status must be {@link com.cko.zoo.enums.RequestStatus} APPLIED
      * @param id - {@link AnimalRequest}
-     * @param room - {@link Room} room to book
+     * @param roomDTO - {@link Room} room to book
      * @return new {@link Book} or null
      */
     @Transactional
-    public Book bookAnimalRequest(String id, Room room) {
+    public Book bookAnimalRequest(String id, RoomDTO roomDTO) {
         Optional<AnimalRequest> animalRequest = animalRequestService.findById(id);
-        return animalRequest.map(request -> bookRoom(room, request)).orElse(null);
+        return animalRequest.map(request -> bookRoom(roomDTO, request)).orElse(null);
     }
 
-    private Book bookRoom(Room room, AnimalRequest animalRequest) {
+    private Book bookRoom(RoomDTO roomDTO, AnimalRequest animalRequest) {
         Book book = new Book(
                 0L,
                 animalRequest.getId(),
-                room.getId(),
+                roomDTO.getId(),
                 animalRequest.getBeginDate(),
                 animalRequest.getEndDate()
         );

@@ -1,7 +1,7 @@
 package com.nekromant.zoo.model;
 
-import com.nekromant.zoo.enums.AnimalType;
-import com.nekromant.zoo.enums.RoomType;
+import com.cko.zoo.enums.AnimalType;
+import com.cko.zoo.enums.RoomType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

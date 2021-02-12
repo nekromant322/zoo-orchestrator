@@ -1,14 +1,14 @@
 package com.nekromant.zoo.service;
 
+import com.cko.zoo.dto.RoomDTO;
+import com.cko.zoo.enums.AnimalType;
+import com.cko.zoo.enums.Location;
+import com.cko.zoo.enums.RequestStatus;
+import com.cko.zoo.enums.RoomType;
 import com.nekromant.zoo.dao.BookDAO;
-import com.nekromant.zoo.enums.AnimalType;
-import com.nekromant.zoo.enums.Location;
-import com.nekromant.zoo.enums.RequestStatus;
-import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Room;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,13 +36,12 @@ public class BookServiceTest {
     @Mock
     AnimalRequestService animalRequestService;
 
-    private Room fillDefaultRoom(){
-        return new Room(
+    private RoomDTO fillDefaultRoom(){
+        return new RoomDTO(
                 0L,
                 AnimalType.DOG,
                 RoomType.VIP,
-                true,
-                ""
+                true
         );
     }
 
@@ -66,11 +65,11 @@ public class BookServiceTest {
                             Location.MOSCOW
                     )
         ));
-        Room room = fillDefaultRoom();
+        RoomDTO roomDTO = fillDefaultRoom();
 
         Mockito.when(animalRequestService.setInProgressAnimalRequest(any())).thenThrow(new RuntimeException());
         try {
-            bookService.bookAnimalRequest("228", room);
+            bookService.bookAnimalRequest("228", roomDTO);
         } catch (RuntimeException e) {
             Assert.assertEquals(bookDAO.findAll().size(), 0);
         }

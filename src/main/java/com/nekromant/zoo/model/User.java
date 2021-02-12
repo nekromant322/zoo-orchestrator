@@ -1,6 +1,6 @@
 package com.nekromant.zoo.model;
 
-import com.nekromant.zoo.enums.Discount;
+import com.cko.zoo.enums.Discount;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

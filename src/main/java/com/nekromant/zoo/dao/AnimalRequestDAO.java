@@ -1,6 +1,6 @@
 package com.nekromant.zoo.dao;
 
-import com.nekromant.zoo.enums.RequestStatus;
+import com.cko.zoo.enums.RequestStatus;
 import com.nekromant.zoo.model.AnimalRequest;
 import org.springframework.data.repository.CrudRepository;
 

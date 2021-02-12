@@ -1,9 +1,9 @@
 package com.nekromant.zoo.service;
 
+import com.cko.zoo.dto.RoomParametersDTO;
+import com.cko.zoo.enums.AnimalType;
+import com.cko.zoo.enums.RoomType;
 import com.nekromant.zoo.dao.RoomDAO;
-import com.nekromant.zoo.dto.RoomParametersDTO;
-import com.nekromant.zoo.enums.AnimalType;
-import com.nekromant.zoo.enums.RoomType;
 import com.nekromant.zoo.model.Book;
 import com.nekromant.zoo.model.Room;
 import org.junit.Assert;

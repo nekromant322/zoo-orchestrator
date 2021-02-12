@@ -1,18 +1,16 @@
 package com.nekromant.zoo.service;
 
+import com.cko.zoo.dto.AnimalRequestDTO;
 import com.nekromant.zoo.dao.PriceDAO;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Price;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 
-
-import static com.nekromant.zoo.enums.RoomType.*;
+import static com.cko.zoo.enums.RoomType.*;
 import static java.lang.Math.abs;
 
 @Service
@@ -34,25 +32,25 @@ public class PriceService {
 
     /**
      * Просчитать стоимость заявки
-     * @param animalRequest заявка
+     * @param animalRequestDTO заявка
      * @return Полная стоимость заявки
      */
-    public int calculateTotalPrice(AnimalRequest animalRequest) {
+    public int calculateTotalPrice(AnimalRequestDTO animalRequestDTO) {
 
-        LocalDate begin = animalRequest.getBeginDate();
-        LocalDate end = animalRequest.getEndDate();
+        LocalDate begin = animalRequestDTO.getBeginDate();
+        LocalDate end = animalRequestDTO.getEndDate();
         int difference = daysBetween(begin,end);
         int price = 0;
-        if (animalRequest.getRoomType() == COMMON) {
+        if (animalRequestDTO.getRoomType() == COMMON) {
             price = difference * priceService.getActualPrice().getCommonRoomPrice();
         }
-        if (animalRequest.getRoomType() == LARGE) {
+        if (animalRequestDTO.getRoomType() == LARGE) {
             price = difference * priceService.getActualPrice().getLargeRoomPrice();
         }
-        if (animalRequest.getRoomType() == VIP) {
+        if (animalRequestDTO.getRoomType() == VIP) {
             price = difference * priceService.getActualPrice().getVipRoomPrice();
         }
-        if (animalRequest.getVideoNeeded()) {
+        if (animalRequestDTO.getVideoNeeded()) {
             price += priceService.getActualPrice().getVideoPrice();
         }
         return price;

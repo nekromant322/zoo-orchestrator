@@ -1,5 +1,6 @@
 package com.nekromant.zoo.controller.rest;
 
+import com.cko.zoo.dto.AnimalRequestDTO;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Price;
 import com.nekromant.zoo.service.PriceService;
@@ -19,7 +20,7 @@ public class PriceRestController {
     }
 
     @PostMapping("/calc")
-    public int calculateTotalPriceForRequest(@RequestBody AnimalRequest animalRequest) {
-        return priceService.calculateTotalPrice(animalRequest);
+    public int calculateTotalPriceForRequest(@RequestBody AnimalRequestDTO animalRequestDTO) {
+        return priceService.calculateTotalPrice(animalRequestDTO);
     }
 }
