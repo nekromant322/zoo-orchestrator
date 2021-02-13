@@ -28,3 +28,7 @@ jobs:
           HD_VK_CLIENT_ID : ${{ secrets.VK_CLIENT_ID }}
           HD_VK_SERVICE_TOKEN : ${{ secrets.VK_SERVICE_TOKEN }}
           HD_YANDEX_MAP_API_KEY : ${{ secrets.YANDEX_MAP_API_KEY }}
+          HD_EMAIL_LOGIN : ${{ secrets.VK_APP_ID }}
+          HD_EMAIL_PASSWORD : ${{ secrets.VK_CLIENT_ID }}
+          HD_SMSC_LOGIN : ${{ secrets.VK_SERVICE_TOKEN }}
+          HD_SMSC_PASSWORD : ${{ secrets.YANDEX_MAP_API_KEY }}
