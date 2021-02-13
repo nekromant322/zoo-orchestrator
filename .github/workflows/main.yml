@@ -15,9 +15,7 @@ jobs:
         with:
           java-version: 8
       - name: Build with Maven
-        run: 
-          export MAVEN_OPTS="-Xms128m -Xmx300m"
-          mvn -B -DskipTests=true clean install --file pom.xml
+        run: mvn -B -DskipTests=true clean install --file pom.xml
       - uses: akhileshns/heroku-deploy@v3.11.10 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
