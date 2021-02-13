@@ -43,8 +43,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Discount discount = Discount.NONE;
 
-    public User() {
-    }
 
     public User(String email, String password, List<Authority> authorities) {
         this.email = email;
