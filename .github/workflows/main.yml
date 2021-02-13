@@ -21,6 +21,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "zoohotel1" #Must be unique in Heroku
           heroku_email: "shamaneeel881@gmail.com"
+          healthcheck: "https://zoohotel1.herokuapp.com/health"
           usedocker: true  
         env:
           HD_VK_APP_ID : ${{ secrets.VK_APP_ID }}
