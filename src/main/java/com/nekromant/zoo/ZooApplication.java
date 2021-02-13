@@ -2,17 +2,17 @@ package com.nekromant.zoo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource({
         "classpath:config/datasource.properties",
         "classpath:config/jpa.properties",
-        "classpath:config/SMSC.properties",
         "classpath:config/vkService.properties",
         "classpath:config/contacts.properties",
-        "classpath:config/yandex.properties"
+        "classpath:config/yandex.properties",
+        "classpath:config/mail.properties",
+        "classpath:config/sms.properties"
 })
 public class ZooApplication {
 
