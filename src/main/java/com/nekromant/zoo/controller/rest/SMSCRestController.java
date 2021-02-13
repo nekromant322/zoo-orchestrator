@@ -14,10 +14,4 @@ public class SMSCRestController {
     @Autowired
     private SMSCService smscService;
 
-    @GetMapping("/newSMS")
-    public String[] sendSMS() {
-        String phone = "";
-        String message = "";
-        return smscService.send_sms(phone, message);
-    }
 }
