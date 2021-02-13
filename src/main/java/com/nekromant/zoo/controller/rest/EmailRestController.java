@@ -17,6 +17,8 @@ public class EmailRestController {
     @Autowired
     EmailService emailService;
 
+
+
     @GetMapping("/newEmail")
     public String sendEmail() {
         String emailReceiver = "anfisa.andrienko.aa@gmail.com";
@@ -24,6 +26,5 @@ public class EmailRestController {
         String emailText = "Hello, Im testing Simple Email";
         emailService.sendEmail(emailReceiver, emailSubject, emailText);
         return "Email Sent!";
-
     }
 }

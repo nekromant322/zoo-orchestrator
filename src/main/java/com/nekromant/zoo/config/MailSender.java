@@ -13,19 +13,11 @@ import java.util.Properties;
 @Configuration
 public class MailSender {
 
-    @Value("${emailLogin}")
+    @Value("${mail.login}")
     private String emailLogin;
 
-    @Value("${emailPassword}")
+    @Value("${mail.password}")
     private String emailPassword;
-
-    public MailSender() {
-    }
-
-    public MailSender(String emailLog, String emailPass) {
-        emailLogin = emailLog;
-       emailPassword = emailPass;
-    }
 
     @Autowired
     private Environment env;

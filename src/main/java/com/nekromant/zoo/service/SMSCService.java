@@ -36,8 +36,7 @@ public class SMSCService {
     /**
      * constructors
      */
-    public SMSCService() {
-    }
+
 
     public SMSCService(String login, String password) {
         SMSC_LOGIN = login;

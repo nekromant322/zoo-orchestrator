@@ -14,13 +14,10 @@ public class NotificationService {
     private SMSCService smscService;
 
     public void sendEmail(User user, String emailSubject, String message) {
-        emailSubject = "Very important mail";
-        message = "";
         emailService.sendEmail(user.getEmail(), emailSubject, message);
     }
 
     public void sendSms(User user, String message) {
-        message = "";
         smscService.send_sms(user.getPhoneNumber(), message);
     }
 }
