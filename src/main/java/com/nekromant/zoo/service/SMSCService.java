@@ -15,35 +15,22 @@ import java.lang.Math;
 public class SMSCService {
 
     @Value("${SMSC.login}")
-    String SMSC_LOGIN;
+    private String SMSC_LOGIN;
 
     @Value("${SMSC.password}")
-    String SMSC_PASSWORD;
+    private String SMSC_PASSWORD;
 
     @Value("${SMSC.https}")
-    boolean SMSC_HTTPS;
+    private boolean SMSC_HTTPS;
 
     @Value("${SMSC.charset}")
-    String SMSC_CHARSET;
+    private String SMSC_CHARSET;
 
     @Value("${SMSC.debug}")
-    boolean SMSC_DEBUG;
+    private boolean SMSC_DEBUG;
 
     @Value("${SMSC.post}")
-    boolean SMSC_POST;
-
-
-    /**
-     * constructors
-     */
-
-
-    public SMSCService(String login, String password) {
-        SMSC_LOGIN = login;
-        SMSC_PASSWORD = password;
-    }
-
-
+    private boolean SMSC_POST;
     /**
      * Отправка SMS
      *
@@ -52,7 +39,7 @@ public class SMSCService {
      * @return array (<id>, <количество sms>, <стоимость>, <баланс>) в случае успешной отправки
      * или массив (<id>, -<код ошибки>) в случае ошибки
      */
-    public String[] send_sms(String phones, String message) {
+    public String[] sendSms(String phones, String message) {
         String[] m = {};
 
         try {

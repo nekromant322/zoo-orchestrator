@@ -18,6 +18,6 @@ public class NotificationService {
     }
 
     public void sendSms(User user, String message) {
-        smscService.send_sms(user.getPhoneNumber(), message);
+        smscService.sendSms(user.getPhoneNumber(), message);
     }
 }
