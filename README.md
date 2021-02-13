@@ -23,5 +23,6 @@
   4. Команда запуска: <code> docker run -p 127.0.0.1:8080:8080 —env-file <envfile.txt> <imageName> env </code>
 
 Layering
+
 ![alt text](https://i.imgur.com/h6IBLvF.png)
 
