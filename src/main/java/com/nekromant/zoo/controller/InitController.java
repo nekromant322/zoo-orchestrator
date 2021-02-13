@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-@RequestMapping("/init")
+@RequestMapping("/initPage")
 public class InitController {
     @Autowired
     private InitData initData;
@@ -21,6 +21,6 @@ public class InitController {
             initData.initData();
             init = true;
         }
-        return new RedirectView("/AnimalRequest/onlyNew");
+        return new RedirectView("/AnimalRequestPage/onlyNew");
     }
 }

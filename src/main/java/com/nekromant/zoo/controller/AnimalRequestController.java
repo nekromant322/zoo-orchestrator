@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-@RequestMapping("/AnimalRequest")
+@RequestMapping("/AnimalRequestPage")
 public class AnimalRequestController {
     
     @Autowired
