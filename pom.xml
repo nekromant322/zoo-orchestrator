@@ -9,9 +9,15 @@
     </parent>
     <groupId>com.cko</groupId>
     <artifactId>Zoo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <name>Zoo</name>
     <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <repsyUser>zoo-hotel</repsyUser>
+        <repsyRepo>zoo</repsyRepo>
+    </properties>
+
 
     <dependencies>
         <dependency>
@@ -105,7 +111,7 @@
         <dependency>
             <groupId>com.cko</groupId>
             <artifactId>Zoo-DTO</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 
@@ -125,5 +131,29 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <!-- ... Some other Distribution repository definitions -->
+
+        <repository>
+            <id>repsy</id>
+            <name>My Private Maven Repositoty on Repsy</name>
+            <url>https://repo.repsy.io/mvn/${repsyUser}/${repsyRepo}</url>
+        </repository>
+
+        <!-- ... Some other Distribution repository definitions -->
+    </distributionManagement>
+
+    <repositories>
+        <!-- ... some other repository definitions -->
+
+        <repository>
+            <id>repsy</id>
+            <name>My Private Maven Repositoty on Repsy</name>
+            <url>https://repo.repsy.io/mvn/${repsyUser}/${repsyRepo}</url>
+        </repository>
+
+        <!-- ... some other repository definitions -->
+    </repositories>
 
 </project>
