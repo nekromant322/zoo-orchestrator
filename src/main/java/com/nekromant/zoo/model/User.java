@@ -1,6 +1,9 @@
 package com.nekromant.zoo.model;
 
 import com.nekromant.zoo.enums.Discount;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +12,9 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -19,6 +25,11 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "password")
     private String password;
+
+
+
+    @Column(name = "phone")
+    private String phoneNumber;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.REFRESH,CascadeType.MERGE})
@@ -32,8 +43,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Discount discount = Discount.NONE;
 
-    public User() {
-    }
 
     public User(String email, String password, List<Authority> authorities) {
         this.email = email;
@@ -41,38 +50,6 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

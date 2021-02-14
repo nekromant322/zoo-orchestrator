@@ -30,9 +30,6 @@ public class InitData {
     private AuthorityService authorityService;
 
     @Autowired
-    private SMSCService smscSender;
-
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
