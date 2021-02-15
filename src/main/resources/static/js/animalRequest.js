@@ -59,13 +59,10 @@ function sendRequest() {
         success: function () {
             alert('Заявка отправлена')
         },
-        // error: function (error) {
-        //     alert(error)
-        // }
     })
 }
 
-function minDate() {
+function minBeginDate() {
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
@@ -82,8 +79,12 @@ function minDate() {
 }
 
 $(document).ready(function () {
-    minDate()
+    minBeginDate()
 })
+
+function minEndDate(){
+    $('#end-date-input').attr('min', $('#begin-date-input').val())
+}
 
 
 function getPrice() {

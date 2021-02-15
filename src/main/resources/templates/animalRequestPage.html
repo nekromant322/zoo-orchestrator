@@ -72,7 +72,7 @@
 
 <div id="dates-choose">
     <p class="inputDate">Дата начала</p>
-    <input class="personalDataInput" type="date" id="begin-date-input">
+    <input class="personalDataInput" type="date" id="begin-date-input" onchange="minEndDate()">
     <p class="inputDate">Дата окончания</p>
     <input class="personalDataInput" type="date" id="end-date-input">
     <button class="fadeIn fourth sendRequestBtn" id="next-button" onclick="chooseDates()">Дальше</button>

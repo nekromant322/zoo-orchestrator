@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.nekromant.zoo.enums.AnimalType.*;
 import static com.nekromant.zoo.enums.RoomType.*;
@@ -47,29 +49,15 @@ public class PriceService {
         int difference = daysBetween(begin, end);
         int price = 0;
 
-        if (animalRequest.getAnimalType() == CAT){
-            price = difference * priceService.getActualPrice().getCatPrice();
-        }
+        Map<AnimalType,Integer> animalTypePrice = new HashMap<>();
+        animalTypePrice.put(CAT,priceService.getActualPrice().getCatPrice());
+        animalTypePrice.put(DOG,priceService.getActualPrice().getDogPrice());
+        animalTypePrice.put(REPTILE,priceService.getActualPrice().getReptilePrice());
+        animalTypePrice.put(RAT,priceService.getActualPrice().getRatPrice());
+        animalTypePrice.put(BIRD,priceService.getActualPrice().getBirdPrice());
+        animalTypePrice.put(OTHER,priceService.getActualPrice().getOtherPrice());
 
-        if (animalRequest.getAnimalType() == DOG){
-            price = difference * priceService.getActualPrice().getDogPrice();
-        }
-
-        if (animalRequest.getAnimalType() == REPTILE){
-            price = difference * priceService.getActualPrice().getReptilePrice();
-        }
-
-        if (animalRequest.getAnimalType() == RAT){
-            price = difference * priceService.getActualPrice().getRatPrice();
-        }
-
-        if (animalRequest.getAnimalType() == BIRD){
-            price = difference * priceService.getActualPrice().getBirdPrice();
-        }
-
-        if (animalRequest.getAnimalType() == OTHER){
-            price = difference * priceService.getActualPrice().getOtherPrice();
-        }
+        price+= difference * animalTypePrice.get(animalRequest.getAnimalType());
 
         if (animalRequest.getRoomType() == LARGE) {
             price+= difference * priceService.getActualPrice().getLargeRoomPrice();
