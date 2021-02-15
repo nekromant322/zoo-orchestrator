@@ -4,6 +4,7 @@ import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.service.AnimalRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,7 @@ public class AnimalRequestRestController {
     private AnimalRequestService animalRequestService;
 
     @PostMapping
-    public void newRequest(AnimalRequest animalRequest) {
+    public void newRequest(@RequestBody AnimalRequest animalRequest) {
         animalRequestService.insert(animalRequest);
     }
 }

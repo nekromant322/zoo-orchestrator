@@ -20,6 +20,7 @@ function chooseRoomType(roomType) {
 function chooseDates() {
     animalRequest.beginDate = $("#begin-date-input").val();
     animalRequest.endDate = $("#end-date-input").val();
+    getPrice()
     $("#date-choose").animate({
         opacity: 0.10
     }, 500, goToNextStep());
@@ -34,21 +35,18 @@ function goToNextStep() {
 }
 
 function sendRequest() {
+
     animalRequest.animalName = $("#animal-name-input").val();
     animalRequest.phoneNumber = $("#phone-input").val();
     animalRequest.email = $("#email-input").val();
     animalRequest.name = $("#name-input").val();
     animalRequest.surname = $("#surname-input").val();
     animalRequest.requestStatus = "NEW";
-    if ($("#video-input").val() === "on") {
-        animalRequest.videoNeeded = true;
-    } else {
-        animalRequest.videoNeeded = false;
-    }
+    animalRequest.videoNeeded = $("#video-input").val() === "on";
     animalRequest.location = $("#location-input").val();
 
     $.ajax({
-        url: '/api/animalRequest',
+        url: '/api/animalRequestPage',
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',
@@ -56,9 +54,9 @@ function sendRequest() {
         success: function () {
             alert('Заявка отправлена')
         },
-        error: function (error) {
-            alert(error)
-        }
+        // error: function (error) {
+        //     alert(error)
+        // }
     })
 }
 
@@ -82,7 +80,15 @@ $(document).ready(function () {
     minDate()
 })
 
-$('#video-input').onchange(function (){
+
+function getPrice() {
+
+    if ($('#video-input').is(":checked")) {
+        animalRequest.videoNeeded = true
+    } else {
+        animalRequest.videoNeeded = false
+    }
+
     $.ajax({
         url: '/api/pricePage/calc',
         dataType: 'json',
@@ -92,8 +98,12 @@ $('#video-input').onchange(function (){
         success: function (result) {
             $("#calculatedPrice").val(result)
         },
-        error: function (error) {
-            alert(error)
+        error: function (result) {
+            $("#calculatedPrice").val(result)
         }
     })
-})
+}
+
+function videoNeeded() {
+
+}

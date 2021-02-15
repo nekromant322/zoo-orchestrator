@@ -101,11 +101,12 @@
                    id="phone-input">
             <p class="inputName">Email</p>
             <input class="personalDataInput" type="email" id="email-input">
-            <p id="video" class="personalDataInput">Включить услугу видеонаблюдения
-                <input type="checkbox" id="video-input"></p>
-            <p>Стоимость
-                <input type="text" class="personalDataInput" id="calculatedPrice" readonly></p>
 
+            <p id="video" class="personalDataInput">Включить услугу видеонаблюдения
+                <input type="checkbox" id="video-input" onchange="getPrice()" >
+            </p>
+            <p class="inputName">Стоимость</p>
+                <input type="text" class="personalDataInput" id="calculatedPrice"  readonly>
         </form>
         <button class="fadeIn fourth sendRequestBtn" onclick="sendRequest()">Отправить заявку</button>
     </div>
@@ -121,7 +122,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/jquery.noty.js"></script>
+<!--<script type="text/javascript" src="js/jquery.noty.js"></script>-->
 
 <link rel="stylesheet" type="text/css" href="css/jquery.noty.css"/>
 <script src="/js/animalRequest.js"></script>
