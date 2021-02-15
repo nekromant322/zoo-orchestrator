@@ -4,10 +4,15 @@ var currentStep = 0;
 
 function chooseAnimalType(animalType) {
     animalRequest.animalType = animalType;
-
+if (animalRequest.animalType==="CAT"||animalRequest.animalType==="DOG"){
     $("#animal-choose").animate({
         opacity: 0.10
     }, 500, goToNextStep());
+}else{$("#animal-choose").animate({
+    opacity: 0.10
+}, 500, goToNextStep())
+    goToNextStep();}
+
 }
 
 function chooseRoomType(roomType) {
