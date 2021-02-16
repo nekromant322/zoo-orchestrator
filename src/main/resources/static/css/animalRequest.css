@@ -70,6 +70,10 @@
     display: none;
 }
 
+#success-page {
+    display: none;
+}
+
 
 #formContent {
     -webkit-border-radius: 10px 10px 10px 10px;

@@ -1,5 +1,5 @@
 var animalRequest = {};
-var steps = ["#animal-choose", "#room-choose","#dates-choose", "#personal-data-choose"];
+var steps = ["#animal-choose", "#room-choose","#dates-choose", "#personal-data-choose","#success-page"];
 var currentStep = 0;
 
 function chooseAnimalType(animalType) {
@@ -47,16 +47,15 @@ animalRequest.requestStatus = "NEW";
     animalRequest.location = $("#location-input").val();
 
     $.ajax({
-        url: '/api/animalRequest',
+        url: '/api/animalRequestPage',
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(animalRequest),
         success: function () {
-          alert('Заявка отправлена')
         },
-        error:function(error) {
-            alert(error)
+        complete: function() {
+            goToNextStep();
         }
     })
 }
