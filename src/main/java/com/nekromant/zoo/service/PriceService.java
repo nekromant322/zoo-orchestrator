@@ -43,11 +43,7 @@ public class PriceService {
      * @param animalRequest заявка
      * @return Полная стоимость заявки
      */
-    public int getAnimalTypePrice(AnimalRequest animalRequest) {
-        LocalDate begin = animalRequest.getBeginDate();
-        LocalDate end = animalRequest.getEndDate();
-        int difference = daysBetween(begin, end);
-        int price = 0;
+    public Map<AnimalType, Integer> getAnimalTypePriceMap() {
         Map<AnimalType, Integer> animalTypePrice = new HashMap<>();
         animalTypePrice.put(CAT, priceService.getActualPrice().getCatPrice());
         animalTypePrice.put(DOG, priceService.getActualPrice().getDogPrice());
@@ -55,8 +51,23 @@ public class PriceService {
         animalTypePrice.put(RAT, priceService.getActualPrice().getRatPrice());
         animalTypePrice.put(BIRD, priceService.getActualPrice().getBirdPrice());
         animalTypePrice.put(OTHER, priceService.getActualPrice().getOtherPrice());
+        return animalTypePrice;
+    }
 
-        price += difference * animalTypePrice.get(animalRequest.getAnimalType());
+    public Map<RoomType, Integer> getRoomTypePriceMap() {
+        Map<RoomType, Integer> roomTypePrice = new HashMap<>();
+        roomTypePrice.put(LARGE, priceService.getActualPrice().getLargeRoomPrice());
+        roomTypePrice.put(VIP, priceService.getActualPrice().getVipRoomPrice());
+        roomTypePrice.put(COMMON, priceService.getActualPrice().getCommonRoomPrice());
+        return roomTypePrice;
+    }
+
+    public int getAnimalTypePrice(AnimalRequest animalRequest) {
+        LocalDate begin = animalRequest.getBeginDate();
+        LocalDate end = animalRequest.getEndDate();
+        int difference = daysBetween(begin, end);
+        int price = 0;
+        price += difference * getAnimalTypePriceMap().get(animalRequest.getAnimalType());
         return price;
     }
 
@@ -66,17 +77,12 @@ public class PriceService {
         LocalDate end = animalRequest.getEndDate();
         int difference = daysBetween(begin, end);
         int price = 0;
-
-        Map<RoomType, Integer> roomTypePrice = new HashMap<>();
-        roomTypePrice.put(LARGE, priceService.getActualPrice().getLargeRoomPrice());
-        roomTypePrice.put(VIP, priceService.getActualPrice().getVipRoomPrice());
-        roomTypePrice.put(COMMON, priceService.getActualPrice().getCommonRoomPrice());
-        price += difference * roomTypePrice.get(animalRequest.getRoomType());
+        price += difference * getRoomTypePriceMap().get(animalRequest.getRoomType());
         return price;
     }
 
     public int calculateTotalPrice(AnimalRequest animalRequest) {
-        int price = getAnimalTypePrice(animalRequest)+getRoomTypePrice(animalRequest);
+        int price = getAnimalTypePrice(animalRequest) + getRoomTypePrice(animalRequest);
         if (animalRequest.getVideoNeeded()) {
             price += priceService.getActualPrice().getVideoPrice();
         }
