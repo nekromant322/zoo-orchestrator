@@ -37,13 +37,8 @@ public class PriceService {
         return priceDAO.findTopByOrderByLastUpdatedDesc();
     }
 
-    /**
-     * Просчитать стоимость заявки
-     *
-     * @param animalRequest заявка
-     * @return Полная стоимость заявки
-     */
-    public Map<AnimalType, Integer> getAnimalTypePriceMap() {
+
+    private Map<AnimalType, Integer> getAnimalTypePriceMap() {
         Map<AnimalType, Integer> animalTypePrice = new HashMap<>();
         animalTypePrice.put(CAT, priceService.getActualPrice().getCatPrice());
         animalTypePrice.put(DOG, priceService.getActualPrice().getDogPrice());
@@ -54,7 +49,7 @@ public class PriceService {
         return animalTypePrice;
     }
 
-    public Map<RoomType, Integer> getRoomTypePriceMap() {
+    private Map<RoomType, Integer> getRoomTypePriceMap() {
         Map<RoomType, Integer> roomTypePrice = new HashMap<>();
         roomTypePrice.put(LARGE, priceService.getActualPrice().getLargeRoomPrice());
         roomTypePrice.put(VIP, priceService.getActualPrice().getVipRoomPrice());
@@ -62,6 +57,12 @@ public class PriceService {
         return roomTypePrice;
     }
 
+    /**
+     * Просчитать стоимость заявки
+     *
+     * @param animalRequest заявка
+     * @return Полная стоимость заявки
+     */
     public int getAnimalTypePrice(AnimalRequest animalRequest) {
         LocalDate begin = animalRequest.getBeginDate();
         LocalDate end = animalRequest.getEndDate();
