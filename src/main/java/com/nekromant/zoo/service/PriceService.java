@@ -62,7 +62,7 @@ public class PriceService {
         return roomTypePrice;
     }
 
-    public int getAnimalTypePrice(AnimalRequest animalRequest) {
+    private int getAnimalTypePrice(AnimalRequest animalRequest) {
         LocalDate begin = animalRequest.getBeginDate();
         LocalDate end = animalRequest.getEndDate();
         int difference = daysBetween(begin, end);
@@ -72,7 +72,7 @@ public class PriceService {
     }
 
 
-    public int getRoomTypePrice(AnimalRequest animalRequest) {
+    private int getRoomTypePrice(AnimalRequest animalRequest) {
         LocalDate begin = animalRequest.getBeginDate();
         LocalDate end = animalRequest.getEndDate();
         int difference = daysBetween(begin, end);
