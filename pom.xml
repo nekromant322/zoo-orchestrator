@@ -1,159 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.cko</groupId>
-        <artifactId>ZooAgregator</artifactId>
-        <version>1</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.4.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.cko</groupId>
-    <artifactId>Zoo</artifactId>
-    <version>${revision}</version>
-    <name>Zoo</name>
-    <description>Demo project for Spring Boot</description>
+    <artifactId>ZooAgregator</artifactId>
+    <version>1</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>Zoo</module>
+        <module>Zoo-DTO</module>
+    </modules>
 
     <properties>
-        <repsyUser>zoo-hotel</repsyUser>
-        <repsyRepo>zoo</repsyRepo>
+        <revision>0.0.1-SNAPSHOT</revision>
+        <java.version>1.8</java.version>
+        <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+        <vaadin.version>0.0.20131108.vaadin1</vaadin.version>
+        <thymeleaf-extras-springsecurity5.version>3.0.4.RELEASE</thymeleaf-extras-springsecurity5.version>
+        <thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
+        <h2.version>1.4.199</h2.version>
+        <junit.version>4.13-rc-2</junit.version>
+        <lombok.version>1.18.12</lombok.version>
+        <java-faker.version>1.0.2</java-faker.version>
+        <vk-api.version>1.0.6</vk-api.version>
     </properties>
-
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin.external.google</groupId>
-            <artifactId>android-json</artifactId>
-            <version>${vaadin.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-            <version>${thymeleaf-extras-springsecurity5.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>nz.net.ultraq.thymeleaf</groupId>
-            <artifactId>thymeleaf-layout-dialect</artifactId>
-            <version>${thymeleaf-layout-dialect.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>${java-faker.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vk.api</groupId>
-            <artifactId>sdk</artifactId>
-            <version>${vk-api.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cko</groupId>
-            <artifactId>Zoo-DTO</artifactId>
-            <version>${revision}</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.2.2.RELEASE</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
-    <distributionManagement>
-        <!-- ... Some other Distribution repository definitions -->
-
-        <repository>
-            <id>repsy</id>
-            <name>My Private Maven Repositoty on Repsy</name>
-            <url>https://repo.repsy.io/mvn/${repsyUser}/${repsyRepo}</url>
-        </repository>
-
-        <!-- ... Some other Distribution repository definitions -->
-    </distributionManagement>
-
-    <repositories>
-        <!-- ... some other repository definitions -->
-
-        <repository>
-            <id>repsy</id>
-            <name>My Private Maven Repositoty on Repsy</name>
-            <url>https://repo.repsy.io/mvn/${repsyUser}/${repsyRepo}</url>
-        </repository>
-
-        <!-- ... some other repository definitions -->
-    </repositories>
-
 </project>

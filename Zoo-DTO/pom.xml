@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.cko</groupId>
+        <artifactId>ZooAgregator</artifactId>
+        <version>1</version>
+    </parent>
+    <groupId>com.cko</groupId>
+    <artifactId>Zoo-DTO</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <repsyUser>zoo-hotel</repsyUser>
+        <repsyRepo>zoo-dto</repsyRepo>
+    </properties>
+
+    <distributionManagement>
+        <!-- ... Some other Distribution repository definitions -->
+
+        <repository>
+            <id>repsy</id>
+            <name>My Private Maven Repositoty on Repsy</name>
+            <url>https://repo.repsy.io/mvn/${repsyUser}/${repsyRepo}</url>
+        </repository>
+
+        <!-- ... Some other Distribution repository definitions -->
+    </distributionManagement>
+
+    <repositories>
+        <!-- ... some other repository definitions -->
+
+        <repository>
+            <id>repsy</id>
+            <name>My Private Maven Repositoty on Repsy</name>
+            <url>https://repo.repsy.io/mvn/${repsyUser}/${repsyRepo}</url>
+        </repository>
+
+        <!-- ... some other repository definitions -->
+    </repositories>
+
+</project>
