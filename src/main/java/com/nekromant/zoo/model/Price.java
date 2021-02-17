@@ -30,6 +30,24 @@ public class Price {
     private Integer vipRoomPrice;
 
     @Column
+    private Integer dogPrice;
+
+    @Column
+    private Integer catPrice;
+
+    @Column
+    private Integer reptilePrice;
+
+    @Column
+    private Integer ratPrice;
+
+    @Column
+    private Integer birdPrice;
+
+    @Column
+    private Integer otherPrice;
+
+    @Column
     private Integer videoPrice;
 
     @Column
