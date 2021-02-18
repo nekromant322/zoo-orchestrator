@@ -56,12 +56,7 @@ public class PriceService {
         return roomTypePrice;
     }
 
-    /**
-     * Просчитать стоимость заявки
-     *
-     * @param animalRequest заявка
-     * @return Полная стоимость заявки
-     */
+
     private int getAnimalTypePrice(AnimalRequest animalRequest,Price price) {
         LocalDate begin = animalRequest.getBeginDate();
         LocalDate end = animalRequest.getEndDate();
@@ -81,6 +76,12 @@ public class PriceService {
         return sum;
     }
 
+    /**
+     * Просчитать стоимость заявки, учитывая вид животного и тип комнаты
+     *
+     * @param animalRequest заявка
+     * @return Полная стоимость заявки
+     */
     public int calculateTotalPrice(AnimalRequest animalRequest) {
         Price actualPrice = getActualPrice();
         LocalDate begin = animalRequest.getBeginDate();
