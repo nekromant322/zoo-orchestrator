@@ -25,8 +25,6 @@ public class PriceService {
     @Autowired
     private PriceDAO priceDAO;
 
-    @Autowired
-    private PriceService priceService;
 
     /**
      * Получить актуальную цену
@@ -37,56 +35,63 @@ public class PriceService {
         return priceDAO.findTopByOrderByLastUpdatedDesc();
     }
 
+
+    private Map<AnimalType, Integer> getAnimalTypePriceMap(Price price) {
+        Map<AnimalType, Integer> animalTypePrice = new HashMap<>();
+
+        animalTypePrice.put(CAT, price.getCatPrice());
+        animalTypePrice.put(DOG, price.getDogPrice());
+        animalTypePrice.put(REPTILE, price.getReptilePrice());
+        animalTypePrice.put(RAT, price.getRatPrice());
+        animalTypePrice.put(BIRD,price.getBirdPrice());
+        animalTypePrice.put(OTHER, price.getOtherPrice());
+        return animalTypePrice;
+    }
+
+    private Map<RoomType, Integer> getRoomTypePriceMap(Price price) {
+        Map<RoomType, Integer> roomTypePrice = new HashMap<>();
+        roomTypePrice.put(LARGE, price.getLargeRoomPrice());
+        roomTypePrice.put(VIP, price.getVipRoomPrice());
+        roomTypePrice.put(COMMON, price.getCommonRoomPrice());
+        return roomTypePrice;
+    }
+
+
+    private int getAnimalTypePrice(AnimalRequest animalRequest,Price price) {
+        LocalDate begin = animalRequest.getBeginDate();
+        LocalDate end = animalRequest.getEndDate();
+        int difference = daysBetween(begin, end);
+        int sum = 0;
+        sum += difference * getAnimalTypePriceMap(price).get(animalRequest.getAnimalType());
+        return sum;
+    }
+
+
+    private int getRoomTypePrice(AnimalRequest animalRequest,Price price) {
+        LocalDate begin = animalRequest.getBeginDate();
+        LocalDate end = animalRequest.getEndDate();
+        int difference = daysBetween(begin, end);
+        int sum = 0;
+        sum += difference * getRoomTypePriceMap(price).get(animalRequest.getRoomType());
+        return sum;
+    }
+
     /**
-     * Просчитать стоимость заявки
+     * Просчитать стоимость заявки, учитывая вид животного и тип комнаты
      *
      * @param animalRequest заявка
      * @return Полная стоимость заявки
      */
-    public Map<AnimalType, Integer> getAnimalTypePriceMap() {
-        Map<AnimalType, Integer> animalTypePrice = new HashMap<>();
-        animalTypePrice.put(CAT, priceService.getActualPrice().getCatPrice());
-        animalTypePrice.put(DOG, priceService.getActualPrice().getDogPrice());
-        animalTypePrice.put(REPTILE, priceService.getActualPrice().getReptilePrice());
-        animalTypePrice.put(RAT, priceService.getActualPrice().getRatPrice());
-        animalTypePrice.put(BIRD, priceService.getActualPrice().getBirdPrice());
-        animalTypePrice.put(OTHER, priceService.getActualPrice().getOtherPrice());
-        return animalTypePrice;
-    }
-
-    public Map<RoomType, Integer> getRoomTypePriceMap() {
-        Map<RoomType, Integer> roomTypePrice = new HashMap<>();
-        roomTypePrice.put(LARGE, priceService.getActualPrice().getLargeRoomPrice());
-        roomTypePrice.put(VIP, priceService.getActualPrice().getVipRoomPrice());
-        roomTypePrice.put(COMMON, priceService.getActualPrice().getCommonRoomPrice());
-        return roomTypePrice;
-    }
-
-    private int getAnimalTypePrice(AnimalRequest animalRequest) {
-        LocalDate begin = animalRequest.getBeginDate();
-        LocalDate end = animalRequest.getEndDate();
-        int difference = daysBetween(begin, end);
-        int price = 0;
-        price += difference * getAnimalTypePriceMap().get(animalRequest.getAnimalType());
-        return price;
-    }
-
-
-    private int getRoomTypePrice(AnimalRequest animalRequest) {
-        LocalDate begin = animalRequest.getBeginDate();
-        LocalDate end = animalRequest.getEndDate();
-        int difference = daysBetween(begin, end);
-        int price = 0;
-        price += difference * getRoomTypePriceMap().get(animalRequest.getRoomType());
-        return price;
-    }
-
     public int calculateTotalPrice(AnimalRequest animalRequest) {
-        int price = getAnimalTypePrice(animalRequest) + getRoomTypePrice(animalRequest);
+        Price actualPrice = getActualPrice();
+        LocalDate begin = animalRequest.getBeginDate();
+        LocalDate end = animalRequest.getEndDate();
+        int difference = daysBetween(begin, end);
+        int sum = getAnimalTypePrice(animalRequest,actualPrice) + getRoomTypePrice(animalRequest,actualPrice);
         if (animalRequest.getVideoNeeded()) {
-            price += priceService.getActualPrice().getVideoPrice();
+            sum += difference *getActualPrice().getVideoPrice();
         }
-        return price;
+        return sum;
     }
 
     /**
