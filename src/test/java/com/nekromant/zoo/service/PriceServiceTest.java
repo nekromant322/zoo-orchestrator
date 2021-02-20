@@ -50,7 +50,7 @@ public class PriceServiceTest {
         );
 
 
-      Mockito.when(priceDAO.findTopByOrderByLastUpdatedDesc()).thenReturn(new Price(1L,100,200,300,500,200,100,50,100,1000,100, LocalDateTime.of(2020,06,21,0,0)));
+      Mockito.when(priceDAO.findTopByOrderByLastUpdatedDesc()).thenReturn(new Price(1L,100,200,300,500,200,100,50,100,1000,100, LocalDateTime.of(2020,06,21,0,0),1,1));
 
         int resultFirst = priceService.calculateTotalPrice(animalRequestFirst);
         Assert.assertEquals(resultFirst,1800);
@@ -76,7 +76,7 @@ public class PriceServiceTest {
                 "",
                 Location.MOSCOW
         );
-        Mockito.when(priceDAO.findTopByOrderByLastUpdatedDesc()).thenReturn(new Price(1L,100,200,300,500,200,100,50,100,1000,100, LocalDateTime.of(2020,06,21,0,0)));
+        Mockito.when(priceDAO.findTopByOrderByLastUpdatedDesc()).thenReturn(new Price(1L,100,200,300,500,200,100,50,100,1000,100, LocalDateTime.of(2020,06,21,0,0),1,1));
 
         int resultSecond = priceService.calculateTotalPrice(animalRequestSecond);
         Assert.assertEquals(resultSecond,600);
@@ -84,6 +84,4 @@ public class PriceServiceTest {
         //todo сделать независимыми тесты https://trello.com/c/uoo87nHv/61-%D1%80%D0%B0%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%D1%81%D1%8F-%D1%81-mockitoverify-times2
 //        Mockito.verify(priceDAO,Mockito.times(1)).findTopByOrderByLastUpdatedDesc();
     }
-
-
 }

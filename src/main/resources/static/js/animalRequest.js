@@ -40,7 +40,6 @@ function goToNextStep() {
 }
 
 function sendRequest() {
-
     animalRequest.animalName = $("#animal-name-input").val();
     animalRequest.phoneNumber = $("#phone-input").val();
     animalRequest.email = $("#email-input").val();
@@ -88,7 +87,6 @@ function minEndDate(){
 
 
 function getPrice() {
-
     if ($('#video-input').is(":checked")) {
         animalRequest.videoNeeded = true
     } else {
@@ -96,7 +94,7 @@ function getPrice() {
     }
 
     $.ajax({
-        url: '/api/pricePage/calc',
+        url: '/api/pricePage/calculate',
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',
@@ -110,6 +108,3 @@ function getPrice() {
     })
 }
 
-function videoNeeded() {
-
-}

@@ -53,4 +53,11 @@ public class Price {
     @Column
     private LocalDateTime lastUpdated;
 
+//скидки пока не учитываются при расчёте цен
+    @Column
+    private double discountAdvanced;
+
+    @Column
+    private double discountVip;
+
 }

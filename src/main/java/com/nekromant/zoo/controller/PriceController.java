@@ -19,14 +19,9 @@ public class PriceController {
 
     @GetMapping("/edit")
     public ModelAndView editPricesPage() {
-        ModelAndView modelAndView = new ModelAndView("admin/priceEdit");
+        ModelAndView modelAndView = new ModelAndView("pricePage");
         modelAndView.addObject("actualPrice", priceService.getActualPrice());
         return modelAndView;
     }
 
-    @PostMapping("/new")
-    public RedirectView newPrice(Price price) {
-        priceService.insert(price);
-        return new RedirectView("/price/edit");
-    }
 }
