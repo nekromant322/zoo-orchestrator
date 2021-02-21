@@ -14,4 +14,9 @@ public class SMSCRestController {
     @Autowired
     private SMSCService smscService;
 
+    @GetMapping("/send")
+    public void send(){
+        smscService.send("+79775548911","I'm testing my service");
+    }
+
 }
