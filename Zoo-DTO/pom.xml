@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Zoo-DTO</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>com.cko</groupId>
         <artifactId>Zoo</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <dependencies>
@@ -20,12 +20,4 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>repsy</id>
-            <name>My Private Maven Repositoty on Repsy</name>
-            <url>https://repo.repsy.io/mvn/${repsy.login}/${repsy.repo.dto}</url>
-        </repository>
-    </distributionManagement>
 </project>

@@ -34,9 +34,23 @@
         <javafaker.version>1.0.2</javafaker.version>
         <vk.api.version>1.0.6</vk.api.version>
         <repsy.login>zoo-hotel</repsy.login>
-        <repsy.repo.dto>zoo-dto</repsy.repo.dto>
-        <repsy.repo.orchestrator>zoo-orchestrator</repsy.repo.orchestrator>
+        <repsy.repo>zoo</repsy.repo>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>repsy</id>
+            <name>My Private Maven Repositoty on Repsy</name>
+            <url>https://repo.repsy.io/mvn/${repsy.login}/${repsy.repo}</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>repsy</id>
+            <name>My Private Maven Repositoty on Repsy</name>
+            <url>https://repo.repsy.io/mvn/${repsy.login}/${repsy.repo}</url>
+        </repository>
+    </distributionManagement>
 
 </project>
