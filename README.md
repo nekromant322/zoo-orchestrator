@@ -30,4 +30,5 @@
   1. В Intellij Idea Settings->Maven->Override User settings file на settings.xml в корне проекта
   2. Добавить в переменные среды операционной системы логин и пароль для Repsy (REPSY_LOGIN & REPSY_PASSWORD)
   3. Найти новые переменные можно в трело
+  4. При обновлении dto модуля следует поднять revision и запушить новую версию в repsy (mvn deploy)
 ![alt text](https://i.imgur.com/8eXIeqj.png)
