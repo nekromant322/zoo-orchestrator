@@ -12,14 +12,14 @@ $(".close_popap").click( function(){
 
 function decl(){
     var x = new XMLHttpRequest();
-    x.open("POST", "/AnimalRequest/onlyNew/decline/" + globalId, false);
+    x.open("POST", "/AnimalRequestPage/onlyNew/decline/" + globalId, false);
     x.send(null);
     window.location.reload();
 }
 
 function bl(){
     var x = new XMLHttpRequest();
-    x.open("POST", "/api/blackList/" + globalId, false);
+    x.open("POST", "/api/blackListPage/" + globalId, false);
     x.send(null);
     window.location.reload();
 }

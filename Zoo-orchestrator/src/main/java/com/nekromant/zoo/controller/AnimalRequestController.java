@@ -27,12 +27,12 @@ public class AnimalRequestController {
     @PostMapping("/onlyNew/accept/{id}")
     public RedirectView acceptAnimalRequestPage(@PathVariable String id){
         animalRequestService.acceptAnimalRequest(id);
-        return new RedirectView("/AnimalRequest/onlyNew");
+        return new RedirectView("/AnimalRequestPage/onlyNew");
     }
 
     @PostMapping("/onlyNew/decline/{id}")
     public RedirectView declineAnimalRequest(@PathVariable String id){
         animalRequestService.declineAnimalRequest(id);
-        return new RedirectView("/AnimalRequest/onlyNew");
+        return new RedirectView("/AnimalRequestPage/onlyNew");
     }
 }
