@@ -22,6 +22,12 @@
   3. Для этого проекта нужны переменные среды, для докера можно использовать обычный txt файл, запись вида Var=Val, можно найти в Trello
   4. Команда запуска: <code> docker run -p 127.0.0.1:8080:8080 —env-file <envfile.txt> <imageName> env </code>
 
-Layering  
+### Layering  
 ![alt text](https://i.imgur.com/h6IBLvF.png)
 
+
+### Repsy guide
+  1. В Intellij Idea Settings->Maven->Override User settings file на settings.xml в корне проекта
+  2. Добавить в переменные среды операционной системы логин и пароль для Repsy (REPSY_LOGIN & REPSY_PASSWORD)
+  3. Найти новые переменные можно в трело
+![alt text](https://i.imgur.com/8eXIeqj.png)

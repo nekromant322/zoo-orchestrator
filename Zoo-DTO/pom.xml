@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>com.cko</groupId>
+        <groupId>com.nekromant</groupId>
         <artifactId>Zoo</artifactId>
         <version>${revision}</version>
     </parent>

@@ -11,7 +11,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.cko</groupId>
+    <groupId>com.nekromant</groupId>
     <artifactId>Zoo</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>

@@ -9,7 +9,7 @@
     <description>Demo project for Spring Boot</description>
 
     <parent>
-        <groupId>com.cko</groupId>
+        <groupId>com.nekromant</groupId>
         <artifactId>Zoo</artifactId>
         <version>${revision}</version>
     </parent>
@@ -105,7 +105,7 @@
             <version>${vk.api.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.cko</groupId>
+            <groupId>com.nekromant</groupId>
             <artifactId>Zoo-DTO</artifactId>
             <version>${revision}</version>
         </dependency>
