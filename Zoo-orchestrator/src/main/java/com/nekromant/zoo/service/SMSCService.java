@@ -5,11 +5,16 @@ package com.nekromant.zoo.service;
 
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.*;
 import java.io.*;
 import java.lang.Math;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class SMSCService {
@@ -20,150 +25,30 @@ public class SMSCService {
     @Value("${SMSC.password}")
     private String SMSC_PASSWORD;
 
-    @Value("${SMSC.https}")
-    private boolean SMSC_HTTPS;
+    @Value("${SMSC.url}")
+    private String SMSC_URL;
 
-    @Value("${SMSC.charset}")
-    private String SMSC_CHARSET;
-
-    @Value("${SMSC.debug}")
-    private boolean SMSC_DEBUG;
-
-    @Value("${SMSC.post}")
-    private boolean SMSC_POST;
+    private final static String LOGIN_KEY = "login";
+    private final static String PASSWORD_KEY = "password";
+    private final static String PHONES_KEY = "phones";
+    private final static String MESSAGE_KEY = "message";
     /**
      * Отправка SMS
      *
-     * @param phones   - список телефонов через запятую или точку с запятой
+     * @param phones   - список телефонов
      * @param message  - отправляемое сообщение
      * @return array (<id>, <количество sms>, <стоимость>, <баланс>) в случае успешной отправки
      * или массив (<id>, -<код ошибки>) в случае ошибки
      */
-    public String[] sendSms(String phones, String message) {
-        String[] m = {};
-
-        try {
-            m = _smsc_send_cmd("send", "cost=3&phones=" + URLEncoder.encode(phones, SMSC_CHARSET)
-                    + "&mes=" + URLEncoder.encode(message, SMSC_CHARSET));
-        } catch (UnsupportedEncodingException e) {
-
-        }
-
-        if (m.length > 1) {
-            if (SMSC_DEBUG) {
-                if (Integer.parseInt(m[1]) > 0) {
-                    System.out.println("Сообщение отправлено успешно. ID: " + m[0] + ", всего SMS: " + m[1] + ", стоимость: " + m[2] + ", баланс: " + m[3]);
-                } else {
-                    System.out.print("Ошибка №" + Math.abs(Integer.parseInt(m[1])));
-                    System.out.println(Integer.parseInt(m[0]) > 0 ? (", ID: " + m[0]) : "");
-                }
-            }
-        } else {
-            System.out.println("Не получен ответ от сервера.");
-        }
-
-        return m;
+    public ResponseEntity<String> sendSms(List<String> phones, String message) {
+        RestTemplate restTemplate = new RestTemplate();
+        Map<String,String> params = new HashMap<>();
+        params.put(LOGIN_KEY,SMSC_LOGIN);
+        params.put(PASSWORD_KEY,SMSC_PASSWORD);
+        String joinedPhones = String.join(";",phones);
+        params.put(PHONES_KEY,joinedPhones);
+        params.put(MESSAGE_KEY,message);
+        ResponseEntity<String> response = restTemplate.getForEntity(SMSC_URL, String.class,params);
+   return response;
     }
-
-    ;
-
-    /**
-     * Формирование и отправка запроса
-     *
-     * @param cmd - требуемая команда
-     * @param arg - дополнительные параметры
-     */
-
-    private String[] _smsc_send_cmd(String cmd, String arg) {
-        /* String[] m = {}; */
-        String ret = ",";
-
-        try {
-            String _url = (SMSC_HTTPS ? "https" : "http") + "://smsc.ru/sys/" + cmd + ".php?login=" + URLEncoder.encode(SMSC_LOGIN, SMSC_CHARSET)
-                    + "&psw=" + URLEncoder.encode(SMSC_PASSWORD, SMSC_CHARSET)
-                    + "&fmt=1&charset=" + SMSC_CHARSET + "&" + arg;
-
-            String url = _url;
-            int i = 0;
-            do {
-                if (i++ > 0) {
-                    url = _url;
-                    url = url.replace("://smsc.ru/", "://www" + (i) + ".smsc.ru/");
-                }
-                ret = _smsc_read_url(url);
-            }
-            while (ret == "" && i < 5);
-        } catch (UnsupportedEncodingException e) {
-
-        }
-
-        return ret.split(",");
-    }
-
-    /**
-     * Чтение URL
-     *
-     * @param url - ID cообщения
-     * @return line - ответ сервера
-     */
-    private String _smsc_read_url(String url) {
-
-        String line = "", real_url = url;
-        String[] param = {};
-        boolean is_post = (SMSC_POST || url.length() > 2000);
-
-        if (is_post) {
-            param = url.split("\\?", 2);
-            real_url = param[0];
-        }
-
-        try {
-            URL u = new URL(real_url);
-            InputStream is;
-
-            if (is_post) {
-                URLConnection conn = u.openConnection();
-                conn.setDoOutput(true);
-                OutputStreamWriter os = new OutputStreamWriter(conn.getOutputStream(), SMSC_CHARSET);
-                os.write(param[1]);
-                os.flush();
-                os.close();
-                System.out.println("post");
-                is = conn.getInputStream();
-            } else {
-                is = u.openStream();
-            }
-
-            InputStreamReader reader = new InputStreamReader(is, SMSC_CHARSET);
-
-            int ch;
-            while ((ch = reader.read()) != -1) {
-                line += (char) ch;
-            }
-
-            reader.close();
-        } catch (MalformedURLException e) { // Неверно урл, протокол...
-
-        } catch (IOException e) {
-
-        }
-
-        return line;
-    }
-
-
-
-// Examples:
-/*
-		Smsc sd= new Smsc();
-		// or
-		Smsc sd= new Smsc("login", "password");
-
-		sd.send_sms("79999999999", "Ваш пароль: 123", 1, "", "", 0, "", "");
-		sd.get_sms_cost("79999999999", "Вы успешно зарегистрированы!", 0, 0, "", "");
-		sd.get_status(sms_id, "79999999999");
-		sd.get_balanse();
-*/
-
-
 }
