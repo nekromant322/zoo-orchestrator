@@ -17,8 +17,14 @@ public class PriceRestController {
     public Price getActualPrice() {
         return priceService.getActualPrice();
     }
-    @PostMapping("/calc")
+    @PostMapping("/calculate")
     public int calculateTotalPriceForRequest(@RequestBody AnimalRequest animalRequest) {
         return priceService.calculateTotalPrice(animalRequest);
     }
+
+    @PostMapping("/new")
+    public void newPrice(@RequestBody Price price) {
+        priceService.insert(price);
+    }
+
 }
