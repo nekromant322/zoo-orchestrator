@@ -20,8 +20,6 @@ public class NotificationService {
     }
 
     public void sendSms(User user, String message) {
-        List<String> phones = new ArrayList<>();
-        phones.add(user.getPhoneNumber());
-        smscService.sendSms(phones, message);
+        smscService.sendSms(user.getPhoneNumber(), message);
     }
 }
