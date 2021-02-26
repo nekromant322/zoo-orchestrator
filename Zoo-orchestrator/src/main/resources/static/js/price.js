@@ -5,7 +5,7 @@ $(document).ready(function () {
 
 function getPrice() {
     $.ajax({
-        url: '/api/pricePage',
+        url: '/api/pricePage/actual',
         dataType: 'json',
         type: 'GET',
         contentType: 'application/json',

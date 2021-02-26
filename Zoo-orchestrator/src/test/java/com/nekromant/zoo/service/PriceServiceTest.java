@@ -4,6 +4,7 @@ package com.nekromant.zoo.service;
 import com.nekromant.zoo.dao.PriceDAO;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Price;
+import dto.AnimalRequestDTO;
 import enums.AnimalType;
 import enums.Location;
 import enums.RequestStatus;
@@ -30,7 +31,7 @@ public class PriceServiceTest {
 
     @Test
     public void calculateTotalPriceDogVipVideoNeedTest() {
-        AnimalRequest animalRequestFirst = new AnimalRequest(
+        AnimalRequestDTO animalRequestFirst = new AnimalRequestDTO(
                 228L,
                 RequestStatus.NEW,
                 AnimalType.DOG,
@@ -58,7 +59,7 @@ public class PriceServiceTest {
     @Test
     public void getCalculatedPriceSecond() {
 
-        AnimalRequest animalRequestSecond = new AnimalRequest(
+        AnimalRequestDTO animalRequestSecond = new AnimalRequestDTO(
                 228L,
                 RequestStatus.NEW,
                 AnimalType.RAT,

@@ -3,6 +3,7 @@ package com.nekromant.zoo.service;
 import com.nekromant.zoo.dao.PriceDAO;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Price;
+import dto.AnimalRequestDTO;
 import enums.AnimalType;
 import enums.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,38 +56,38 @@ public class PriceService {
     }
 
 
-    private int getAnimalTypePrice(AnimalRequest animalRequest,Price price) {
-        LocalDate begin = animalRequest.getBeginDate();
-        LocalDate end = animalRequest.getEndDate();
+    private int getAnimalTypePrice(AnimalRequestDTO animalRequestDTO, Price price) {
+        LocalDate begin = animalRequestDTO.getBeginDate();
+        LocalDate end = animalRequestDTO.getEndDate();
         int difference = daysBetween(begin, end);
         int sum = 0;
-        sum += difference * getAnimalTypePriceMap(price).get(animalRequest.getAnimalType());
+        sum += difference * getAnimalTypePriceMap(price).get(animalRequestDTO.getAnimalType());
         return sum;
     }
 
 
-    private int getRoomTypePrice(AnimalRequest animalRequest,Price price) {
-        LocalDate begin = animalRequest.getBeginDate();
-        LocalDate end = animalRequest.getEndDate();
+    private int getRoomTypePrice(AnimalRequestDTO animalRequestDTO,Price price) {
+        LocalDate begin = animalRequestDTO.getBeginDate();
+        LocalDate end = animalRequestDTO.getEndDate();
         int difference = daysBetween(begin, end);
         int sum = 0;
-        sum += difference * getRoomTypePriceMap(price).get(animalRequest.getRoomType());
+        sum += difference * getRoomTypePriceMap(price).get(animalRequestDTO.getRoomType());
         return sum;
     }
 
     /**
      * Просчитать стоимость заявки, учитывая вид животного и тип комнаты
      *
-     * @param animalRequest заявка
+//     * @param animalRequestDTO заявка
      * @return Полная стоимость заявки
      */
-    public int calculateTotalPrice(AnimalRequest animalRequest) {
+    public int calculateTotalPrice(AnimalRequestDTO animalRequestDTO) {
         Price actualPrice = getActualPrice();
-        LocalDate begin = animalRequest.getBeginDate();
-        LocalDate end = animalRequest.getEndDate();
+        LocalDate begin = animalRequestDTO.getBeginDate();
+        LocalDate end = animalRequestDTO.getEndDate();
         int difference = daysBetween(begin, end);
-        int sum = getAnimalTypePrice(animalRequest,actualPrice) + getRoomTypePrice(animalRequest,actualPrice);
-        if (animalRequest.getVideoNeeded()) {
+        int sum = getAnimalTypePrice(animalRequestDTO,actualPrice) + getRoomTypePrice(animalRequestDTO,actualPrice);
+        if (animalRequestDTO.getVideoNeeded()) {
             sum += difference *getActualPrice().getVideoPrice();
         }
         return sum;
