@@ -31,12 +31,11 @@ public class PriceServiceTest {
 
     @Test
     public void calculateTotalPriceDogVipVideoNeedTest() {
-        AnimalRequestDTO animalRequestFirst = new AnimalRequestDTO(
-                228L,
+        AnimalRequestDTO animalRequestFirst = new AnimalRequestDTO(228L,
                 RequestStatus.NEW,
                 AnimalType.DOG,
-                LocalDate.now(),
-                LocalDate.of(LocalDate.now().getYear(),LocalDate.now().getMonth(),LocalDate.now().getDayOfMonth()+1),
+                LocalDate.of(2021,11,11),
+                LocalDate.of(2021,11,12),
                 RoomType.VIP,
                 true,
                 "",
@@ -44,7 +43,7 @@ public class PriceServiceTest {
                 "",
                 "",
                 "",
-                Location.MOSCOW
+                Location.MOSCOW,false
         );
 
 
@@ -63,8 +62,8 @@ public class PriceServiceTest {
                 228L,
                 RequestStatus.NEW,
                 AnimalType.RAT,
-                LocalDate.now(),
-                LocalDate.of(LocalDate.now().getYear(),LocalDate.now().getMonth(),LocalDate.now().getDayOfMonth()+3),
+                LocalDate.of(2021,11,11),
+                LocalDate.of(2021,11,14),
                 RoomType.COMMON,
                 false,
                 "",
@@ -72,7 +71,7 @@ public class PriceServiceTest {
                 "",
                 "",
                 "",
-                Location.MOSCOW
+                Location.MOSCOW,false
         );
         Mockito.when(priceDAO.findTopByOrderByLastUpdatedDesc()).thenReturn(new Price(1L,100,200,300,500,200,100,50,100,1000,100, LocalDateTime.of(2020,06,21,0,0),1,1));
 
