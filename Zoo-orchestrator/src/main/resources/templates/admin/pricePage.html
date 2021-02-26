@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Зоогостиница | Цены</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/common/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/pricePage.css">
+
+</head>
+
+<body>
+
+<header th:replace="fragments/common.html :: header"></header>
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <form>
+            <p class="inputName">Сommon Room</p>
+            <input class="personalDataInput" type="number" id="commonRoomPrice">
+
+            <p class="inputName">Large Room</p>
+            <input class="personalDataInput" type="number" id="largeRoomPrice">
+
+            <p class="inputName">Vip Room</p>
+            <input class="personalDataInput" type="number" id="vipRoomPrice">
+
+            <p class="inputName">Dog</p>
+            <input class="personalDataInput" type="number" id="dogPrice">
+
+            <p class="inputName">Cat</p>
+            <input class="personalDataInput" type="number" id="catPrice">
+
+            <p class="inputName">Reptile</p>
+            <input class="personalDataInput" type="number" id="reptilePrice">
+
+            <p class="inputName">Rat</p>
+            <input class="personalDataInput" type="number" id="ratPrice">
+
+            <p class="inputName">Bird</p>
+            <input class="personalDataInput" type="number" id="birdPrice">
+
+            <p class="inputName">Other</p>
+            <input class="personalDataInput" type="number" id="otherPrice">
+
+            <p class="inputName">Discount Vip</p>
+            <input class="personalDataInput" type="number" id="discountVip">
+
+            <p class="inputName">Discount Advanced</p>
+            <input class="personalDataInput" type="number" id="discountAdvanced">
+
+            <p class="inputName">Video</p>
+            <input class="personalDataInput" type="number" id="videoPrice">
+
+        </form>
+        <button class="fadeIn fourth sendRequestBtn" onclick="sendPrice()">Сохранить</button>
+    </div>
+</div>
+<link rel="stylesheet" type="text/css" href="css/jquery.noty.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/js/price.js"></script>
+</body>
+</html>

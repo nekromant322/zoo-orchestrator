@@ -36,4 +36,10 @@ public class MainController {
 
         return new ModelAndView("chartPage");
     }
+
+    @GetMapping("/pricePage")
+    public ModelAndView testPricePage() {
+
+        return new ModelAndView("admin/pricePage");
+    }
 }

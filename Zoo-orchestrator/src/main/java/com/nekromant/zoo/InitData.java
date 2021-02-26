@@ -131,8 +131,8 @@ public class InitData {
     }
 
     private void initPrices() {
-        Price actualPrice = new Price(0L, 100, 200, 300, 500,200,75,100,150,150,50, LocalDateTime.now());
-        Price oldPrice = new Price(0L, 77, 88, 99, 55, 66,44,22,88,111,25,LocalDateTime.of(2020,06,21,0,0));
+        Price actualPrice = new Price(0L, 100, 200, 300, 500,200,75,100,150,150,50, LocalDateTime.now(),0.9,0.85);
+        Price oldPrice = new Price(0L, 77, 88, 99, 55, 66,44,22,88,111,25,LocalDateTime.of(2020,06,21,0,0),0.95,0.9);
         priceDAO.save(oldPrice);
         priceDAO.save(actualPrice);
     }

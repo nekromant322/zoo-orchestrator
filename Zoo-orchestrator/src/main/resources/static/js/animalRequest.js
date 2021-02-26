@@ -96,7 +96,7 @@ function getPrice() {
     }
 
     $.ajax({
-        url: '/api/pricePage/calc',
+        url: '/api/pricePage/calculate',
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',
@@ -110,6 +110,3 @@ function getPrice() {
     })
 }
 
-function videoNeeded() {
-
-}

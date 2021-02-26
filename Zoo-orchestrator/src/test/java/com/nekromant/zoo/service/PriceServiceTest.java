@@ -4,6 +4,7 @@ package com.nekromant.zoo.service;
 import com.nekromant.zoo.dao.PriceDAO;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Price;
+import dto.AnimalRequestDTO;
 import enums.AnimalType;
 import enums.Location;
 import enums.RequestStatus;
@@ -30,12 +31,11 @@ public class PriceServiceTest {
 
     @Test
     public void calculateTotalPriceDogVipVideoNeedTest() {
-        AnimalRequest animalRequestFirst = new AnimalRequest(
-                228L,
+        AnimalRequestDTO animalRequestFirst = new AnimalRequestDTO(228L,
                 RequestStatus.NEW,
                 AnimalType.DOG,
-                LocalDate.now(),
-                LocalDate.of(LocalDate.now().getYear(),LocalDate.now().getMonth(),LocalDate.now().getDayOfMonth()+1),
+                LocalDate.of(2021,11,11),
+                LocalDate.of(2021,11,12),
                 RoomType.VIP,
                 true,
                 "",
@@ -43,11 +43,11 @@ public class PriceServiceTest {
                 "",
                 "",
                 "",
-                Location.MOSCOW
+                Location.MOSCOW,false
         );
 
 
-      Mockito.when(priceDAO.findTopByOrderByLastUpdatedDesc()).thenReturn(new Price(1L,100,200,300,500,200,100,50,100,1000,100, LocalDateTime.of(2020,06,21,0,0)));
+      Mockito.when(priceDAO.findTopByOrderByLastUpdatedDesc()).thenReturn(new Price(1L,100,200,300,500,200,100,50,100,1000,100, LocalDateTime.of(2020,06,21,0,0),1,1));
 
         int resultFirst = priceService.calculateTotalPrice(animalRequestFirst);
         Assert.assertEquals(resultFirst,1800);
@@ -58,12 +58,12 @@ public class PriceServiceTest {
     @Test
     public void getCalculatedPriceSecond() {
 
-        AnimalRequest animalRequestSecond = new AnimalRequest(
+        AnimalRequestDTO animalRequestSecond = new AnimalRequestDTO(
                 228L,
                 RequestStatus.NEW,
                 AnimalType.RAT,
-                LocalDate.now(),
-                LocalDate.of(LocalDate.now().getYear(),LocalDate.now().getMonth(),LocalDate.now().getDayOfMonth()+3),
+                LocalDate.of(2021,11,11),
+                LocalDate.of(2021,11,14),
                 RoomType.COMMON,
                 false,
                 "",
@@ -71,9 +71,9 @@ public class PriceServiceTest {
                 "",
                 "",
                 "",
-                Location.MOSCOW
+                Location.MOSCOW,false
         );
-        Mockito.when(priceDAO.findTopByOrderByLastUpdatedDesc()).thenReturn(new Price(1L,100,200,300,500,200,100,50,100,1000,100, LocalDateTime.of(2020,06,21,0,0)));
+        Mockito.when(priceDAO.findTopByOrderByLastUpdatedDesc()).thenReturn(new Price(1L,100,200,300,500,200,100,50,100,1000,100, LocalDateTime.of(2020,06,21,0,0),1,1));
 
         int resultSecond = priceService.calculateTotalPrice(animalRequestSecond);
         Assert.assertEquals(resultSecond,600);
