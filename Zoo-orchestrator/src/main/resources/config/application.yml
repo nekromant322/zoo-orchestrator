@@ -1,0 +1,65 @@
+
+contacts:
+  email: abc@gmail.com
+  phone:
+    number: 9658008080
+  lat: 55.998564
+  lng: 37.225150
+  address: Moscow, Zelenograd
+
+
+spring:
+  h2:
+   console:
+    enabled: true
+  datasource:
+    password: root
+    username: root
+    url: jdbc:h2:mem:testdb
+    datasource:
+      driver-class-name: org.h2.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+
+
+mail:
+  login: ${EMAIL_LOGIN}
+  password: ${EMAIL_PASSWORD}
+  transport:
+    protocol: smtp
+  smtp:
+    auth: true
+    starttls:
+      enable: true
+  debug: true
+  host: smtp.gmail.com
+  port: 587
+
+SMSC:
+  login: ${SMSC_LOGIN}
+  password: ${SMSC_PASSWORD}
+  url: https://smsc.ru/sys/send.php
+
+vk:
+  app:
+    id: ${VK_APP_ID}
+  client:
+    id: ${VK_CLIENT_ID}
+  service:
+    token: ${VK_SERVICE_TOKEN}
+  owner:
+    id: -198597086
+  album:
+    id: 276400572
+
+map:
+  api:
+    key: ${YANDEX_MAP_API_KEY}
