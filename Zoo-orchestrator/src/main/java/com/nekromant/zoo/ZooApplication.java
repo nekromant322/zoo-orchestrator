@@ -6,13 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource({
-        "classpath:config/datasource.properties",
-        "classpath:config/jpa.properties",
-        "classpath:config/vkService.properties",
-        "classpath:config/contacts.properties",
-        "classpath:config/yandex.properties",
-        "classpath:config/mail.properties",
-        "classpath:config/sms.properties"
+        "classpath:config/application.yml"
 })
 public class ZooApplication {
 
