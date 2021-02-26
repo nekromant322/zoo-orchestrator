@@ -21,7 +21,8 @@ public class AnimalRequestMapper {
                 animalRequest.getSurname(),
                 animalRequest.getAnimalName(),
                 animalRequest.getLocation(),
-                false
+                false,
+                animalRequest.getRequestPrice()
         );
     }
 
@@ -39,7 +40,9 @@ public class AnimalRequestMapper {
                 animalRequestDTO.getName(),
                 animalRequestDTO.getSurname(),
                 animalRequestDTO.getAnimalName(),
+                animalRequestDTO.getRequestPrice(),
                 animalRequestDTO.getLocation()
+
         );
     }
 }

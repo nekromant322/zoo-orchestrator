@@ -29,6 +29,7 @@ public class AnimalRequestService {
     private AnimalRequestMapper animalRequestMapper;
 
     public void insert(AnimalRequestDTO animalRequestDTO) {
+
         animalRequestDAO.save(animalRequestMapper.dtoToEntity(animalRequestDTO));
     }
 

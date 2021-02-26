@@ -43,6 +43,6 @@ public class AnimalRequestDTO {
 
     private boolean banned;
 
-    public AnimalRequestDTO(long l, RequestStatus aNew, AnimalType dog, LocalDate now, LocalDate of, RoomType vip, boolean b, String s, String s1, String s2, String s3, String s4, Location moscow) {
-    }
+    private int requestPrice;
+
 }
