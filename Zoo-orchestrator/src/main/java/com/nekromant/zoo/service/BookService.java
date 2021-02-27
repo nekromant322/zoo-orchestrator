@@ -1,67 +1,72 @@
 package com.nekromant.zoo.service;
 
-import com.nekromant.zoo.dao.BookDAO;
-import com.nekromant.zoo.mapper.RoomMapper;
-import com.nekromant.zoo.model.AnimalRequest;
-import com.nekromant.zoo.model.Book;
-import com.nekromant.zoo.model.Room;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nekromant.zoo.domain.BookParams;
+import dto.BookDTO;
 import dto.RoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
+@PropertySource(value = "classpath:config/booking.properties")
 public class BookService {
     @Autowired
-    private BookDAO bookDAO;
+    private KafkaTemplate<String,String> kafkaTemplate;
 
     @Autowired
-    private AnimalRequestService animalRequestService;
+    private ObjectMapper objectMapper;
 
-    @Autowired
-    private RoomMapper roomMapper;
+    @Value(value = "${kafka.orchestratorToBookingTopic}")
+    private String topic;
 
-    public List<Book> findAll() {
-        return bookDAO.findAll();
+    private RestTemplate restTemplate = new RestTemplate();
+
+    @Value("${booking.getAllUrl}")
+    private String getAllUrl;
+
+    @Value("${booking.postSpareUrl}")
+    private String postSpareUrl;
+
+    public List findAll() {
+        return restTemplate.getForObject(getAllUrl, List.class);
     }
 
-    /**
-     * Booking room with {@link AnimalRequest} id and {@link Room}
-     * {@link AnimalRequest} request status must be {@link enums.RequestStatus} APPLIED
-     * @param id - {@link AnimalRequest}
-     * @param roomDTO - {@link RoomDTO} room to book
-     * @return new {@link Book} or null
-     */
-    @Transactional
-    public Book bookAnimalRequest(String id, RoomDTO roomDTO) {
-        Optional<AnimalRequest> animalRequest = animalRequestService.findById(id);
-        return animalRequest.map(request -> bookRoom(roomMapper.dtoToEntity(roomDTO), request)).orElse(null);
-    }
-
-    private Book bookRoom(Room room, AnimalRequest animalRequest) {
-        Book book = new Book(
-                0L,
-                animalRequest.getId(),
-                room.getId(),
-                animalRequest.getBeginDate(),
-                animalRequest.getEndDate()
+    public void bookAnimalRequest(String animalRequestId, RoomDTO roomDTO) {
+        BookParams bookParams = new BookParams(
+                Long.parseLong(animalRequestId),
+                roomDTO.getId(),
+                roomDTO.getAnimalType(),
+                roomDTO.getRoomType(),
+                roomDTO.getVideoSupported(),
+                roomDTO.getBegin().toString(),
+                roomDTO.getEnd().toString()
         );
-        bookDAO.save(book);
-
-        animalRequestService.setInProgressAnimalRequest(animalRequest.getId().toString());
-
-        return book;
+        try {
+            kafkaTemplate.send(topic, objectMapper.writeValueAsString(bookParams));
+        } catch (JsonProcessingException e){
+            System.out.println(e);
+        }
     }
 
-    public List<Book> findByRoomIdAndDate(String id, LocalDate begin, LocalDate end){
-        return bookDAO.findBookByRoomIdAndDate(
-                Long.parseLong(id),
-                begin,
-                end
-        );
+    public List<BookDTO> findByRoomIdAndDate(String id, LocalDate begin, LocalDate end){
+        return restTemplate.postForObject(
+                postSpareUrl,
+                new BookDTO(
+                        0L,
+                        0L,
+                        Long.parseLong(id),
+                        begin,
+                        end
+                ),
+                List.class);
     }
 }

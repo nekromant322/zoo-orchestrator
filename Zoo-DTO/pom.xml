@@ -11,7 +11,7 @@
     <parent>
         <groupId>com.nekromant</groupId>
         <artifactId>Zoo</artifactId>
-        <version>${revision}</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>

@@ -1,8 +1,8 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.dao.RoomDAO;
-import com.nekromant.zoo.model.Book;
 import com.nekromant.zoo.model.Room;
+import dto.BookDTO;
 import dto.RoomDTO;
 import enums.AnimalType;
 import enums.RoomType;
@@ -77,25 +77,25 @@ public class RoomServiceTest {
                 LocalDate.of(2002, 4, 21))).thenReturn(
                 Arrays.asList(
                         //left
-                        new Book(bookId,
+                        new BookDTO(bookId,
                                 animalRequestId,
                                 roomId,
                                 LocalDate.of(2020, 4, 10),
                                 LocalDate.of(2020, 4, 20)),
                         //right
-                        new Book(bookId,
+                        new BookDTO(bookId,
                                 animalRequestId,
                                 roomId,
                                 LocalDate.of(2020, 4, 20),
                                 LocalDate.of(2020, 4, 25)),
                         //inside
-                        new Book(bookId,
+                        new BookDTO(bookId,
                                 animalRequestId,
                                 roomId,
                                 LocalDate.of(2020, 4, 15),
                                 LocalDate.of(2020, 4, 17)),
                         //outside
-                        new Book(bookId,
+                        new BookDTO(bookId,
                                 animalRequestId,
                                 roomId,
                                 LocalDate.of(2020, 4, 1),
