@@ -47,7 +47,6 @@ function sendRequest() {
     animalRequest.name = $("#name-input").val();
     animalRequest.surname = $("#surname-input").val();
     animalRequest.requestStatus = "NEW";
-    animalRequest.videoNeeded = $("#video-input").val() === "on";
     animalRequest.location = $("#location-input").val();
 
     $.ajax({

@@ -42,7 +42,7 @@ public class PriceService {
         animalTypePrice.put(DOG, price.getDogPrice());
         animalTypePrice.put(REPTILE, price.getReptilePrice());
         animalTypePrice.put(RAT, price.getRatPrice());
-        animalTypePrice.put(BIRD,price.getBirdPrice());
+        animalTypePrice.put(BIRD, price.getBirdPrice());
         animalTypePrice.put(OTHER, price.getOtherPrice());
         return animalTypePrice;
     }
@@ -66,7 +66,7 @@ public class PriceService {
     }
 
 
-    private int getRoomTypePrice(AnimalRequestDTO animalRequestDTO,Price price) {
+    private int getRoomTypePrice(AnimalRequestDTO animalRequestDTO, Price price) {
         LocalDate begin = animalRequestDTO.getBeginDate();
         LocalDate end = animalRequestDTO.getEndDate();
         int difference = daysBetween(begin, end);
@@ -77,8 +77,9 @@ public class PriceService {
 
     /**
      * Просчитать стоимость заявки, учитывая вид животного и тип комнаты
+     * <p>
+     * //     * @param animalRequestDTO заявка
      *
-//     * @param animalRequestDTO заявка
      * @return Полная стоимость заявки
      */
     public int calculateTotalPrice(AnimalRequestDTO animalRequestDTO) {
@@ -86,9 +87,9 @@ public class PriceService {
         LocalDate begin = animalRequestDTO.getBeginDate();
         LocalDate end = animalRequestDTO.getEndDate();
         int difference = daysBetween(begin, end);
-        int sum = getAnimalTypePrice(animalRequestDTO,actualPrice) + getRoomTypePrice(animalRequestDTO,actualPrice);
+        int sum = getAnimalTypePrice(animalRequestDTO, actualPrice) + getRoomTypePrice(animalRequestDTO, actualPrice);
         if (animalRequestDTO.getVideoNeeded()) {
-            sum += difference *getActualPrice().getVideoPrice();
+            sum += difference * getActualPrice().getVideoPrice();
         }
         return sum;
     }

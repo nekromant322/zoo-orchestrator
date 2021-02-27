@@ -25,7 +25,7 @@ public class AnimalRequestMapper {
         );
     }
 
-    public AnimalRequest dtoToEntity(AnimalRequestDTO animalRequestDTO){
+    public AnimalRequest dtoToEntity(AnimalRequestDTO animalRequestDTO, int requestPrice){
         return new AnimalRequest(
                 animalRequestDTO.getId(),
                 animalRequestDTO.getRequestStatus(),
@@ -39,7 +39,9 @@ public class AnimalRequestMapper {
                 animalRequestDTO.getName(),
                 animalRequestDTO.getSurname(),
                 animalRequestDTO.getAnimalName(),
+                requestPrice,
                 animalRequestDTO.getLocation()
+
         );
     }
 }
