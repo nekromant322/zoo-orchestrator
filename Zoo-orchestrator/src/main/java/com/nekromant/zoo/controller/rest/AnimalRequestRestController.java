@@ -16,12 +16,8 @@ public class AnimalRequestRestController {
     @Autowired
     private AnimalRequestService animalRequestService;
 
-    @Autowired
-    private PriceService priceService;
-
     @PostMapping
     public void newRequest(@RequestBody AnimalRequestDTO animalRequestDTO) {
-        animalRequestDTO.setRequestPrice(priceService.calculateTotalPrice(animalRequestDTO));
         animalRequestService.insert(animalRequestDTO);
     }
 }

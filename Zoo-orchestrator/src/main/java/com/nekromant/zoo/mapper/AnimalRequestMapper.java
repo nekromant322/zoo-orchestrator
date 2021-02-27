@@ -21,12 +21,11 @@ public class AnimalRequestMapper {
                 animalRequest.getSurname(),
                 animalRequest.getAnimalName(),
                 animalRequest.getLocation(),
-                false,
-                animalRequest.getRequestPrice()
+                false
         );
     }
 
-    public AnimalRequest dtoToEntity(AnimalRequestDTO animalRequestDTO){
+    public AnimalRequest dtoToEntity(AnimalRequestDTO animalRequestDTO, int requestPrice){
         return new AnimalRequest(
                 animalRequestDTO.getId(),
                 animalRequestDTO.getRequestStatus(),
@@ -40,7 +39,7 @@ public class AnimalRequestMapper {
                 animalRequestDTO.getName(),
                 animalRequestDTO.getSurname(),
                 animalRequestDTO.getAnimalName(),
-                animalRequestDTO.getRequestPrice(),
+                requestPrice,
                 animalRequestDTO.getLocation()
 
         );

@@ -26,11 +26,13 @@ public class AnimalRequestService {
     private BlackListService blackListService;
 
     @Autowired
+    private PriceService priceService;
+
+    @Autowired
     private AnimalRequestMapper animalRequestMapper;
 
     public void insert(AnimalRequestDTO animalRequestDTO) {
-
-        animalRequestDAO.save(animalRequestMapper.dtoToEntity(animalRequestDTO));
+        animalRequestDAO.save(animalRequestMapper.dtoToEntity(animalRequestDTO, priceService.calculateTotalPrice(animalRequestDTO)));
     }
 
     public HashMap<Month, Integer> getNumbersOfDoneRequestForYear(int year) {
@@ -46,7 +48,7 @@ public class AnimalRequestService {
         return new HashMap<>();
     }
 
-    public Iterable<AnimalRequestDTO> getAllNewAnimalRequest(){
+    public Iterable<AnimalRequestDTO> getAllNewAnimalRequest() {
         List<BlackList> blackList = blackListService.getAll();
         List<AnimalRequest> animalRequestList = animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
         List<AnimalRequestDTO> dtoList = new ArrayList<>();
@@ -54,10 +56,10 @@ public class AnimalRequestService {
                 .map(animalRequestMapper::entityToDto)
                 .filter(
                         animalRequestDTO -> blackList.stream()
-                        .noneMatch(
-                                bl -> bl.getEmail().compareTo(animalRequestDTO.getEmail()) == 0 ||
-                                bl.getPhoneNumber().compareTo(animalRequestDTO.getPhoneNumber()) == 0
-                        )
+                                .noneMatch(
+                                        bl -> bl.getEmail().compareTo(animalRequestDTO.getEmail()) == 0 ||
+                                                bl.getPhoneNumber().compareTo(animalRequestDTO.getPhoneNumber()) == 0
+                                )
                 )
                 .collect(Collectors.toList());
     }
@@ -70,17 +72,17 @@ public class AnimalRequestService {
         return changeStatusAnimalRequest(id, RequestStatus.DENIED);
     }
 
-    public AnimalRequest setInProgressAnimalRequest(String id){
-        return changeStatusAnimalRequest(id,RequestStatus.IN_PROGRESS);
+    public AnimalRequest setInProgressAnimalRequest(String id) {
+        return changeStatusAnimalRequest(id, RequestStatus.IN_PROGRESS);
     }
 
-    public AnimalRequest setDoneAnimalRequest(String id){
-        return changeStatusAnimalRequest(id,RequestStatus.DONE);
+    public AnimalRequest setDoneAnimalRequest(String id) {
+        return changeStatusAnimalRequest(id, RequestStatus.DONE);
     }
 
     private AnimalRequest changeStatusAnimalRequest(String id, RequestStatus requestStatus) {
         Optional<AnimalRequest> animalRequest = animalRequestDAO.findById(Long.parseLong(id));
-        if(animalRequest.isPresent()){
+        if (animalRequest.isPresent()) {
             AnimalRequest request = animalRequest.get();
             request.setRequestStatus(requestStatus);
             animalRequestDAO.save(request);
@@ -88,7 +90,7 @@ public class AnimalRequestService {
         return animalRequest.orElse(null);
     }
 
-    public Optional<AnimalRequest> findById(String id){
+    public Optional<AnimalRequest> findById(String id) {
         return animalRequestDAO.findById(Long.parseLong(id));
     }
 }

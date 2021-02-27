@@ -43,6 +43,5 @@ public class AnimalRequestDTO {
 
     private boolean banned;
 
-    private int requestPrice;
 
 }
