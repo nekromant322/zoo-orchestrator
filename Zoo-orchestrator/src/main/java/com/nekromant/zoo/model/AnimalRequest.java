@@ -54,6 +54,12 @@ public class AnimalRequest {
     @Column
     private String animalName;
 
+    @Column
+    private int requestPrice;
+
     @Enumerated(EnumType.STRING)
     private Location location;
+
+    public AnimalRequest(long l, RequestStatus applied, AnimalType dog, LocalDate of, LocalDate of1, RoomType vip, boolean b, String phoneNumber, String bothify, String name, String name1, String name2, Location moscow) {
+    }
 }

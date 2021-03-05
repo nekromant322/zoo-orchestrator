@@ -1,6 +1,7 @@
 package com.nekromant.zoo.controller.rest;
 
 import com.nekromant.zoo.service.AnimalRequestService;
+import com.nekromant.zoo.service.PriceService;
 import dto.AnimalRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
