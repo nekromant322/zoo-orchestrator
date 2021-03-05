@@ -61,7 +61,7 @@ public class PriceServiceTest {
         AnimalRequestDTO animalRequestSecond = new AnimalRequestDTO(
                 228L,
                 RequestStatus.NEW,
-                AnimalType.RAT,
+                AnimalType.RODENT,
                 LocalDate.of(2021,11,11),
                 LocalDate.of(2021,11,14),
                 RoomType.COMMON,
