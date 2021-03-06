@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Zoo-DTO</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.4</version>
     <packaging>jar</packaging>
 
     <parent>
