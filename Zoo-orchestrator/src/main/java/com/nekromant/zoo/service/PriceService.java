@@ -41,7 +41,7 @@ public class PriceService {
         animalTypePrice.put(CAT, price.getCatPrice());
         animalTypePrice.put(DOG, price.getDogPrice());
         animalTypePrice.put(REPTILE, price.getReptilePrice());
-        animalTypePrice.put(RAT, price.getRatPrice());
+        animalTypePrice.put(RODENT, price.getRatPrice());
         animalTypePrice.put(BIRD, price.getBirdPrice());
         animalTypePrice.put(OTHER, price.getOtherPrice());
         return animalTypePrice;

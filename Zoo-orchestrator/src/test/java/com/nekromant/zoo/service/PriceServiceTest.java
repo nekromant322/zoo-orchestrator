@@ -5,6 +5,7 @@ import com.nekromant.zoo.dao.PriceDAO;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Price;
 import dto.AnimalRequestDTO;
+
 import enums.AnimalType;
 import enums.Location;
 import enums.RequestStatus;
@@ -61,7 +62,7 @@ public class PriceServiceTest {
         AnimalRequestDTO animalRequestSecond = new AnimalRequestDTO(
                 228L,
                 RequestStatus.NEW,
-                AnimalType.RAT,
+                AnimalType.RODENT,
                 LocalDate.of(2021,11,11),
                 LocalDate.of(2021,11,14),
                 RoomType.COMMON,
