@@ -7,7 +7,11 @@ public enum AnimalType {
     RODENT("rodent","грызун"),
     BIRD("bird","птица"),
     OTHER("other","другое");
+    public String russianName;
+    public String name;
 
     AnimalType(String name,String russianName) {
+        this.russianName = russianName;
+        this.name = name;
     }
 }
