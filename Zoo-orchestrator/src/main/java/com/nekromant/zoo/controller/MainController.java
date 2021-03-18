@@ -48,10 +48,4 @@ public class MainController {
 
         return new ModelAndView("control/controlPage");
     }
-
-    @GetMapping("controlFaq")
-    public ModelAndView controlFaq() {
-
-        return new ModelAndView("control/controlFaq");
-    }
 }
