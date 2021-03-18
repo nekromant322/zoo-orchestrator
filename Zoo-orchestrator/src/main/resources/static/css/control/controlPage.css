@@ -1,0 +1,21 @@
+body {
+    background: #3b444b;
+    letter-spacing: 0.3px;
+}
+
+.modal-button {
+    width: 160px;
+    margin: 4px 4px 0px 0px;
+}
+
+.buttons-in-modal {
+    margin: 1px 1px 1px 1px;
+}
+
+.search-place {
+    background-color: #3b444b;
+}
+
+.text-in-modal {
+    color: black;
+}

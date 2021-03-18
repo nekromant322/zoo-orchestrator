@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="/css/control/controlPage.css" rel="stylesheet">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background: #8d06cc">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img src="/img/control/logo/unicorn.png" alt="logo" width="35" height="35"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/mainPage">Назад к Zoo</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Опции
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Действие</a></li>
+                        <li><a class="dropdown-item" href="#">Еще какое-нибудь действие</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/controlFaq">Информация</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Сервис</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2 search-place" type="search" placeholder="Искомое слово"
+                       aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Искать</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" height="10px"
+                 data-bs-interval="10000" data-bs-pause="hover" data-bs-touch="true">
+                <ol class="carousel-indicators">
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <!--Первый питомец-->
+                        <img src="/img/control/photos/mountains-lake.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h4>Допустим это клетка первого питомца(видеонаблюдение)</h4>
+                            <p>Тут будут различные функции, на подобии: покормить, открыть дверь клетки и т.д.</p>
+
+
+                            <div class="btn-group dropstart">
+                                <button type="button" class="btn btn-outline-light dropdown-toggle"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Жизнеобеспечение
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" type="button">Покормить</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button">Напоить</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button">Вызов персонала</button>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <input type="radio" class="btn-check" name="options-outlined" id="success-outlined"
+                                   autocomplete="off" checked>
+                            <label class="btn btn-outline-success" for="success-outlined">Открыть</label>
+                            <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined"
+                                   autocomplete="off">
+                            <label class="btn btn-outline-danger" for="danger-outlined">Закрыть</label>
+                            <button type="button" class="btn btn-outline-light first-pet-button">
+                                Доп.параметры
+                            </button>
+                            <div class="modal fade" id="first-pet-modal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-in-modal">Доп.параметры</h5>
+                                            <button type="button" class="btn-close close-modal-button"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary close-modal-button">Закрыть
+                                            </button>
+                                            <button type="button" class="btn btn-primary">Применить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <!--Второй питомец-->
+                        <img src="/img/control/photos/mountains-vulkan.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h4>Допустим это клетка второго питомца(видеонаблюдение)</h4>
+                            <p>Тут будут различные функции, на подобии: покормить, открыть дверь клетки и т.д.</p>
+                            <div class="btn-group dropstart">
+                                <button type="button" class="btn btn-outline-light dropdown-toggle"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Жизнеобеспечение
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" type="button">Покормить</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button">Напоить</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button">Вызов персонала</button>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <input type="radio" class="btn-check" name="options-outlined" id="success-outlined-1"
+                                   autocomplete="off" checked>
+                            <label class="btn btn-outline-success" for="success-outlined-1">Открыть</label>
+                            <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined-1"
+                                   autocomplete="off">
+                            <label class="btn btn-outline-danger" for="danger-outlined-1">Закрыть</label>
+                            <button type="button" class="btn btn-outline-light second-pet-button">
+                                Доп.параметры
+                            </button>
+                            <div class="modal fade" id="second-pet-modal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-in-modal">Доп.параметры</h5>
+                                            <button type="button" class="btn-close close-modal-button"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary close-modal-button">Закрыть
+                                            </button>
+                                            <button type="button" class="btn btn-primary">Применить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <!--Третий питомец-->
+                        <img src="/img/control/photos/mountains.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h4>Допустим это клетка третьего питомца(видеонаблюдение)</h4>
+                            <p>Тут будут различные функции, на подобии: покормить, открыть дверь клетки и т.д.</p>
+                            <div class="btn-group dropstart">
+                                <button type="button" class="btn btn-outline-light dropdown-toggle"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Жизнеобеспечение
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" type="button">Покормить</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button">Напоить</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button">Вызов персонала</button>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <input type="radio" class="btn-check" name="options-outlined" id="success-outlined-2"
+                                   autocomplete="off" checked>
+                            <label class="btn btn-outline-success" for="success-outlined-2">Открыть</label>
+                            <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined-2"
+                                   autocomplete="off">
+                            <label class="btn btn-outline-danger" for="danger-outlined-1">Закрыть</label>
+                            <button type="button" class="btn btn-outline-light third-pet-button">
+                                Доп.параметры
+                            </button>
+                            <div class="modal fade" id="third-pet-modal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-in-modal">Доп.параметр</h5>
+                                            <button type="button" class="btn-close close-modal-button"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary close-modal-button">Закрыть
+                                            </button>
+                                            <button type="button" class="btn btn-primary">Применить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="/js/control/controlPage.js"></script>
+</body>
+</html>
