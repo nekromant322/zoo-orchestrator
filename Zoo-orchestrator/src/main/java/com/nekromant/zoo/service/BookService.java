@@ -3,6 +3,8 @@ package com.nekromant.zoo.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nekromant.zoo.domain.BookParams;
+import com.nekromant.zoo.exception.BookingException;
+import com.nekromant.zoo.mapper.BookMapper;
 import dto.BookDTO;
 import dto.RoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +22,19 @@ import java.util.List;
 @PropertySource(value = "classpath:config/booking.properties")
 public class BookService {
     @Autowired
-    private KafkaTemplate<String,String> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private BookMapper bookMapper;
+
     @Value(value = "${kafka.orchestratorToBookingTopic}")
     private String topic;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Value("${booking.getAllUrl}")
     private String getAllUrl;
@@ -36,28 +42,20 @@ public class BookService {
     @Value("${booking.postSpareUrl}")
     private String postSpareUrl;
 
-    public List findAll() {
+    public List<BookDTO> findAll() {
         return restTemplate.getForObject(getAllUrl, List.class);
     }
 
     public void bookAnimalRequest(String animalRequestId, RoomDTO roomDTO) {
-        BookParams bookParams = new BookParams(
-                Long.parseLong(animalRequestId),
-                roomDTO.getId(),
-                roomDTO.getAnimalType(),
-                roomDTO.getRoomType(),
-                roomDTO.getVideoSupported(),
-                roomDTO.getBegin().toString(),
-                roomDTO.getEnd().toString()
-        );
+        BookParams bookParams = bookMapper.bookParamsFromDto(animalRequestId, roomDTO);
         try {
             kafkaTemplate.send(topic, objectMapper.writeValueAsString(bookParams));
-        } catch (JsonProcessingException e){
-            System.out.println(e);
+        } catch (JsonProcessingException e) {
+            throw new BookingException();
         }
     }
 
-    public List<BookDTO> findByRoomIdAndDate(String id, LocalDate begin, LocalDate end){
+    public List<BookDTO> findByRoomIdAndDate(String id, LocalDate begin, LocalDate end) {
         return restTemplate.postForObject(
                 postSpareUrl,
                 new BookDTO(
