@@ -25,8 +25,8 @@ public class MailSender {
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(env.getProperty("host"));
-        mailSender.setPort(Integer.parseInt(env.getProperty("port")));
+        mailSender.setHost(env.getProperty("mail.host"));
+        mailSender.setPort(Integer.parseInt(env.getProperty("mail.port")));
 
         mailSender.setUsername(emailLogin);
         mailSender.setPassword(emailPassword);

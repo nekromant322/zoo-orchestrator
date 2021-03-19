@@ -13,7 +13,7 @@
 
     <groupId>com.nekromant</groupId>
     <artifactId>Zoo</artifactId>
-    <version>${revision}</version>
+    <version>0.0.5</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -22,7 +22,6 @@
     </modules>
 
     <properties>
-        <revision>1.0-SNAPSHOT</revision>
         <java.version>1.8</java.version>
         <spring-boot-starter-mail.version>2.1.7.RELEASE</spring-boot-starter-mail.version>
         <vaadin.version>0.0.20131108.vaadin1</vaadin.version>

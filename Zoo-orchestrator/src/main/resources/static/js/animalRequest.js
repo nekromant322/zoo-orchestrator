@@ -47,7 +47,6 @@ function sendRequest() {
     animalRequest.name = $("#name-input").val();
     animalRequest.surname = $("#surname-input").val();
     animalRequest.requestStatus = "NEW";
-    animalRequest.videoNeeded = $("#video-input").val() === "on";
     animalRequest.location = $("#location-input").val();
 
     $.ajax({
@@ -96,7 +95,7 @@ function getPrice() {
     }
 
     $.ajax({
-        url: '/api/pricePage/calc',
+        url: '/api/pricePage/calculate',
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',
@@ -110,6 +109,3 @@ function getPrice() {
     })
 }
 
-function videoNeeded() {
-
-}

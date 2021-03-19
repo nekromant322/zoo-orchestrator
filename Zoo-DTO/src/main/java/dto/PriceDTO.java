@@ -34,4 +34,8 @@ public class PriceDTO {
     private Integer videoPrice;
 
     private LocalDateTime lastUpdated;
+
+    private double discountAdvanced;
+
+    private double discountVip;
 }
