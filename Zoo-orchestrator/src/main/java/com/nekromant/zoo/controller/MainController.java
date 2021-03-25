@@ -42,4 +42,10 @@ public class MainController {
 
         return new ModelAndView("admin/pricePage");
     }
+
+    @GetMapping("controlPage")
+    public ModelAndView controlPage() {
+
+        return new ModelAndView("control/controlPage");
+    }
 }
