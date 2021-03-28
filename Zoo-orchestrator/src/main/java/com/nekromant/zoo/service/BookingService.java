@@ -9,7 +9,6 @@ import dto.BookDTO;
 import dto.RoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,8 +18,13 @@ import java.util.List;
 
 
 @Service
-@PropertySource(value = "classpath:config/booking.properties")
-public class BookService {
+public class BookingService {
+    @Value("${booking.url}")
+    private String bookingUrl;
+
+    private static final String GET_ALL_URL = "/api/book/allBooks";
+    private static final String POST_SPARE_ROOMS = "/api/book/findByRoomAndDate";
+
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
@@ -36,14 +40,8 @@ public class BookService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("${booking.getAllUrl}")
-    private String getAllUrl;
-
-    @Value("${booking.postSpareUrl}")
-    private String postSpareUrl;
-
     public List<BookDTO> findAll() {
-        return restTemplate.getForObject(getAllUrl, List.class);
+        return restTemplate.getForObject(bookingUrl + GET_ALL_URL, List.class);
     }
 
     public void bookAnimalRequest(String animalRequestId, RoomDTO roomDTO) {
@@ -57,7 +55,7 @@ public class BookService {
 
     public List<BookDTO> findByRoomIdAndDate(String id, LocalDate begin, LocalDate end) {
         return restTemplate.postForObject(
-                postSpareUrl,
+                bookingUrl + POST_SPARE_ROOMS,
                 new BookDTO(
                         0L,
                         0L,

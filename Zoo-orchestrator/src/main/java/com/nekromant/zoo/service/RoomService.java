@@ -1,7 +1,6 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.dao.RoomDAO;
-import com.nekromant.zoo.domain.BookParams;
 import com.nekromant.zoo.model.Room;
 import dto.BookDTO;
 import dto.RoomDTO;
@@ -19,7 +18,7 @@ public class RoomService {
     private RoomDAO roomDAO;
 
     @Autowired
-    private BookService bookService;
+    private BookingService bookService;
 
     public Room insert(Room room){
         return roomDAO.save(room);

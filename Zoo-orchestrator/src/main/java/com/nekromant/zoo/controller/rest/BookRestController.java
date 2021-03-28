@@ -1,6 +1,7 @@
 package com.nekromant.zoo.controller.rest;
 
-import com.nekromant.zoo.service.BookService;
+import com.nekromant.zoo.service.BookingService;
+import dto.BookDTO;
 import dto.RoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,10 @@ import java.util.List;
 @RequestMapping("/api/booksPage")
 public class BookRestController {
     @Autowired
-    private BookService bookService;
+    private BookingService bookService;
 
     @GetMapping
-    public List getBooks(){
+    public List<BookDTO> getBooks(){
         return bookService.findAll();
     }
 

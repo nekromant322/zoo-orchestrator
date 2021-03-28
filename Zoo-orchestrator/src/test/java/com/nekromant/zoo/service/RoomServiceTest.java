@@ -29,7 +29,7 @@ public class RoomServiceTest {
     RoomDAO roomDAO;
 
     @Mock
-    BookService bookService;
+    BookingService bookService;
 
     @Test
     public void findByAnimalRequest() {
