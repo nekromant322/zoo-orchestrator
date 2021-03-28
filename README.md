@@ -21,7 +21,8 @@
   2. Билд команда для докер: <code>docker build -t <imageName> . </code>
   3. Для этого проекта нужны переменные среды, для докера можно использовать обычный txt файл, запись вида Var=Val, можно найти в Trello
   4. Команда запуска: <code> docker run -p 127.0.0.1:8080:8080 —env-file <envfile.txt> <imageName> env </code>
-
+  5. Теперь для запуска необходим второй образ с букинг сервисом
+  6. Запуск с помощью <code> docker-compose -f stack.yml up </code>
 ### Layering  
 ![alt text](https://i.imgur.com/h6IBLvF.png)
 
