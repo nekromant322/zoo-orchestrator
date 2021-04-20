@@ -36,21 +36,8 @@ public class AnimalRequestService {
     private BlackListDAO blackListDAO;
 
     public void insert(AnimalRequestDTO animalRequestDTO) {
-        boolean flag = true;
 
-        if (blackListDAO.existsByEmailIgnoreCase(animalRequestDTO.getEmail())){
-            animalRequestDTO.setSpamRequest(true);
-            flag = false;
-        }
-
-        if (flag && blackListDAO.existsByPhoneNumber(animalRequestDTO.getPhoneNumber())){
-            animalRequestDTO.setSpamRequest(true);
-            flag = false;
-        }
-
-        if(flag){
-            animalRequestDTO.setSpamRequest(false);
-        }
+        animalRequestDTO.setSpamRequest(blackListDAO.existsByPhoneNumberOrEmailIgnoreCase(animalRequestDTO.getPhoneNumber(), animalRequestDTO.getEmail()));
 
         animalRequestDAO.save(animalRequestMapper.dtoToEntity(animalRequestDTO, priceService.calculateTotalPrice(animalRequestDTO)));
     }
@@ -85,10 +72,8 @@ public class AnimalRequestService {
     }
 
     public Iterable<AnimalRequestDTO> getAllBlockedNewAnimalRequest() {
-        List<AnimalRequest> animalRequestList = animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
-        return animalRequestList.stream()
+        return animalRequestDAO.findAllBySpamRequest(true).stream()
                 .map(animalRequestMapper::entityToDto)
-                .filter(AnimalRequestDTO::getSpamRequest)
                 .collect(Collectors.toList());
     }
 

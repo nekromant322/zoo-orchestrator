@@ -41,7 +41,5 @@ public class AnimalRequestDTO {
 
     private Location location;
 
-    private boolean banned;
-
     private Boolean spamRequest;
 }

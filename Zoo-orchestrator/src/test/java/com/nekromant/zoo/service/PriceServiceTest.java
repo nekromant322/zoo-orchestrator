@@ -45,7 +45,6 @@ public class PriceServiceTest {
                 "",
                 "",
                 Location.MOSCOW,
-                false,
                 false
         );
 
@@ -74,7 +73,7 @@ public class PriceServiceTest {
                 "",
                 "",
                 "",
-                Location.MOSCOW,false,
+                Location.MOSCOW,
                 false
         );
         Mockito.when(priceDAO.findTopByOrderByLastUpdatedDesc()).thenReturn(new Price(1L,100,200,300,500,200,100,50,100,1000,100, LocalDateTime.of(2020,06,21,0,0),1,1));

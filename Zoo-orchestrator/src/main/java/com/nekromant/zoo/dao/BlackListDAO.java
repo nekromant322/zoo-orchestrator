@@ -9,7 +9,5 @@ public interface BlackListDAO extends CrudRepository<BlackList, Long> {
     @Override
     List<BlackList> findAll();
 
-    boolean existsByEmailIgnoreCase(String email);
-
-    boolean existsByPhoneNumber(String phoneNumber);
+    boolean existsByPhoneNumberOrEmailIgnoreCase(String phoneNumber, String email);
 }

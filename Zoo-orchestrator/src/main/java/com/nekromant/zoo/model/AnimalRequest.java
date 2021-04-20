@@ -4,10 +4,7 @@ import enums.AnimalType;
 import enums.Location;
 import enums.RequestStatus;
 import enums.RoomType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
@@ -64,7 +61,4 @@ public class AnimalRequest {
 
     @Column
     private Boolean spamRequest;
-
-    public AnimalRequest(long l, RequestStatus applied, AnimalType dog, LocalDate of, LocalDate of1, RoomType vip, boolean b, String phoneNumber, String bothify, String name, String name1, String name2, Location moscow, boolean c) {
-    }
 }

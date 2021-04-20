@@ -21,7 +21,6 @@ public class AnimalRequestMapper {
                 animalRequest.getSurname(),
                 animalRequest.getAnimalName(),
                 animalRequest.getLocation(),
-                false,
                 animalRequest.getSpamRequest()
         );
     }

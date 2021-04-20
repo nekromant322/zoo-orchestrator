@@ -64,6 +64,7 @@ public class BookServiceTest {
                             "",
                             "",
                             "",
+                            0,
                             Location.MOSCOW,
                             false
                     )

@@ -45,7 +45,6 @@
         <th role="columnheader"> Surname</th>
         <th role="columnheader"> Animal name</th>
         <th role="columnheader"> Location</th>
-        <th role="columnheader"> Banned</th>
     </tr>
     </thead>
     <tbody role="rowgroup">
@@ -62,7 +61,6 @@
         <td role="cell"><span th:text="${animalRequest.surname}"> surname </span></td>
         <td role="cell"><span th:text="${animalRequest.animalName}"> animal type </span></td>
         <td role="cell"><span th:text="${animalRequest.location}"> location </span></td>
-        <td role="cell"><span th:text="${animalRequest.banned}"> banned </span></td>
         <td>
             <form method="POST" th:action="@{/AnimalRequestPage/onlyNew/accept/{id}(id=${animalRequest.id})}">
                 <button type="submit" name="submit" value="value" class="buttonAccept">Accept</button>
