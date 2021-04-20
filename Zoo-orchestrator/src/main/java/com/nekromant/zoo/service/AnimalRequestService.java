@@ -1,6 +1,7 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.dao.AnimalRequestDAO;
+import com.nekromant.zoo.dao.BlackListDAO;
 import com.nekromant.zoo.mapper.AnimalRequestMapper;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.BlackList;
@@ -31,7 +32,26 @@ public class AnimalRequestService {
     @Autowired
     private AnimalRequestMapper animalRequestMapper;
 
+    @Autowired
+    private BlackListDAO blackListDAO;
+
     public void insert(AnimalRequestDTO animalRequestDTO) {
+        boolean flag = true;
+
+        if (blackListDAO.existsByEmailIgnoreCase(animalRequestDTO.getEmail())){
+            animalRequestDTO.setSpamRequest(true);
+            flag = false;
+        }
+
+        if (flag && blackListDAO.existsByPhoneNumber(animalRequestDTO.getPhoneNumber())){
+            animalRequestDTO.setSpamRequest(true);
+            flag = false;
+        }
+
+        if(flag){
+            animalRequestDTO.setSpamRequest(false);
+        }
+
         animalRequestDAO.save(animalRequestMapper.dtoToEntity(animalRequestDTO, priceService.calculateTotalPrice(animalRequestDTO)));
     }
 
@@ -64,6 +84,14 @@ public class AnimalRequestService {
                 .collect(Collectors.toList());
     }
 
+    public Iterable<AnimalRequestDTO> getAllBlockedNewAnimalRequest() {
+        List<AnimalRequest> animalRequestList = animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
+        return animalRequestList.stream()
+                .map(animalRequestMapper::entityToDto)
+                .filter(AnimalRequestDTO::getSpamRequest)
+                .collect(Collectors.toList());
+    }
+
     public AnimalRequest acceptAnimalRequest(String id) {
         return changeStatusAnimalRequest(id, RequestStatus.APPLIED);
     }
@@ -92,5 +120,9 @@ public class AnimalRequestService {
 
     public Optional<AnimalRequest> findById(String id) {
         return animalRequestDAO.findById(Long.parseLong(id));
+    }
+
+    public Optional<AnimalRequest> findByName(String name) {
+        return animalRequestDAO.findByName(name);
     }
 }

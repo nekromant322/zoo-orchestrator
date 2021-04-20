@@ -64,7 +64,8 @@ public class BookServiceTest {
                             "",
                             "",
                             "",
-                            Location.MOSCOW
+                            Location.MOSCOW,
+                            false
                     )
         ));
         RoomDTO roomDTO = fillDefaultRoomDTO();

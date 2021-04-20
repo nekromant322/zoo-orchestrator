@@ -249,6 +249,20 @@ input[type=text]::placeholder {
     border-radius: 5px 5px 5px 5px;
 }
 
+.inputDateAlert {
+    background-color: #ca4747;
+    border: none;
+    color: #0d0d0d;
+    padding: 10px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0px 30% 1px;
+    width: auto;
+    border-radius: 5px 5px 5px 5px;
+}
+
 #video-input.personalDataInput {
     background-color: #a682c4;
     border: none;

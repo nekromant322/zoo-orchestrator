@@ -125,8 +125,8 @@ public class InitData {
                 faker.funnyName().name(),
                 faker.funnyName().name(),
                 faker.name().name(),
-                Location.MOSCOW
-                );
+                Location.MOSCOW,
+                false);
         animalRequestDAO.save(animalRequestBookServiceCheck);
     }
 
