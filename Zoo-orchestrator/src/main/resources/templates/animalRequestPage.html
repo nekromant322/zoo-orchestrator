@@ -10,6 +10,10 @@
 <body>
 
 <header th:replace="fragments/common.html :: header"></header>
+
+<div id="back-choose">
+</div>
+
 <div class="container fadeIn first" id="animal-choose">
     <div class="box" onclick="chooseAnimalType('DOG')">
         <div class="content">
@@ -72,17 +76,15 @@
 
 <div id="dates-choose">
     <p class="inputDate">Дата начала</p>
-    <input class="personalDataInput" type="date" id="begin-date-input" onchange="minEndDate()">
+    <input class="personalDataInput" type="date" id="begin-date-input" th:required="required" onchange="minEndDate()">
     <p class="inputDate">Дата окончания</p>
-    <input class="personalDataInput" type="date" id="end-date-input">
+    <input class="personalDataInput" type="date" id="end-date-input" th:required="required">
     <button class="fadeIn fourth sendRequestBtn" id="next-button" onclick="chooseDates()">Дальше</button>
 </div>
 
 <div class="wrapper fadeInDown" id="personal-data-choose">
     <div id="formContent">
         <form>
-
-
             <p class="inputName">Имя животного</p>
             <input class="personalDataInput" type="text" id="animal-name-input">
 
@@ -103,15 +105,16 @@
             <input class="personalDataInput" type="email" id="email-input">
 
             <p id="video" class="personalDataInput">Включить услугу видеонаблюдения
-                <input type="checkbox" id="video-input" onchange="getPrice()" >
+                <input type="checkbox" id="video-input" onchange="getPrice()">
             </p>
             <p class="inputName">Стоимость</p>
-                <input type="text" class="personalDataInput" id="calculatedPrice"  readonly>
+            <input type="text" class="personalDataInput" id="calculatedPrice" readonly>
         </form>
         <button class="fadeIn fourth sendRequestBtn" onclick="sendRequest()">Отправить заявку</button>
     </div>
+</div>
 
-
+<div class="wrapper fadeInDown" id="result-data-choose">
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="

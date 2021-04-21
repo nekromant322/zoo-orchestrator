@@ -1,6 +1,7 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.dao.AnimalRequestDAO;
+import com.nekromant.zoo.dao.BlackListDAO;
 import com.nekromant.zoo.mapper.AnimalRequestMapper;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.BlackList;
@@ -31,7 +32,13 @@ public class AnimalRequestService {
     @Autowired
     private AnimalRequestMapper animalRequestMapper;
 
+    @Autowired
+    private BlackListDAO blackListDAO;
+
     public void insert(AnimalRequestDTO animalRequestDTO) {
+
+        animalRequestDTO.setSpamRequest(blackListDAO.existsByPhoneNumberOrEmailIgnoreCase(animalRequestDTO.getPhoneNumber(), animalRequestDTO.getEmail()));
+
         animalRequestDAO.save(animalRequestMapper.dtoToEntity(animalRequestDTO, priceService.calculateTotalPrice(animalRequestDTO)));
     }
 
@@ -48,19 +55,15 @@ public class AnimalRequestService {
         return new HashMap<>();
     }
 
-    public Iterable<AnimalRequestDTO> getAllNewAnimalRequest() {
-        List<BlackList> blackList = blackListService.getAll();
-        List<AnimalRequest> animalRequestList = animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
-        List<AnimalRequestDTO> dtoList = new ArrayList<>();
-        return animalRequestList.stream()
+    public List<AnimalRequestDTO> getAllNewAnimalRequest() {
+        return animalRequestDAO.findAllBySpamRequest(false).stream()
                 .map(animalRequestMapper::entityToDto)
-                .filter(
-                        animalRequestDTO -> blackList.stream()
-                                .noneMatch(
-                                        bl -> bl.getEmail().compareTo(animalRequestDTO.getEmail()) == 0 ||
-                                                bl.getPhoneNumber().compareTo(animalRequestDTO.getPhoneNumber()) == 0
-                                )
-                )
+                .collect(Collectors.toList());
+    }
+
+    public List<AnimalRequestDTO> getAllBlockedNewAnimalRequest() {
+        return animalRequestDAO.findAllBySpamRequest(true).stream()
+                .map(animalRequestMapper::entityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -92,5 +95,9 @@ public class AnimalRequestService {
 
     public Optional<AnimalRequest> findById(String id) {
         return animalRequestDAO.findById(Long.parseLong(id));
+    }
+
+    public Optional<AnimalRequest> findByName(String name) {
+        return animalRequestDAO.findByName(name);
     }
 }

@@ -11,5 +11,9 @@ public interface AnimalRequestDAO extends CrudRepository<AnimalRequest, Long> {
 
     List<AnimalRequest> findAllByRequestStatus(RequestStatus requestStatus);
 
+    List<AnimalRequest> findAllBySpamRequest(Boolean spamRequest);
+
     Optional<AnimalRequest> findById(Long id);
+
+    Optional<AnimalRequest> findByName(String name);
 }

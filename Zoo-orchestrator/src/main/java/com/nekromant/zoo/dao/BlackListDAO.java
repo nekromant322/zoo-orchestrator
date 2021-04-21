@@ -8,4 +8,6 @@ import java.util.List;
 public interface BlackListDAO extends CrudRepository<BlackList, Long> {
     @Override
     List<BlackList> findAll();
+
+    boolean existsByPhoneNumberOrEmailIgnoreCase(String phoneNumber, String email);
 }

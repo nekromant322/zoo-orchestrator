@@ -1,18 +1,24 @@
 var animalRequest = {};
-var steps = ["#animal-choose", "#room-choose", "#dates-choose", "#personal-data-choose"];
+var steps = ["#animal-choose", "#room-choose", "#dates-choose", "#personal-data-choose", "#result-data-choose"];
 var currentStep = 0;
+
+$(document).ready(function () {
+    createBtnPrevState(document.getElementById("back-choose"));
+    $("#prev-state").hide();
+});
 
 function chooseAnimalType(animalType) {
     animalRequest.animalType = animalType;
-if (animalRequest.animalType==="CAT"||animalRequest.animalType==="DOG"){
-    $("#animal-choose").animate({
-        opacity: 0.10
-    }, 500, goToNextStep());
-}else{$("#animal-choose").animate({
-    opacity: 0.10
-}, 500, goToNextStep())
-    goToNextStep();}
-
+    if (animalRequest.animalType === "CAT" || animalRequest.animalType === "DOG") {
+        $("#animal-choose").animate({
+            opacity: 0.10
+        }, 500, goToNextStep());
+    } else {
+        $("#animal-choose").animate({
+            opacity: 0.10
+        }, 500, goToNextStep())
+        goToNextStep();
+    }
 }
 
 function chooseRoomType(roomType) {
@@ -23,6 +29,11 @@ function chooseRoomType(roomType) {
 }
 
 function chooseDates() {
+    if (checkAlert("begin-date-input", "begin-date-input-alert"))
+        return;
+    if (checkAlert("end-date-input", "end-date-input-alert"))
+        return;
+
     animalRequest.beginDate = $("#begin-date-input").val();
     animalRequest.endDate = $("#end-date-input").val();
     getPrice()
@@ -37,6 +48,53 @@ function goToNextStep() {
         currentStep++;
         $(steps[currentStep]).css("display", "grid");
     }
+    controlPrevBtn();
+}
+
+function back() {
+    $(steps[currentStep]).css("display", "none");
+    currentStep--;
+    $(steps[currentStep]).css("display", "grid");
+    controlPrevBtn();
+}
+
+function controlPrevBtn(){
+    if (currentStep === 0 || currentStep === steps.length - 1)
+        $("#prev-state").hide();
+    else
+        $("#prev-state").show();
+}
+
+function createBtnPrevState(item) {
+    try {
+        document.getElementById("prev-state").remove();
+    } catch (e) {
+    }
+    let btn = document.createElement("button");
+    btn.innerText = "Назад";
+    btn.className = "fadeIn fourth sendRequestBtn";
+    btn.id = "prev-state"
+    btn.addEventListener("click", back);
+    item.insertAdjacentElement('afterend', btn);
+}
+
+function checkAlert(itemId, alertId) {
+    let item = document.getElementById(itemId);
+    try {
+        document.getElementById(alertId).remove();
+    } catch (e) {
+    }
+    item.classList.remove('invalid');
+    if (item.value === undefined || item.value === "") {
+        let alert = document.createElement("p");
+        alert.innerText = "Пожалуйста заполните поле!";
+        alert.className = "inputDateAlert";
+        alert.role = "alert";
+        alert.id = alertId
+        item.insertAdjacentElement('beforebegin', alert);
+        return true;
+    }
+    return false;
 }
 
 function sendRequest() {
@@ -55,8 +113,16 @@ function sendRequest() {
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(animalRequest),
-        success: function () {
-            alert('Заявка отправлена')
+        success: function (data) {
+            let text = "Заявка №" + data + " успешно создана!";
+            document.getElementById("result-data-choose").insertAdjacentHTML('beforeend',
+                "<p style=\"background-color: #6baf6b; margin-top: 10px; padding: 10px;\"\n" +
+                "               id=\"result-message\">" + text + "</p>");
+            document.getElementById("result-message")
+            $("#personal-data-choose").animate({
+                opacity: 0.10
+            }, 500, goToNextStep());
+
         },
     })
 }
@@ -81,7 +147,7 @@ $(document).ready(function () {
     minBeginDate()
 })
 
-function minEndDate(){
+function minEndDate() {
     $('#end-date-input').attr('min', $('#begin-date-input').val())
 }
 
