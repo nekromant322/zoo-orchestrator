@@ -55,23 +55,13 @@ public class AnimalRequestService {
         return new HashMap<>();
     }
 
-    public Iterable<AnimalRequestDTO> getAllNewAnimalRequest() {
-        List<BlackList> blackList = blackListService.getAll();
-        List<AnimalRequest> animalRequestList = animalRequestDAO.findAllByRequestStatus(RequestStatus.NEW);
-        List<AnimalRequestDTO> dtoList = new ArrayList<>();
-        return animalRequestList.stream()
+    public List<AnimalRequestDTO> getAllNewAnimalRequest() {
+        return animalRequestDAO.findAllBySpamRequest(false).stream()
                 .map(animalRequestMapper::entityToDto)
-                .filter(
-                        animalRequestDTO -> blackList.stream()
-                                .noneMatch(
-                                        bl -> bl.getEmail().compareTo(animalRequestDTO.getEmail()) == 0 ||
-                                                bl.getPhoneNumber().compareTo(animalRequestDTO.getPhoneNumber()) == 0
-                                )
-                )
                 .collect(Collectors.toList());
     }
 
-    public Iterable<AnimalRequestDTO> getAllBlockedNewAnimalRequest() {
+    public List<AnimalRequestDTO> getAllBlockedNewAnimalRequest() {
         return animalRequestDAO.findAllBySpamRequest(true).stream()
                 .map(animalRequestMapper::entityToDto)
                 .collect(Collectors.toList());
