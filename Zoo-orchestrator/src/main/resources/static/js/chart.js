@@ -2,20 +2,23 @@ var allMonths = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY',
 
 $(document).ready(function () {
     let currentYear = new Date().getFullYear();
-    let dataByMonths = getRequestNumbersFromAPiForYear(currentYear);
+    let dataByMonths = getRequestNumbersFromAPiForYear(currentYear, "/api/statistics/requestNumber?year=");
 
-    redrawChart(dataByMonths);
+    redrawChart(dataByMonths, "myChart", "Кол-во выполненых заказов");
+
+    let dataByMonthsMoney = getRequestNumbersFromAPiForYear(currentYear, "/api/statistics/moneyEarned?year=");
+
+    redrawChart(dataByMonthsMoney, "myChart2", "Выручка с заказов");
 });
 
 
-function getRequestNumbersFromAPiForYear(year) {
+function getRequestNumbersFromAPiForYear(year, URL) {
     let dataByMonths;
     $.ajax({
         method: 'GET',
-        url: '/api/chart/requestNumber?year=' + year,
+        url: URL + year,
         async: false,
         success: function (response) {
-            console.log('data from /api/char/requestNumber received successfully');
             console.log(response)
             dataByMonths = response;
         },
@@ -26,7 +29,7 @@ function getRequestNumbersFromAPiForYear(year) {
     return dataByMonths;
 }
 
-function redrawChart(dataByMonths) {
+function redrawChart(dataByMonths, parentItem, label) {
 
 
     let intValuesForMonths = [];
@@ -53,13 +56,13 @@ function redrawChart(dataByMonths) {
     borderColorsArray[maxPos] = maxBorderColor;
     borderColorsArray[minPos] = minBorderColor;
 
-    var ctx = document.getElementById('myChart').getContext('2d');
+    var ctx = document.getElementById(parentItem).getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: allMonths,
             datasets: [{
-                label: 'Кол-во выполненых заказов',
+                label: label,
                 data: intValuesForMonths,
                 backgroundColor: colorsArray,
                 borderColor: borderColorsArray,

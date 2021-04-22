@@ -82,8 +82,8 @@ public class InitData {
             animalRequest.setAnimalType(AnimalType.values()[rnd.nextInt(AnimalType.values().length)]);
             int randomDay = rnd.nextInt(20) + 1;
             int randomMonth = rnd.nextInt(12) + 1;
-            animalRequest.setBeginDate(LocalDate.of(2010, randomMonth, randomDay));
-            animalRequest.setEndDate(LocalDate.of(2010, randomMonth, randomDay + 5));
+            animalRequest.setBeginDate(LocalDate.of(LocalDate.now().getYear(), randomMonth, randomDay));
+            animalRequest.setEndDate(LocalDate.of(LocalDate.now().getYear(), randomMonth, randomDay + 5));
             animalRequest.setRoomType(RoomType.values()[rnd.nextInt(RoomType.values().length)]);
             animalRequest.setVideoNeeded(rnd.nextBoolean());
             animalRequest.setPhoneNumber(faker.phoneNumber().phoneNumber());
@@ -92,6 +92,8 @@ public class InitData {
             animalRequest.setSurname(faker.name().lastName());
             animalRequest.setAnimalName(faker.funnyName().name());
             animalRequest.setLocation(Location.values()[rnd.nextInt(Location.values().length)]);
+            animalRequest.setRequestPrice((int) (Math.random() * 100));
+            animalRequest.setSpamRequest(false);
             animalRequestDAO.save(animalRequest);
         }
 
@@ -101,8 +103,8 @@ public class InitData {
             animalRequest.setAnimalType(AnimalType.values()[rnd.nextInt(AnimalType.values().length)]);
             int randomDay = rnd.nextInt(20) + 1;
             int randomMonth = rnd.nextInt(12) + 1;
-            animalRequest.setBeginDate(LocalDate.of(2010, randomMonth, randomDay));
-            animalRequest.setEndDate(LocalDate.of(2010, randomMonth, randomDay + 5));
+            animalRequest.setBeginDate(LocalDate.of(LocalDate.now().getYear(), randomMonth, randomDay));
+            animalRequest.setEndDate(LocalDate.of(LocalDate.now().getYear(), randomMonth, randomDay + 5));
             animalRequest.setRoomType(RoomType.values()[rnd.nextInt(RoomType.values().length)]);
             animalRequest.setVideoNeeded(rnd.nextBoolean());
             animalRequest.setPhoneNumber(faker.phoneNumber().phoneNumber());
@@ -111,13 +113,15 @@ public class InitData {
             animalRequest.setSurname(faker.name().lastName());
             animalRequest.setAnimalName(faker.funnyName().name());
             animalRequest.setLocation(Location.values()[rnd.nextInt(Location.values().length)]);
+            animalRequest.setRequestPrice((int) (Math.random() * 100));
+            animalRequest.setSpamRequest(false);
             animalRequestDAO.save(animalRequest);
         }
         AnimalRequest animalRequestBookServiceCheck = new AnimalRequest(0L,
                 RequestStatus.APPLIED,
                 AnimalType.DOG,
-                LocalDate.of(2010, 1, 10),
-                LocalDate.of(2010, 1, 15),
+                LocalDate.of(LocalDate.now().getYear(), 1, 10),
+                LocalDate.of(LocalDate.now().getYear(), 1, 15),
                 RoomType.VIP,
                 true,
                 faker.phoneNumber().phoneNumber(),
@@ -149,17 +153,17 @@ public class InitData {
     }
 
     private void initBooks(){
-        Book book1 = new Book(0L,11,1,LocalDate.of(2010,1,3),LocalDate.of(2010,1,7));
-        Book book2 = new Book(0L,11,1,LocalDate.of(2010,1,21),LocalDate.of(2010,1,22));
+        Book book1 = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,3),LocalDate.of(LocalDate.now().getYear(),1,7));
+        Book book2 = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,21),LocalDate.of(LocalDate.now().getYear(),1,22));
         bookDAO.save(book1);
         bookDAO.save(book2);
     }
 
     private void initBusyBook(){
-        Book left = new Book(0L,11,1,LocalDate.of(2010,1,3),LocalDate.of(2010,1,11));
-        Book right = new Book(0L,11,1,LocalDate.of(2010,1,14),LocalDate.of(2010,1,17));
-        Book inside = new Book(0L,11,1,LocalDate.of(2010,1,11),LocalDate.of(2010,1,12));
-        Book outside = new Book(0L,11,1,LocalDate.of(2010,1,3),LocalDate.of(2010,1,20));
+        Book left = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,3),LocalDate.of(LocalDate.now().getYear(),1,11));
+        Book right = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,14),LocalDate.of(LocalDate.now().getYear(),1,17));
+        Book inside = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,11),LocalDate.of(LocalDate.now().getYear(),1,12));
+        Book outside = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,3),LocalDate.of(LocalDate.now().getYear(),1,20));
 
 //        bookDAO.save(left);
 //        bookDAO.save(right);
