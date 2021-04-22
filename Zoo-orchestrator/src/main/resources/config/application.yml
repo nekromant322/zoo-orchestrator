@@ -7,7 +7,6 @@ contacts:
   lng: 37.225150
   address: Moscow, Zelenograd
 
-
 spring:
   h2:
    console:
@@ -28,6 +27,7 @@ spring:
     hibernate:
       ddl-auto: create
     generate-ddl: true
+
 
 
 mail:
@@ -63,3 +63,14 @@ vk:
 map:
   api:
     key: ${YANDEX_MAP_API_KEY}
+
+logging:
+  file:
+    name: logs/app.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: ERROR
+    com.nekromant.zoo: ERROR
+    org.hibernate: ERROR
