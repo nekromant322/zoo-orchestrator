@@ -1,6 +1,6 @@
 package com.nekromant.zoo.controller.rest;
 
-import com.nekromant.zoo.service.AnimalRequestService;
+import com.nekromant.zoo.service.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,19 +11,19 @@ import java.time.Month;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/api/chartPage")
-public class ChartRestController {
+@RequestMapping("/api/statistics")
+public class StatisticsRestController {
 
     @Autowired
-    private AnimalRequestService animalRequestService;
+    private StatisticService statisticService;
 
     @GetMapping("/requestNumber")
     public HashMap<Month, Integer> getNumbersOfDoneRequestForYear(@RequestParam("year") int year) {
-        return animalRequestService.getNumbersOfDoneRequestForYear(year);
+        return statisticService.getNumbersOfDoneRequestForYear(year);
     }
 
     @GetMapping("/moneyEarned")
     public HashMap<Month, Integer> getMoneyYearnedForYear(@RequestParam("year") int year) {
-        return animalRequestService.getMoneyYearnedForYear(year);
+        return statisticService.getMoneyYearnedForYear(year);
     }
 }

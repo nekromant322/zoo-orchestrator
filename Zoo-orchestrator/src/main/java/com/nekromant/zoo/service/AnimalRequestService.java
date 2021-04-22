@@ -4,15 +4,11 @@ import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.BlackListDAO;
 import com.nekromant.zoo.mapper.AnimalRequestMapper;
 import com.nekromant.zoo.model.AnimalRequest;
-import com.nekromant.zoo.model.BlackList;
 import dto.AnimalRequestDTO;
 import enums.RequestStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,9 +18,6 @@ public class AnimalRequestService {
 
     @Autowired
     private AnimalRequestDAO animalRequestDAO;
-
-    @Autowired
-    private BlackListService blackListService;
 
     @Autowired
     private PriceService priceService;
@@ -40,19 +33,6 @@ public class AnimalRequestService {
         animalRequestDTO.setSpamRequest(blackListDAO.existsByPhoneNumberOrEmailIgnoreCase(animalRequestDTO.getPhoneNumber(), animalRequestDTO.getEmail()));
 
         animalRequestDAO.save(animalRequestMapper.dtoToEntity(animalRequestDTO, priceService.calculateTotalPrice(animalRequestDTO)));
-    }
-
-    public HashMap<Month, Integer> getNumbersOfDoneRequestForYear(int year) {
-        return animalRequestDAO.findAllByRequestStatus(RequestStatus.DONE).stream()
-                .filter(rq -> rq.getBeginDate().getYear() == year)
-                .collect(HashMap::new,
-                        (map, value) -> map.merge(value.getBeginDate().getMonth(), 1, Integer::sum),
-                        HashMap::putAll);
-    }
-
-    //TODO реализация после того, как будет реализован прайс
-    public HashMap<Month, Integer> getMoneyYearnedForYear(int year) {
-        return new HashMap<>();
     }
 
     public List<AnimalRequestDTO> getAllNewAnimalRequest() {

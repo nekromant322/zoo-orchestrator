@@ -4,6 +4,7 @@ import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.BlackListDAO;
 import com.nekromant.zoo.mapper.AnimalRequestMapper;
 import com.nekromant.zoo.model.AnimalRequest;
+import com.nekromant.zoo.service.util.AnimalRequestUtil;
 import dto.AnimalRequestDTO;
 import enums.AnimalType;
 import enums.Location;
@@ -19,8 +20,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AnimalRequestServiceTest {
@@ -49,7 +52,7 @@ public class AnimalRequestServiceTest {
 
         animalRequestService.insert(animalRequestDTO);
 
-        Mockito.verify(animalRequestDAO).save(createAnimalRequest(true));
+        Mockito.verify(animalRequestDAO).save(AnimalRequestUtil.createAnimalRequest(true));
     }
 
     @Test
@@ -62,28 +65,13 @@ public class AnimalRequestServiceTest {
 
         animalRequestService.insert(animalRequestDTO);
 
-        Mockito.verify(animalRequestDAO).save(createAnimalRequest(false));
-    }
-
-    @Test
-    public void getNumbersOfDoneRequestForYear() {
-        int year = 2021;
-        List<AnimalRequest> data = new LinkedList<>();
-        data.add(createAnimalRequest(LocalDate.of(2021, 1, 10), LocalDate.of(2021, 1, 14)));
-        data.add(createAnimalRequest(LocalDate.of(2021, 1, 10), LocalDate.of(2021, 2, 10)));
-        data.add(createAnimalRequest(LocalDate.of(2021, 4, 10), LocalDate.of(2021, 4, 20)));
-        Mockito.when(animalRequestDAO.findAllByRequestStatus(Mockito.any())).thenReturn(data);
-
-        HashMap<Month, Integer> result = animalRequestService.getNumbersOfDoneRequestForYear(year);
-
-        Assert.assertEquals(result.get(Month.JANUARY), Integer.valueOf(2));
-        Assert.assertEquals(result.get(Month.APRIL), Integer.valueOf(1));
+        Mockito.verify(animalRequestDAO).save(AnimalRequestUtil.createAnimalRequest(false));
     }
 
     @Test
     public void getAllNewAnimalRequest() {
-        List<AnimalRequest> data = new LinkedList<>(Arrays.asList(createAnimalRequest(false),
-                createAnimalRequest(false), createAnimalRequest(false)));
+        List<AnimalRequest> data = new LinkedList<>(Arrays.asList(AnimalRequestUtil.createAnimalRequest(false),
+                AnimalRequestUtil.createAnimalRequest(false), AnimalRequestUtil.createAnimalRequest(false)));
         Mockito.when(animalRequestDAO.findAllBySpamRequest(Mockito.any())).thenReturn(data);
 
         List<AnimalRequestDTO> result = animalRequestService.getAllNewAnimalRequest();
@@ -93,8 +81,8 @@ public class AnimalRequestServiceTest {
 
     @Test
     public void getAllBlockedNewAnimalRequest() {
-        List<AnimalRequest> data = new LinkedList<>(Arrays.asList(createAnimalRequest(true),
-                createAnimalRequest(true), createAnimalRequest(true)));
+        List<AnimalRequest> data = new LinkedList<>(Arrays.asList(AnimalRequestUtil.createAnimalRequest(true),
+                AnimalRequestUtil.createAnimalRequest(true), AnimalRequestUtil.createAnimalRequest(true)));
         Mockito.when(animalRequestDAO.findAllBySpamRequest(Mockito.any())).thenReturn(data);
 
         List<AnimalRequestDTO> result = animalRequestService.getAllBlockedNewAnimalRequest();
@@ -105,7 +93,7 @@ public class AnimalRequestServiceTest {
     @Test
     public void acceptAnimalRequest() {
         String id = "1";
-        Optional<AnimalRequest> data = Optional.of(createAnimalRequest(false, RequestStatus.NEW));
+        Optional<AnimalRequest> data = Optional.of(AnimalRequestUtil.createAnimalRequest(false, RequestStatus.NEW));
         Mockito.when(animalRequestDAO.findById(Mockito.any())).thenReturn(data);
 
         AnimalRequest result = animalRequestService.acceptAnimalRequest(id);
@@ -116,7 +104,7 @@ public class AnimalRequestServiceTest {
     @Test
     public void declineAnimalRequest() {
         String id = "1";
-        Optional<AnimalRequest> data = Optional.of(createAnimalRequest(false, RequestStatus.NEW));
+        Optional<AnimalRequest> data = Optional.of(AnimalRequestUtil.createAnimalRequest(false, RequestStatus.NEW));
         Mockito.when(animalRequestDAO.findById(Mockito.any())).thenReturn(data);
 
         AnimalRequest result = animalRequestService.declineAnimalRequest(id);
@@ -127,7 +115,7 @@ public class AnimalRequestServiceTest {
     @Test
     public void setInProgressAnimalRequest() {
         String id = "1";
-        Optional<AnimalRequest> data = Optional.of(createAnimalRequest(false, RequestStatus.APPLIED));
+        Optional<AnimalRequest> data = Optional.of(AnimalRequestUtil.createAnimalRequest(false, RequestStatus.APPLIED));
         Mockito.when(animalRequestDAO.findById(Mockito.any())).thenReturn(data);
 
         AnimalRequest result = animalRequestService.setInProgressAnimalRequest(id);
@@ -138,52 +126,12 @@ public class AnimalRequestServiceTest {
     @Test
     public void setDoneAnimalRequest() {
         String id = "1";
-        Optional<AnimalRequest> data = Optional.of(createAnimalRequest(false, RequestStatus.IN_PROGRESS));
+        Optional<AnimalRequest> data = Optional.of(AnimalRequestUtil.createAnimalRequest(false, RequestStatus.IN_PROGRESS));
         Mockito.when(animalRequestDAO.findById(Mockito.any())).thenReturn(data);
 
         AnimalRequest result = animalRequestService.setDoneAnimalRequest(id);
 
         Assert.assertEquals(RequestStatus.DONE, result.getRequestStatus());
-    }
-
-    private AnimalRequest createAnimalRequest() {
-        return new AnimalRequest(
-                1L,
-                RequestStatus.NEW,
-                AnimalType.DOG,
-                LocalDate.now(),
-                LocalDate.now(),
-                RoomType.VIP,
-                true,
-                "+7(999)-(999)-(99)-(99)",
-                "test@email.com",
-                "name",
-                "surname",
-                "dog-dog",
-                100,
-                Location.MOSCOW,
-                false
-        );
-    }
-
-    private AnimalRequest createAnimalRequest(boolean spam) {
-        AnimalRequest animalRequest = createAnimalRequest();
-        animalRequest.setSpamRequest(spam);
-        return animalRequest;
-    }
-
-    private AnimalRequest createAnimalRequest(LocalDate beginDate, LocalDate endDate) {
-        AnimalRequest animalRequest = createAnimalRequest();
-        animalRequest.setBeginDate(beginDate);
-        animalRequest.setEndDate(endDate);
-        return animalRequest;
-    }
-
-    private AnimalRequest createAnimalRequest(boolean spam, RequestStatus status) {
-        AnimalRequest animalRequest = createAnimalRequest();
-        animalRequest.setSpamRequest(spam);
-        animalRequest.setRequestStatus(status);
-        return animalRequest;
     }
 
     private AnimalRequestDTO createDefaultAnimalRequestDTO() {
