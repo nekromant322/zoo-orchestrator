@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/common/header.css">
+
+</head>
+
+<body>
+
+<header th:replace="fragments/common.html :: header"></header>
+
+<div>
+    <!--    <p class="badge badge-primary text-wrap" style="width: 6rem;">Фильтры</p>-->
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button id="clear-requests" type="button" class="btn btn-secondary" onclick="getData(this)">Нормисы</button>
+        <button id="spam-requests" type="button" class="btn btn-secondary" onclick="getData(this)">Спам</button>
+    </div>
+</div>
+
+<table class="table table-hover" id="request-table">
+    <thead class="table-light">
+    <tr role="row">
+        <th scope="col"> id</th>
+        <th scope="col"> Animal type</th>
+        <th scope="col"> Begin Date</th>
+        <th scope="col"> End Date</th>
+        <th scope="col"> Room type</th>
+        <th scope="col"> Video needed</th>
+        <th scope="col"> Phone number</th>
+        <th scope="col"> Email</th>
+        <th scope="col"> Name</th>
+        <th scope="col"> Surname</th>
+        <th scope="col"> Animal name</th>
+        <th scope="col"> Location</th>
+        <th scope="col"> Actions</th>
+    </tr>
+    </thead>
+    <tbody class="table-light">
+    ...
+    </tbody>
+</table>
+
+<div class="modal fade" tabindex="-1" id="control-modal" aria-labelledby="exampleModalCenterTitle" style="display: none;"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Control Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <button type="submit" onclick="decl()" class="btn btn-primary" data-bs-dismiss="modal">Decline</button>
+                    <button type="submit" onclick="bl()" class="btn btn-primary" data-bs-dismiss="modal">Black list</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/js/newAnimalRequestPage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</html>

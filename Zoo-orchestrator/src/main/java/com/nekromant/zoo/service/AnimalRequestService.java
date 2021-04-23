@@ -37,12 +37,14 @@ public class AnimalRequestService {
 
     public List<AnimalRequestDTO> getAllNewAnimalRequest() {
         return animalRequestDAO.findAllBySpamRequest(false).stream()
+                .filter(item -> item.getRequestStatus().equals(RequestStatus.NEW))
                 .map(animalRequestMapper::entityToDto)
                 .collect(Collectors.toList());
     }
 
     public List<AnimalRequestDTO> getAllBlockedNewAnimalRequest() {
         return animalRequestDAO.findAllBySpamRequest(true).stream()
+                .filter(item -> item.getRequestStatus().equals(RequestStatus.NEW))
                 .map(animalRequestMapper::entityToDto)
                 .collect(Collectors.toList());
     }
