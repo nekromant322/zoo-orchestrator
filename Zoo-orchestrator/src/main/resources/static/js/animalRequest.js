@@ -108,7 +108,7 @@ function sendRequest() {
     animalRequest.location = $("#location-input").val();
 
     $.ajax({
-        url: '/api/animalRequestPage',
+        url: '/api/animalRequest',
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',

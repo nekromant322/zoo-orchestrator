@@ -2,12 +2,11 @@ package com.nekromant.zoo.config;
 
 import com.nekromant.zoo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
@@ -23,14 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SuccessRedirectHandler successRedirectHandler;
 
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("root@mail.ru").password(getEncoder().encode("root")).roles("ADMIN");
-        auth.userDetailsService(userService).passwordEncoder(getEncoder());
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    @Bean
-    public BCryptPasswordEncoder getEncoder() {
-        return new BCryptPasswordEncoder();
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("root@mail.ru").password(passwordEncoder.encode("root")).roles("ADMIN");
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -53,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedPage("/access-denied");
     }
+
 }
 
 

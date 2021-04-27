@@ -30,6 +30,10 @@ public class AnimalRequestUtil {
         );
     }
 
+    public static AnimalRequest make() {
+        return createAnimalRequest();
+    }
+
     public static AnimalRequest createAnimalRequest(boolean spam) {
         AnimalRequest animalRequest = createAnimalRequest();
         animalRequest.setSpamRequest(spam);

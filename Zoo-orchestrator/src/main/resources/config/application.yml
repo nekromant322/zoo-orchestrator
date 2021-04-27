@@ -72,5 +72,5 @@ logging:
     file: "%d %-5level [%thread] %logger : %msg%n"
   level:
     org.springframework.web: ERROR
-    com.nekromant.zoo: ERROR
+    com.nekromant.zoo: INFO
     org.hibernate: ERROR

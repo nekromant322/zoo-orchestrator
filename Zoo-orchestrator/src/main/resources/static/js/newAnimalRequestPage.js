@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 function decl() {
     let x = new XMLHttpRequest();
-    x.open("POST", "/api/animalRequestPage/onlyNew/decline/" + globalId, false);
+    x.open("POST", "/api/animalRequest/onlyNew/decline/" + globalId, false);
     x.send(null);
     getData();
 }
@@ -44,7 +44,7 @@ function getData(item) {
 
 
     $.ajax({
-        url: '/api/animalRequestPage/onlyNew',
+        url: '/api/animalRequest/onlyNew',
         dataType: 'json',
         type: 'GET',
         contentType: 'application/json',
@@ -124,7 +124,7 @@ function acceptRequest(value) {
 
     $.ajax({
         method: 'POST',
-        url: "/api/animalRequestPage/onlyNew/accept/" + value,
+        url: "/api/animalRequest/onlyNew/accept/" + value,
         async: false,
         data: data,
         success: function (response) {
