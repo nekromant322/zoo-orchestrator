@@ -13,6 +13,12 @@ public class MainController {
         return new ModelAndView("animalRequestPage");
     }
 
+    @GetMapping("/AnimalRequestPage/onlyNew")
+    public ModelAndView animalControlPage() {
+
+        return new ModelAndView("admin/animalRequestControlPage");
+    }
+
     @GetMapping("/mainPage")
     public ModelAndView mainPage() {
 
