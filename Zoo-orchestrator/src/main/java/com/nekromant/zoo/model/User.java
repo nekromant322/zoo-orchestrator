@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -31,9 +32,9 @@ public class User implements UserDetails {
     private String phoneNumber;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {
-            CascadeType.REFRESH,CascadeType.MERGE})
+            CascadeType.REFRESH, CascadeType.MERGE})
     @JoinTable(
-            name ="users_authorities",
+            name = "users_authorities",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
@@ -49,10 +50,15 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
+    public User(String email, String phoneNumber) {
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       return authorities;
+        return authorities;
     }
 
     @Override
