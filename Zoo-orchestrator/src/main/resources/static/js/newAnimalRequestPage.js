@@ -2,6 +2,12 @@ let globalId, globType;
 
 $(document).ready(function () {
     console.log("ready");
+    let userBar = new UsersNavBar({
+        block: document.querySelector("#user-bar-block")
+    });
+    let menu = new MainMenu({
+        block: document.querySelector("#menu-block")
+    });
     getData();
 });
 
@@ -49,6 +55,9 @@ function getData(item) {
         type: 'GET',
         contentType: 'application/json',
         data: data,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', "Bearer " + getCookie("token"));
+        },
         success: function (response) {
             console.log(response);
             let tableBody = document.getElementById("request-table").getElementsByTagName("tbody")[0];
@@ -135,4 +144,11 @@ function acceptRequest(value) {
             console.log(error);
         }
     });
+}
+
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
 }

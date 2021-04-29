@@ -1,6 +1,6 @@
 package com.nekromant.zoo.service;
 
-import com.nekromant.zoo.config.BCryptEncoderConfig;
+import com.nekromant.zoo.config.security.BCryptEncoderConfig;
 import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;

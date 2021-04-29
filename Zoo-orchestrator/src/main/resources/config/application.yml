@@ -27,6 +27,12 @@ spring:
     hibernate:
       ddl-auto: create
     generate-ddl: true
+  security:
+    jwt:
+      keystore-location: keys/keystore.jks
+      keystore-password: password
+      key-alias: jwtsigning
+      private-key-passphrase: password
 
 
 

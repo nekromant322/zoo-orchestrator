@@ -7,6 +7,14 @@ body {
     letter-spacing: 1px;
 }
 
+.default-header {
+    display: grid;
+    padding: 0;
+    opacity: .8;
+    color: #fff;
+    width: 100%;
+}
+
 .logo {
     display: inline-block;
     vertical-align: top;
