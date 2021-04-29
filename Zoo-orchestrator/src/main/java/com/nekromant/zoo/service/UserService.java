@@ -1,6 +1,7 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.config.security.BCryptEncoderConfig;
+import com.nekromant.zoo.config.security.JwtProvider;
 import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
@@ -9,12 +10,20 @@ import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Authority;
 import com.nekromant.zoo.model.User;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -38,6 +47,15 @@ public class UserService{
     @Autowired
     private PasswordGeneratorService passwordGeneratorService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CustomUserDetailService customUserDetailService;
+
+    @Autowired
+    private JwtProvider jwtProvider;
+
     public void insert(User user) {
         userDAO.save(user);
     }
@@ -47,7 +65,9 @@ public class UserService{
     }
 
     public void register(String email, String password) {
-        if (email.length() > 0) {
+        EmailValidator validator = EmailValidator.getInstance();
+
+        if (validator.isValid(email) && password.length() > 0) {
             if (findByEmail(email) == null) {
                 User user = new User();
                 user.setEmail(email);
@@ -56,8 +76,13 @@ public class UserService{
                 insert(user);
                 log.info("Пользователь с email {} был успешно создан с формы регистрации!", email);
             }
+            else {
+                log.warn("User {} already exists", email);
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User exists!");
+            }
         } else {
-            log.error("Email is empty! Register failed!");
+            log.error("Email = {} or password = {} is invalid! Register failed!", email, password);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid data!");
         }
     }
 
@@ -85,5 +110,25 @@ public class UserService{
             return list;
         }
         return null;
+    }
+
+    public String login(String email, String password) {
+        UserDetails userDetails;
+        try {
+            userDetails = customUserDetailService.loadUserByUsername(email);
+        } catch (UsernameNotFoundException e) {
+            log.warn("User {} not found", email);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
+        }
+
+        if (passwordEncoder.matches(password, userDetails.getPassword())) {
+            String authorities = userDetails.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.joining(","));
+
+            return jwtProvider.generateToken(email,authorities);
+        }
+
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated");
     }
 }

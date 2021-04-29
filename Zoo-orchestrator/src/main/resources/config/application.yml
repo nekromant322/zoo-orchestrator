@@ -29,10 +29,10 @@ spring:
     generate-ddl: true
   security:
     jwt:
-      keystore-location: keys/keystore.jks
-      keystore-password: password
-      key-alias: jwtsigning
-      private-key-passphrase: password
+      keystore-location: ${KEYSTORE_LOCATION}
+      keystore-password: ${KEYSTORE_PASSWORD}
+      key-alias: ${KEY_ALIAS}
+      private-key-passphrase: ${PRIVATE_KEY_PASSPHRASE}
 
 
 
