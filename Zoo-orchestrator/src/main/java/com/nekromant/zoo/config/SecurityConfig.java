@@ -1,33 +1,36 @@
 package com.nekromant.zoo.config;
 
-import com.nekromant.zoo.service.UserService;
+import com.nekromant.zoo.service.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private FailureHandler failureHandler;
-
-    @Autowired
-    private SuccessRedirectHandler successRedirectHandler;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CustomUserDetailService userDetailsService;
+
+    @Autowired
+    private JwtFilter jwtFilter;
+
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("root@mail.ru").password(passwordEncoder.encode("root")).roles("ADMIN");
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
@@ -35,20 +38,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         http.csrf().disable();
 
-        http.authorizeRequests()
-                .antMatchers("/**").permitAll()
-//                .antMatchers("/css/*","/js/*", "/img/*").permitAll()
-//                .antMatchers("/authenticate").permitAll()
-//                .antMatchers("/registration").permitAll()
+        http
+                .cors()
                 .and()
-                .formLogin()
-                .loginPage("/loginPage")
-                .loginProcessingUrl("/authenticate").passwordParameter("password").usernameParameter("email")
-                .permitAll().successHandler(successRedirectHandler).failureHandler(failureHandler)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .logout()
+                .authorizeRequests()
+                .antMatchers("/register", "/login").permitAll()
                 .and()
-                .exceptionHandling().accessDeniedPage("/access-denied");
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder);
+        provider.setUserDetailsService(userDetailsService);
+        return provider;
     }
 
 }
