@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class UserService{
+public class UserService {
 
     @Autowired
     private UserDAO userDAO;
@@ -75,8 +75,7 @@ public class UserService{
                 user.setAuthorities(getAuthorities());
                 insert(user);
                 log.info("Пользователь с email {} был успешно создан с формы регистрации!", email);
-            }
-            else {
+            } else {
                 log.warn("User {} already exists", email);
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User exists!");
             }
@@ -126,9 +125,37 @@ public class UserService{
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.joining(","));
 
-            return jwtProvider.generateToken(email,authorities);
+            return jwtProvider.generateToken(email, authorities);
         }
 
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated");
+    }
+
+    public Boolean isValidPassword(String email, String oldPassword,
+                                   String newPassword) {
+        if (email.isEmpty() || oldPassword.isEmpty())
+            return false;
+
+        User user = findByEmail(email);
+        if (user == null)
+            return false;
+
+        if (!bCryptEncoderConfig.passwordEncoder().matches(oldPassword, user.getPassword()))
+            return false;
+
+        return !oldPassword.equals(newPassword);
+    }
+
+    public void changePassword(String email, String oldPassword,
+                               String newPassword) {
+        if (isValidPassword(email, oldPassword, newPassword)) {
+            User user = findByEmail(email);
+            user.setPassword(bCryptEncoderConfig.passwordEncoder().encode(newPassword));
+            userDAO.save(user);
+            log.info("Пароль для пользователя {} был успешно изменен!", email);
+        } else {
+            log.info("Пользователь {} не прошел валидацию данных при смене пароля!", email);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid data!");
+        }
     }
 }

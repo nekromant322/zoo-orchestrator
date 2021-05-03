@@ -166,4 +166,64 @@ public class UserServiceTest {
             userService.login(email, password);
         });
     }
+
+    @Test
+    public void isValidPasswordWithCorrectData() {
+        String email = "test@email.com";
+        String password = "qwerty";
+        String newPassword = "123";
+        User user = new User(null, email, password, "", null, Discount.NONE);
+
+        Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(user);
+        Mockito.when(bCryptEncoderConfig.passwordEncoder()).thenReturn(Mockito.mock(BCryptPasswordEncoder.class));
+        Mockito.when(bCryptEncoderConfig.passwordEncoder().matches(password, password)).thenReturn(true);
+
+        Boolean res = userService.isValidPassword(email, password, newPassword);
+
+        Assert.assertEquals(res, true);
+    }
+
+    @Test
+    public void isValidPasswordWithInCorrectData() {
+        String email = "test@email.com";
+        String password = "qwerty";
+        String newPassword = "123";
+        User user = new User(null, email, password, "", null, Discount.NONE);
+
+        Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(user);
+        Mockito.when(bCryptEncoderConfig.passwordEncoder()).thenReturn(Mockito.mock(BCryptPasswordEncoder.class));
+        Mockito.when(bCryptEncoderConfig.passwordEncoder().matches(password, password)).thenReturn(false);
+
+        Boolean res = userService.isValidPassword(email, "qwerty1", newPassword);
+        Assert.assertEquals(res, false);
+
+        res = userService.isValidPassword(email, "", newPassword);
+        Assert.assertEquals(res, false);
+
+        res = userService.isValidPassword(email, password, "");
+        Assert.assertEquals(res, false);
+
+        res = userService.isValidPassword(email, password, newPassword);
+        Assert.assertEquals(res, false);
+
+        res = userService.isValidPassword(email, password, password);
+        Assert.assertEquals(res, false);
+    }
+
+    @Test
+    public void changePassword() {
+        String email = "test@email.com";
+        String password = "qwerty";
+        String newPassword = "123";
+        User user = new User(null, email, password, "", null, Discount.NONE);
+
+        Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(user);
+        Mockito.when(bCryptEncoderConfig.passwordEncoder()).thenReturn(Mockito.mock(BCryptPasswordEncoder.class));
+        Mockito.when(userService.isValidPassword(email, password, newPassword)).thenReturn(true);
+
+        userService.changePassword(email, password, newPassword);
+
+        Mockito.verify(userDAO).save(new User(null, "test@email.com",
+                bCryptEncoderConfig.passwordEncoder().encode("qwerty"), "", null, Discount.NONE));
+    }
 }

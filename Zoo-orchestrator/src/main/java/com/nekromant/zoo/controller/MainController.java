@@ -54,4 +54,10 @@ public class MainController {
 
         return new ModelAndView("control/controlPage");
     }
+
+    @GetMapping("/userProfilePage")
+    public ModelAndView userProfilePage() {
+
+        return new ModelAndView("userProfilePage");
+    }
 }
