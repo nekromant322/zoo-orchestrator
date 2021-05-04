@@ -18,7 +18,7 @@ class UsersNavBar {
             "                    <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">\n" +
             "                        <li><a id='login-href' class=\"dropdown-item\" data-bs-toggle=\"modal\" href=\"#loginModalLogin\">Войти</a></li>\n" +
             "                        <li><a id='register-href' class=\"dropdown-item\" data-bs-toggle=\"modal\" href=\"#loginModalReg\">Регистрация</a></li>\n" +
-            "                        <li><a class=\"dropdown-item\" href=\"\">Сменить пароль</a></li>\n" +
+            "                        <li><a class=\"dropdown-item\" href=\"userProfilePage\">Сменить пароль</a></li>\n" +
             "                        <li><hr class=\"dropdown-divider\"></li>\n" +
             "                        <li><a class=\"dropdown-item\" href=\"\">Выйти</a></li>\n" +
             "                    </ul>\n" +
@@ -50,7 +50,8 @@ class UsersNavBar {
                 success: function (response) {
                     console.log(response);
                     modalBlock.querySelector('#modalSubmitLogin').disabled = false;
-                    document.cookie = "token=" + response;
+                    setCookie("email", modalBlock.querySelector("#loginAuth").value);
+                    setCookie("token", response);
                     document.getElementById("navbarDropdown").innerText = modalBlock.querySelector("#loginReg").value;
                 },
                 error: function (error) {
@@ -108,7 +109,8 @@ class UsersNavBar {
                 success: function (response) {
                     console.log(response);
                     modalBlock.querySelector('#modalSubmitReg').disabled = false;
-                    document.cookie = "token=" + response;
+                    setCookie("email", modalBlock.querySelector("#loginReg").value);
+                    setCookie("token", response);
                     document.getElementById("navbarDropdown").innerText = modalBlock.querySelector("#loginReg").value;
                 },
                 error: function (error) {

@@ -71,6 +71,7 @@ public class InitData {
             userService.insert(new User(i + "@mail.ru", bCryptPasswordEncoder.encode(String.valueOf(i)), authorities));
         }
 
+        userService.insert(new User("qwe@mail.ru", bCryptPasswordEncoder.encode("qwe"), authorities));
 
     }
 
@@ -136,34 +137,34 @@ public class InitData {
     }
 
     private void initPrices() {
-        Price actualPrice = new Price(0L, 100, 200, 300, 500,200,75,100,150,150,50, LocalDateTime.now(),0.9,0.85);
-        Price oldPrice = new Price(0L, 77, 88, 99, 55, 66,44,22,88,111,25,LocalDateTime.of(2020,06,21,0,0),0.95,0.9);
+        Price actualPrice = new Price(0L, 100, 200, 300, 500, 200, 75, 100, 150, 150, 50, LocalDateTime.now(), 0.9, 0.85);
+        Price oldPrice = new Price(0L, 77, 88, 99, 55, 66, 44, 22, 88, 111, 25, LocalDateTime.of(2020, 06, 21, 0, 0), 0.95, 0.9);
         priceDAO.save(oldPrice);
         priceDAO.save(actualPrice);
     }
 
-    private void initRooms(){
-        Room room1 = new Room(0L,AnimalType.DOG,RoomType.VIP,true,"");
-        Room room2 = new Room(0L,AnimalType.BIRD,RoomType.COMMON,true,"");
-        Room room3 = new Room(0L,AnimalType.OTHER,RoomType.LARGE,true,"");
+    private void initRooms() {
+        Room room1 = new Room(0L, AnimalType.DOG, RoomType.VIP, true, "");
+        Room room2 = new Room(0L, AnimalType.BIRD, RoomType.COMMON, true, "");
+        Room room3 = new Room(0L, AnimalType.OTHER, RoomType.LARGE, true, "");
 
         roomDAO.save(room1);
         roomDAO.save(room2);
         roomDAO.save(room3);
     }
 
-    private void initBooks(){
-        Book book1 = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,3),LocalDate.of(LocalDate.now().getYear(),1,7));
-        Book book2 = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,21),LocalDate.of(LocalDate.now().getYear(),1,22));
+    private void initBooks() {
+        Book book1 = new Book(0L, 11, 1, LocalDate.of(LocalDate.now().getYear(), 1, 3), LocalDate.of(LocalDate.now().getYear(), 1, 7));
+        Book book2 = new Book(0L, 11, 1, LocalDate.of(LocalDate.now().getYear(), 1, 21), LocalDate.of(LocalDate.now().getYear(), 1, 22));
         bookDAO.save(book1);
         bookDAO.save(book2);
     }
 
-    private void initBusyBook(){
-        Book left = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,3),LocalDate.of(LocalDate.now().getYear(),1,11));
-        Book right = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,14),LocalDate.of(LocalDate.now().getYear(),1,17));
-        Book inside = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,11),LocalDate.of(LocalDate.now().getYear(),1,12));
-        Book outside = new Book(0L,11,1,LocalDate.of(LocalDate.now().getYear(),1,3),LocalDate.of(LocalDate.now().getYear(),1,20));
+    private void initBusyBook() {
+        Book left = new Book(0L, 11, 1, LocalDate.of(LocalDate.now().getYear(), 1, 3), LocalDate.of(LocalDate.now().getYear(), 1, 11));
+        Book right = new Book(0L, 11, 1, LocalDate.of(LocalDate.now().getYear(), 1, 14), LocalDate.of(LocalDate.now().getYear(), 1, 17));
+        Book inside = new Book(0L, 11, 1, LocalDate.of(LocalDate.now().getYear(), 1, 11), LocalDate.of(LocalDate.now().getYear(), 1, 12));
+        Book outside = new Book(0L, 11, 1, LocalDate.of(LocalDate.now().getYear(), 1, 3), LocalDate.of(LocalDate.now().getYear(), 1, 20));
 
 //        bookDAO.save(left);
 //        bookDAO.save(right);

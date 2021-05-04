@@ -25,8 +25,14 @@ public class AuthRestController {
 
     @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String register(@RequestParam(name = "email") String email,
-                         @RequestParam(name = "password") String password) {
+                           @RequestParam(name = "password") String password) {
         userService.register(email, password);
         return login(email, password);
+    }
+
+    @PostMapping(path = "/changePassword")
+    public void changePassword(@RequestParam String email, @RequestParam String oldPassword,
+                               @RequestParam String newPassword) {
+        userService.changePassword(email, oldPassword, newPassword);
     }
 }
