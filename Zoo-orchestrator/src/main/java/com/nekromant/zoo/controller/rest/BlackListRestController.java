@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/blackListPage")
 public class BlackListRestController {
+
     @Autowired
     private BlackListService blackListService;
 

@@ -14,6 +14,7 @@ import java.util.List;
 
 @Service
 public class RoomService {
+
     @Autowired
     private RoomDAO roomDAO;
 
@@ -29,7 +30,7 @@ public class RoomService {
      * @param animalType {@link enums.AnimalType}
      * @param roomType {@link enums.RoomType}
      * @param video boolean need to record in a room
-     * @return
+     * @return list of rooms, metching parameters
      */
     public List<Room> findByParameters(AnimalType animalType,
                                        RoomType roomType,
@@ -44,7 +45,6 @@ public class RoomService {
     public List<Room> findAll() {
         return roomDAO.findAll();
     }
-
 
     /**
      * @param roomDTO - {@link RoomDTO}

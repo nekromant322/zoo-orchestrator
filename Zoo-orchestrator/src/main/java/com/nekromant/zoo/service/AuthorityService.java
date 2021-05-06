@@ -11,7 +11,6 @@ public class AuthorityService {
     @Autowired
     private AuthorityDAO authorityDAO;
 
-
     public void insert(Authority authority) {
         authorityDAO.save(authority);
     }
