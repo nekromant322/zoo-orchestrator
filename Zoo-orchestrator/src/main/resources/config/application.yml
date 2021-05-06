@@ -1,3 +1,11 @@
+server:
+  port: 8080
+  address: localhost
+
+app:
+  const:
+    tokenExpiredDelayInDays: 3
+    tokens-remove-scheduler-delay: 10800
 
 contacts:
   email: abc@gmail.com
@@ -48,6 +56,7 @@ mail:
   debug: true
   host: smtp.gmail.com
   port: 587
+  sendRealEmails: false
 
 SMSC:
   login: ${SMSC_LOGIN}

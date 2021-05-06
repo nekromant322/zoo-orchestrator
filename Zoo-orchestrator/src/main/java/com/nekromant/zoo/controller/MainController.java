@@ -60,4 +60,10 @@ public class MainController {
 
         return new ModelAndView("userProfilePage");
     }
+
+    @GetMapping("/confirmReg")
+    public ModelAndView confirmReg() {
+
+        return new ModelAndView("confirmReg");
+    }
 }

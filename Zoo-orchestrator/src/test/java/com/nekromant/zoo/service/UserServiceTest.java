@@ -1,12 +1,13 @@
 package com.nekromant.zoo.service;
 
-import com.nekromant.zoo.config.security.BCryptEncoderConfig;
 import com.nekromant.zoo.config.security.JwtProvider;
 import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.AuthorityDAO;
+import com.nekromant.zoo.dao.ConfirmationTokenDAO;
 import com.nekromant.zoo.dao.UserDAO;
 import com.nekromant.zoo.mapper.UserMapper;
 import com.nekromant.zoo.model.Authority;
+import com.nekromant.zoo.model.ConfirmationToken;
 import com.nekromant.zoo.model.User;
 import com.nekromant.zoo.service.util.AnimalRequestUtil;
 import enums.Discount;
@@ -23,9 +24,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.reflect.Constructor;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +46,7 @@ public class UserServiceTest {
     private UserDAO userDAO;
 
     @Mock
-    private BCryptEncoderConfig bCryptEncoderConfig;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Mock(answer = Answers.CALLS_REAL_METHODS)
     private UserMapper userMapper;
@@ -63,6 +66,15 @@ public class UserServiceTest {
     @Mock
     private CustomUserDetailService customUserDetailService;
 
+    @Mock
+    private ConfirmationTokenDAO confirmationTokenDAO;
+
+    @Mock
+    private ConfirmationTokenService confirmationTokenService;
+
+    @Mock
+    private EmailService emailService;
+
 
     @Test
     public void registerWhenAllDataIsPresented() {
@@ -72,12 +84,11 @@ public class UserServiceTest {
 
         Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(null);
         Mockito.when(authorityDAO.findByAuthority(Mockito.any())).thenReturn(authorities);
-        Mockito.when(bCryptEncoderConfig.passwordEncoder()).thenReturn(Mockito.mock(BCryptPasswordEncoder.class));
 
         userService.register(email, password);
 
         Mockito.verify(userDAO).save(new User(null, "test@email.com",
-                bCryptEncoderConfig.passwordEncoder().encode(password), null,
+                bCryptPasswordEncoder.encode(password), null,
                 Collections.singletonList(authorities.get()), Discount.NONE));
     }
 
@@ -123,12 +134,14 @@ public class UserServiceTest {
         Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(null);
         Mockito.when(authorityDAO.findByAuthority(Mockito.any())).thenReturn(authorities);
         Mockito.when(passwordGeneratorService.generateStrongPassword()).thenReturn(password);
-        Mockito.when(bCryptEncoderConfig.passwordEncoder()).thenReturn(Mockito.mock(BCryptPasswordEncoder.class));
+        Mockito.when(confirmationTokenService.getEncodedToken(Mockito.any(), Mockito.any())).thenReturn("qwe");
+        ReflectionTestUtils.setField(userService, "tokenExpiredDelay", "3");
+        // Mockito.when(confirmationTokenService.addToken(Mockito.any(),Mockito.any(),Mockito.any())).thenReturn();
 
         userService.createUser(requestId);
 
         Mockito.verify(userDAO).save(new User(null, "test@email.com",
-                bCryptEncoderConfig.passwordEncoder().encode(password), phone,
+                bCryptPasswordEncoder.encode(password), phone,
                 Collections.singletonList(authorities.get()), Discount.NONE));
     }
 
@@ -175,10 +188,13 @@ public class UserServiceTest {
         User user = new User(null, email, password, "", null, Discount.NONE);
 
         Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(user);
-        Mockito.when(bCryptEncoderConfig.passwordEncoder()).thenReturn(Mockito.mock(BCryptPasswordEncoder.class));
-        Mockito.when(bCryptEncoderConfig.passwordEncoder().matches(password, password)).thenReturn(true);
+        Mockito.when(bCryptPasswordEncoder.matches(password, password)).thenReturn(true);
 
-        Boolean res = userService.isValidPassword(email, password, newPassword);
+        Boolean res = userService.isValidCredentials(email, password, newPassword);
+
+        Assert.assertEquals(res, true);
+
+        res = userService.isValidCredentials(email, newPassword);
 
         Assert.assertEquals(res, true);
     }
@@ -191,22 +207,29 @@ public class UserServiceTest {
         User user = new User(null, email, password, "", null, Discount.NONE);
 
         Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(user);
-        Mockito.when(bCryptEncoderConfig.passwordEncoder()).thenReturn(Mockito.mock(BCryptPasswordEncoder.class));
-        Mockito.when(bCryptEncoderConfig.passwordEncoder().matches(password, password)).thenReturn(false);
+        Mockito.when(bCryptPasswordEncoder.matches(password, password)).thenReturn(false);
 
-        Boolean res = userService.isValidPassword(email, "qwerty1", newPassword);
+        //
+        Boolean res = userService.isValidCredentials(email, "qwerty1", newPassword);
         Assert.assertEquals(res, false);
 
-        res = userService.isValidPassword(email, "", newPassword);
+        res = userService.isValidCredentials(email, "", newPassword);
         Assert.assertEquals(res, false);
 
-        res = userService.isValidPassword(email, password, "");
+        res = userService.isValidCredentials(email, password, "");
         Assert.assertEquals(res, false);
 
-        res = userService.isValidPassword(email, password, newPassword);
+        res = userService.isValidCredentials(email, password, newPassword);
         Assert.assertEquals(res, false);
 
-        res = userService.isValidPassword(email, password, password);
+        res = userService.isValidCredentials(email, password, password);
+        Assert.assertEquals(res, false);
+
+        //
+        res = userService.isValidCredentials(email, "");
+        Assert.assertEquals(res, false);
+
+        res = userService.isValidCredentials("", newPassword);
         Assert.assertEquals(res, false);
     }
 
@@ -218,12 +241,33 @@ public class UserServiceTest {
         User user = new User(null, email, password, "", null, Discount.NONE);
 
         Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(user);
-        Mockito.when(bCryptEncoderConfig.passwordEncoder()).thenReturn(Mockito.mock(BCryptPasswordEncoder.class));
-        Mockito.when(userService.isValidPassword(email, password, newPassword)).thenReturn(true);
+        Mockito.when(bCryptPasswordEncoder.matches(Mockito.any(), Mockito.any())).thenReturn(true);
+        Mockito.when(bCryptPasswordEncoder.encode(Mockito.any())).thenReturn(newPassword);
 
         userService.changePassword(email, password, newPassword);
 
         Mockito.verify(userDAO).save(new User(null, "test@email.com",
-                bCryptEncoderConfig.passwordEncoder().encode("qwerty"), "", null, Discount.NONE));
+                bCryptPasswordEncoder.encode("123"), "", null, Discount.NONE));
+    }
+
+    @Test
+    public void confirmReg() {
+        String email = "test@email.com";
+        String password = "qwerty";
+        String newPassword = "123";
+        Authority authority = new Authority("ROLE_USER");
+        List<Authority> list = new ArrayList<>();
+        list.add(authority);
+        User user = new User(null, email, password, "", list, Discount.NONE);
+        ConfirmationToken confirmationToken = new ConfirmationToken("qwe", email, LocalDate.now());
+
+        Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(user);
+        Mockito.when(bCryptPasswordEncoder.encode(Mockito.any())).thenReturn(password);
+        Mockito.when(confirmationTokenService.getToken(Mockito.any())).thenReturn(confirmationToken);
+
+        userService.confirmReg(email, newPassword);
+
+        Mockito.verify(userDAO).save(new User(null, "test@email.com",
+                password, "", list, Discount.NONE));
     }
 }

@@ -19,7 +19,8 @@ public class AuthRestController {
     private UserService userService;
 
     @PostMapping(path = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String login(@RequestParam String email, @RequestParam String password) {
+    public String login(@RequestParam(name = "email") String email,
+                        @RequestParam(name = "password") String password) {
         return userService.login(email, password);
     }
 
@@ -34,5 +35,10 @@ public class AuthRestController {
     public void changePassword(@RequestParam String email, @RequestParam String oldPassword,
                                @RequestParam String newPassword) {
         userService.changePassword(email, oldPassword, newPassword);
+    }
+
+    @PostMapping(path = "/confirmReg")
+    public String confirmReg(@RequestParam String token, @RequestParam String password) {
+        return userService.confirmReg(token, password);
     }
 }
