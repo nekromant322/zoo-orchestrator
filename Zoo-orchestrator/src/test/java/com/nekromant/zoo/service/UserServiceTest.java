@@ -5,6 +5,8 @@ import com.nekromant.zoo.config.security.JwtProvider;
 import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
+import com.nekromant.zoo.exception.InvalidRegistrationDataException;
+import com.nekromant.zoo.exception.UserAlreadyExistException;
 import com.nekromant.zoo.mapper.UserMapper;
 import com.nekromant.zoo.model.Authority;
 import com.nekromant.zoo.model.User;
@@ -88,28 +90,16 @@ public class UserServiceTest {
 
         Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(new User());
 
-        Assert.assertThrows(ResponseStatusException.class, () -> {
-            userService.register(email, password);
-        });
+        Assert.assertThrows(UserAlreadyExistException.class, () -> userService.register(email, password));
     }
 
     @Test
     public void registerWhenAnyDataIsEmptyOrInvalid() {
-        Assert.assertThrows(ResponseStatusException.class, () -> {
-            userService.register("", "qwe");
-        });
-        Assert.assertThrows(ResponseStatusException.class, () -> {
-            userService.register("test", "qwe");
-        });
-        Assert.assertThrows(ResponseStatusException.class, () -> {
-            userService.register("test@", "qwe");
-        });
-        Assert.assertThrows(ResponseStatusException.class, () -> {
-            userService.register("test@gmail.com", "");
-        });
-        Assert.assertThrows(ResponseStatusException.class, () -> {
-            userService.register("", "");
-        });
+        Assert.assertThrows(InvalidRegistrationDataException.class, () -> userService.register("", "qwe"));
+        Assert.assertThrows(InvalidRegistrationDataException.class, () -> userService.register("test", "qwe"));
+        Assert.assertThrows(InvalidRegistrationDataException.class, () -> userService.register("test@", "qwe"));
+        Assert.assertThrows(InvalidRegistrationDataException.class, () -> userService.register("test@gmail.com", ""));
+        Assert.assertThrows(InvalidRegistrationDataException.class, () -> userService.register("", ""));
     }
 
     @Test
@@ -162,9 +152,7 @@ public class UserServiceTest {
 
         Mockito.when(customUserDetailService.loadUserByUsername(Mockito.any())).thenThrow(new UsernameNotFoundException(""));
 
-        Assert.assertThrows(ResponseStatusException.class, () -> {
-            userService.login(email, password);
-        });
+        Assert.assertThrows(ResponseStatusException.class, () -> userService.login(email, password));
     }
 
     @Test

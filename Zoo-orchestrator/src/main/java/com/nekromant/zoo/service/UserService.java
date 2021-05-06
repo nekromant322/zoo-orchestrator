@@ -5,6 +5,9 @@ import com.nekromant.zoo.config.security.JwtProvider;
 import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
+import com.nekromant.zoo.exception.AnimalRequestNotFoundException;
+import com.nekromant.zoo.exception.InvalidRegistrationDataException;
+import com.nekromant.zoo.exception.UserAlreadyExistException;
 import com.nekromant.zoo.mapper.UserMapper;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Authority;
@@ -76,12 +79,10 @@ public class UserService {
                 insert(user);
                 log.info("Пользователь с email {} был успешно создан с формы регистрации!", email);
             } else {
-                log.warn("User {} already exists", email);
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User exists!");
+                throw new UserAlreadyExistException("Пользователь с email " + email + " уже зарегистрирован");
             }
         } else {
-            log.error("Email = {} or password = {} is invalid! Register failed!", email, password);
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid data!");
+            throw new InvalidRegistrationDataException("Неверное имя пользователя или пароль");
         }
     }
 
@@ -97,7 +98,7 @@ public class UserService {
                 log.info("Пользователь с email {} был успешно создан при подтверждении заявки!", requestItem.getEmail());
             }
         } else {
-            log.error("Заявка (AnimalRequest) с id = {} не найдена! дальнейшая работа по проверке и созданию нового клиента невозможна!", requestId);
+            throw new AnimalRequestNotFoundException(requestId);
         }
     }
 
@@ -108,6 +109,7 @@ public class UserService {
             list.add(authority.get());
             return list;
         }
+        //TODO Избавиться от потенциального NPE https://clck.ru/UgjKW
         return null;
     }
 
@@ -117,6 +119,7 @@ public class UserService {
             userDetails = customUserDetailService.loadUserByUsername(email);
         } catch (UsernameNotFoundException e) {
             log.warn("User {} not found", email);
+            //TODO Возвращать ошибки в едином формате там где это не сделано https://clck.ru/UgiYE
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
         }
 
@@ -127,7 +130,7 @@ public class UserService {
 
             return jwtProvider.generateToken(email, authorities);
         }
-
+        //TODO Возвращать ошибки в едином формате там где это не сделано https://clck.ru/UgiYE
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated");
     }
 
@@ -155,6 +158,7 @@ public class UserService {
             log.info("Пароль для пользователя {} был успешно изменен!", email);
         } else {
             log.info("Пользователь {} не прошел валидацию данных при смене пароля!", email);
+            //TODO Возвращать ошибки в едином формате там где это не сделано https://clck.ru/UgiYE
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid data!");
         }
     }

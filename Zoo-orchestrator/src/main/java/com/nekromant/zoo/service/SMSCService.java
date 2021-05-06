@@ -4,6 +4,7 @@ package com.nekromant.zoo.service;
  */
 
 
+import com.nekromant.zoo.exception.SmsSendFailedException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class SMSCService {
@@ -38,14 +40,20 @@ public class SMSCService {
      * @param message - отправляемое сообщение
      */
     public ResponseEntity<String> sendSms(List<String> phones, String message) {
-        RestTemplate restTemplate = new RestTemplate();
-        Map<String, String> params = new HashMap<>();
-        params.put(LOGIN_KEY, SMSC_LOGIN);
-        params.put(PASSWORD_KEY, SMSC_PASSWORD);
-        String joinedPhones = String.join(";", phones);
-        params.put(PHONES_KEY, joinedPhones);
-        params.put(MESSAGE_KEY, message);
-        return restTemplate.getForEntity(SMSC_URL, String.class, params);
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            Map<String, String> params = new HashMap<>();
+            params.put(LOGIN_KEY, SMSC_LOGIN);
+            params.put(PASSWORD_KEY, SMSC_PASSWORD);
+            String joinedPhones = String.join(";", phones);
+            params.put(PHONES_KEY, joinedPhones);
+            params.put(MESSAGE_KEY, message);
+            return restTemplate.getForEntity(SMSC_URL, String.class, params);
+        } catch (Throwable exception) {
+            throw new SmsSendFailedException(
+                    "Не удалось отправись смс на номера " + phones.stream().collect(Collectors.joining(",", "{", "}")),
+                    exception);
+        }
     }
 
     /**
@@ -57,12 +65,16 @@ public class SMSCService {
      * или массив (<id>, -<код ошибки>) в случае ошибки
      */
     public ResponseEntity<String> sendSms(String phone, String message) {
-        RestTemplate restTemplate = new RestTemplate();
-        Map<String, String> params = new HashMap<>();
-        params.put(LOGIN_KEY, SMSC_LOGIN);
-        params.put(PASSWORD_KEY, SMSC_PASSWORD);
-        params.put(PHONES_KEY, phone);
-        params.put(MESSAGE_KEY, message);
-        return restTemplate.getForEntity(SMSC_URL + PARAMS, String.class, params);
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            Map<String, String> params = new HashMap<>();
+            params.put(LOGIN_KEY, SMSC_LOGIN);
+            params.put(PASSWORD_KEY, SMSC_PASSWORD);
+            params.put(PHONES_KEY, phone);
+            params.put(MESSAGE_KEY, message);
+            return restTemplate.getForEntity(SMSC_URL + PARAMS, String.class, params);
+        } catch (Throwable exception) {
+            throw new SmsSendFailedException("Не удалось отправись смс на номер " + phone, exception);
+        }
     }
 }
