@@ -32,7 +32,8 @@ public class BookService {
     /**
      * Booking room with {@link AnimalRequest} id and {@link Room}
      * {@link AnimalRequest} request status must be {@link enums.RequestStatus} APPLIED
-     * @param id - {@link AnimalRequest}
+     *
+     * @param id      - {@link AnimalRequest}
      * @param roomDTO - {@link RoomDTO} room to book
      * @return new {@link Book} or null
      */
@@ -57,7 +58,7 @@ public class BookService {
         return book;
     }
 
-    public List<Book> findByRoomIdAndDate(String id, LocalDate begin, LocalDate end){
+    public List<Book> findByRoomIdAndDate(String id, LocalDate begin, LocalDate end) {
         return bookDAO.findBookByRoomIdAndDate(
                 Long.parseLong(id),
                 begin,

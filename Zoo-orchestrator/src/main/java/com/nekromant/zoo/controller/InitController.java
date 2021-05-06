@@ -16,8 +16,8 @@ public class InitController {
     private boolean init = false;
 
     @GetMapping
-    public RedirectView init(){
-        if(!init) {
+    public RedirectView init() {
+        if (!init) {
             initData.initData();
             init = true;
         }

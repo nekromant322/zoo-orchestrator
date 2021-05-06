@@ -19,6 +19,12 @@ public class MainController {
         return new ModelAndView("admin/animalRequestControlPage");
     }
 
+    @GetMapping("/")
+    public ModelAndView index() {
+
+        return new ModelAndView("mainPage");
+    }
+
     @GetMapping("/mainPage")
     public ModelAndView mainPage() {
 

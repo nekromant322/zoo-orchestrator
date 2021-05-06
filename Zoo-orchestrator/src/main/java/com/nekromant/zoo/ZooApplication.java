@@ -14,5 +14,4 @@ public class ZooApplication {
         SpringApplication.run(ZooApplication.class, args);
     }
 
-    //delete "//" to enable init userroles and users to base
 }
