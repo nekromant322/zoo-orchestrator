@@ -32,8 +32,7 @@ public class AnimalRequestRestController {
 
     @GetMapping("/onlyNew")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<AnimalRequestDTO> onlyNewAnimalRequestPage(@RequestParam(name = "Spam", required = false, defaultValue = "false")
-                                                                       Boolean spam) {
+    public List<AnimalRequestDTO> onlyNewAnimalRequest(@RequestParam(name = "Spam", required = false, defaultValue = "false") Boolean spam) {
         if (!spam)
             return animalRequestService.getAllNewAnimalRequest();
         else

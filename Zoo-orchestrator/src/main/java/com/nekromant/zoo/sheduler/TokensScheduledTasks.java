@@ -16,7 +16,7 @@ public class TokensScheduledTasks {
     /**
      * Job по удалению токенов с истекшим сроков действия
      */
-    @Scheduled(fixedRateString = "${app.const.tokens-remove-scheduler-delay}")
+    @Scheduled(fixedRateString = "${app.const.tokensRemoveSchedulerDelay}")
     private void clearExpiredTokens() {
         confirmationTokenDAO.findAll().forEach(item -> {
             if (item.getExpiredDate().isBefore(LocalDate.now()))

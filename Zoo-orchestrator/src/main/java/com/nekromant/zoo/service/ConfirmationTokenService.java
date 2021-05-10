@@ -4,19 +4,25 @@ import com.nekromant.zoo.dao.ConfirmationTokenDAO;
 import com.nekromant.zoo.model.ConfirmationToken;
 import com.nekromant.zoo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class ConfirmationTokenService {
 
     @Autowired
     private ConfirmationTokenDAO confirmationTokenDAO;
+
+    @Value("${app.const.tokenExpiredDelayInDays}")
+    private String tokenExpiredDelay;
 
     /**
      * Генерация токена {@link ConfirmationToken} на основе мыла и номера телефона
@@ -36,15 +42,12 @@ public class ConfirmationTokenService {
     }
 
     public ConfirmationToken getToken(String token) {
-        Optional<ConfirmationToken> confirmationToken = confirmationTokenDAO.findByToken(token);
-
-        confirmationToken.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Token not found!"));
-
-        return confirmationToken.get();
+        return confirmationTokenDAO.findByToken(token)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Token not found!"));
     }
 
-    public void addToken(String token, String email, LocalDate expiredDate) {
-        confirmationTokenDAO.save(new ConfirmationToken(token, email, expiredDate));
+    public void addToken(String token, String email) {
+        confirmationTokenDAO.save(new ConfirmationToken(token, email, LocalDate.now().plusDays(Long.parseLong(tokenExpiredDelay))));
     }
 
     public void deleteToken(ConfirmationToken confirmationToken) {
