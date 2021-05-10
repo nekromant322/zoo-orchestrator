@@ -11,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BlackList {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

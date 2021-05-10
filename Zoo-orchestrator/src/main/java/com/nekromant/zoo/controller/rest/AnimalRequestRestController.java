@@ -41,7 +41,7 @@ public class AnimalRequestRestController {
     }
 
     @PostMapping("/onlyNew/accept/{id}")
-    public void acceptAnimalRequestPage(@PathVariable String id) {
+    public void acceptAnimalRequest(@PathVariable String id) {
         animalRequestService.acceptAnimalRequest(id);
         userService.createUser(id);
     }

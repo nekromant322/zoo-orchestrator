@@ -1,6 +1,6 @@
 # Zoo
-### Для запуска проекта
-  - JDK 1.8
+### Перед запуском
+  - Установи JDK 1.8
   - Idea-> Plugins -> Lombok -> Install
   - Idea -> Settings -> Build, Execution, Deployment -> Compiler -> Annotation Proccesor -> Enable annotation Proccesing
 ### Git Branching 

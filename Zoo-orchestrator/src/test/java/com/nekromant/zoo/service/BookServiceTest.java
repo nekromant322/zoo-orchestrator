@@ -27,13 +27,13 @@ import static org.mockito.ArgumentMatchers.any;
 @DataJpaTest
 public class BookServiceTest {
     @InjectMocks
-    BookService bookService;
+    private BookService bookService;
 
     @Autowired
-    BookDAO bookDAO;
+    private BookDAO bookDAO;
 
     @Mock
-    AnimalRequestService animalRequestService;
+    private AnimalRequestService animalRequestService;
 
     private RoomDTO fillDefaultRoomDTO(){
         return new RoomDTO(
