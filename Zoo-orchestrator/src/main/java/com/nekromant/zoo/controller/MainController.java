@@ -25,12 +25,6 @@ public class MainController {
         return new ModelAndView("mainPage");
     }
 
-    @GetMapping("/loginPage")
-    public ModelAndView loginPage() {
-
-        return new ModelAndView("loginPage");
-    }
-
     @GetMapping("/videoPage")
     public ModelAndView testVideoPage() {
 
