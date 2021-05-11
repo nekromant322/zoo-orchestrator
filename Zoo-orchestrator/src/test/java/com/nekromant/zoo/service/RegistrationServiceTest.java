@@ -130,7 +130,7 @@ public class RegistrationServiceTest {
 
         Mockito.when(customUserDetailService.loadUserByUsername(Mockito.any())).thenThrow(new UsernameNotFoundException(""));
 
-        Assert.assertThrows(ResponseStatusException.class, () -> registrationService.login(email, password));
+        Assert.assertThrows(UsernameNotFoundException.class, () -> registrationService.login(email, password));
     }
 
     @Test

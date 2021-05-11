@@ -23,12 +23,9 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        Optional<User> user = Optional.ofNullable(userDAO.findByEmail(email));
-
-        user.orElseThrow(() -> new UsernameNotFoundException("Not found!"));
-
-        return user.map(CustomUserDetails::new).get();
+        return Optional.ofNullable(userDAO.findByEmail(email))
+                .map(CustomUserDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с email`ом " + email + " не найден!"));
     }
 
     private static class CustomUserDetails implements UserDetails {

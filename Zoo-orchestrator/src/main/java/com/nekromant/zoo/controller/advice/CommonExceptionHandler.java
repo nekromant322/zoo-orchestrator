@@ -1,10 +1,6 @@
 package com.nekromant.zoo.controller.advice;
 
-import com.nekromant.zoo.exception.AnimalRequestNotFoundException;
-import com.nekromant.zoo.exception.EmailSendFailedException;
-import com.nekromant.zoo.exception.InvalidRegistrationDataException;
-import com.nekromant.zoo.exception.SmsSendFailedException;
-import com.nekromant.zoo.exception.UserAlreadyExistException;
+import com.nekromant.zoo.exception.*;
 import dto.CommonErrorDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +10,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import java.time.Instant;
 
-import static com.nekromant.zoo.controller.advice.ZooError.ZOO_INVALID_USER_DATA;
-import static com.nekromant.zoo.controller.advice.ZooError.ZOO_NOTIFICATION_SEND_FAILED;
-import static com.nekromant.zoo.controller.advice.ZooError.ZOO_REQUEST_NOT_FOUND;
-import static com.nekromant.zoo.controller.advice.ZooError.ZOO_UNEXPECTED;
+import static com.nekromant.zoo.controller.advice.ZooError.*;
 
 
 /**
@@ -52,6 +45,15 @@ public class CommonExceptionHandler {
         }
         if (exception instanceof InvalidRegistrationDataException) {
             return ZOO_INVALID_USER_DATA;
+        }
+        if (exception instanceof InvalidChangePasswordDataException) {
+            return ZOO_CHANGE_PASSWORD_FAILED;
+        }
+        if (exception instanceof InvalidLoginException) {
+            return ZOO_AUTHORIZATION_FAILED;
+        }
+        if (exception instanceof AuthoritiesNotFoundException) {
+            return ZOO_AUTHORITIES_NOT_FOUND;
         }
         return ZOO_UNEXPECTED;
     }
