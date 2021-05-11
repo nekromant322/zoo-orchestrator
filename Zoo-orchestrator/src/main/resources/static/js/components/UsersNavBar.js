@@ -36,23 +36,20 @@ class UsersNavBar {
 
         let submitListener = function () {
             let data = {
-                'username': modalBlock.querySelector("#loginAuth").value,
-                'password': modalBlock.querySelector("#passwordAuth").value
+                email: modalBlock.querySelector("#loginAuth").value,
+                password: modalBlock.querySelector("#passwordAuth").value
             };
-            modalBlock.querySelector('#modalSubmitLogin').disabled = true;
 
             $.ajax({
                 url: "/login",
-                dataType: 'json',
                 type: 'POST',
                 contentType: "application/x-www-form-urlencoded",
                 data: data,
                 success: function (response) {
                     console.log(response);
-                    modalBlock.querySelector('#modalSubmitLogin').disabled = false;
                     setCookie("email", modalBlock.querySelector("#loginAuth").value);
                     setCookie("token", response);
-                    document.getElementById("navbarDropdown").innerText = modalBlock.querySelector("#loginReg").value;
+                    document.getElementById("navbarDropdown").innerText = modalBlock.querySelector("#loginAuth").value;
                 },
                 error: function (error) {
                     console.log(error);
@@ -97,7 +94,6 @@ class UsersNavBar {
                 email: modalBlock.querySelector("#loginReg").value,
                 password: modalBlock.querySelector("#passwordReg").value
             };
-            modalBlock.querySelector('#modalSubmitReg').disabled = true;
 
             console.log("Sent data = " + JSON.stringify(data));
 
@@ -108,7 +104,6 @@ class UsersNavBar {
                 data: data,
                 success: function (response) {
                     console.log(response);
-                    modalBlock.querySelector('#modalSubmitReg').disabled = false;
                     setCookie("email", modalBlock.querySelector("#loginReg").value);
                     setCookie("token", response);
                     document.getElementById("navbarDropdown").innerText = modalBlock.querySelector("#loginReg").value;

@@ -16,7 +16,7 @@ import java.time.Instant;
 
 import static com.nekromant.zoo.controller.advice.ZooError.ZOO_INVALID_USER_DATA;
 import static com.nekromant.zoo.controller.advice.ZooError.ZOO_NOTIFICATION_SEND_FAILED;
-import static com.nekromant.zoo.controller.advice.ZooError.ZOO_NOT_REQUEST_NOT_FOUND;
+import static com.nekromant.zoo.controller.advice.ZooError.ZOO_REQUEST_NOT_FOUND;
 import static com.nekromant.zoo.controller.advice.ZooError.ZOO_UNEXPECTED;
 
 
@@ -45,7 +45,7 @@ public class CommonExceptionHandler {
             return ZOO_NOTIFICATION_SEND_FAILED;
         }
         if (exception instanceof AnimalRequestNotFoundException) {
-            return ZOO_NOT_REQUEST_NOT_FOUND;
+            return ZOO_REQUEST_NOT_FOUND;
         }
         if (exception instanceof UserAlreadyExistException) {
             return ZOO_INVALID_USER_DATA;

@@ -1,3 +1,11 @@
+server:
+  port: 8080
+  address: localhost
+
+app:
+  const:
+    tokenExpiredDelayInDays: 3
+    tokensRemoveSchedulerDelay: 10800
 
 contacts:
   email: abc@gmail.com
@@ -39,6 +47,7 @@ spring:
 mail:
   login: ${EMAIL_LOGIN}
   password: ${EMAIL_PASSWORD}
+  sendRealEmails: false
   transport:
     protocol: smtp
   smtp:

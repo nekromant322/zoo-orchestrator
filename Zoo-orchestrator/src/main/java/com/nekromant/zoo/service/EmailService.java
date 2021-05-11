@@ -2,11 +2,13 @@ package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.exception.EmailSendFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
+@ConditionalOnProperty(value = "email.sendRealEmails", matchIfMissing = true)
 public class EmailService {
 
     @Autowired

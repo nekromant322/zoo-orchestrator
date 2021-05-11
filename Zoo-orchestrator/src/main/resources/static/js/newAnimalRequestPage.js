@@ -54,10 +54,10 @@ function getData(item) {
         dataType: 'json',
         type: 'GET',
         contentType: 'application/json',
-        data: data,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', "Bearer " + getCookie("token"));
         },
+        data: data,
         success: function (response) {
             console.log(response);
             let tableBody = document.getElementById("request-table").getElementsByTagName("tbody")[0];
