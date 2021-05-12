@@ -7,7 +7,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
-
+    private final static String MAIN_PAGE_METRIC_VALUE = "Пользователь зашёл на главную страницу";
+    private final static String LOGIN_PAGE_METRIC_VALUE = "Пользователь зашёл на страницу авторизации";
 
     @GetMapping("/animalRequestPage")
     public ModelAndView animalsPage() {
@@ -27,14 +28,14 @@ public class MainController {
         return new ModelAndView("mainPage");
     }
 
-    @Metric(value = "Пользователь зашёл на главную страницу")
+    @Metric(value = MAIN_PAGE_METRIC_VALUE)
     @GetMapping("/mainPage")
     public ModelAndView mainPage() {
 
         return new ModelAndView("mainPage");
     }
 
-    @Metric(value = "Пользователь зашёл на страницу авторизации")
+    @Metric(value = LOGIN_PAGE_METRIC_VALUE)
     @GetMapping("/loginPage")
     public ModelAndView loginPage() {
 
