@@ -4,6 +4,7 @@ import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
 import com.nekromant.zoo.exception.AnimalRequestNotFoundException;
+import com.nekromant.zoo.exception.AuthoritiesNotFoundException;
 import com.nekromant.zoo.mapper.UserMapper;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Authority;
@@ -100,8 +101,8 @@ public class UserService {
             list.add(authority.get());
             return list;
         }
-        //TODO Избавиться от потенциального NPE https://clck.ru/UgjKW
-        return null;
+
+        throw new AuthoritiesNotFoundException("Пользовательские права не найдены! Роль 'ROLE_USER' отсутствует!");
     }
 
 }

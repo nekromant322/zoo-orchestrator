@@ -1,6 +1,8 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.config.security.JwtProvider;
+import com.nekromant.zoo.exception.InvalidChangePasswordDataException;
+import com.nekromant.zoo.exception.InvalidLoginException;
 import com.nekromant.zoo.exception.InvalidRegistrationDataException;
 import com.nekromant.zoo.exception.UserAlreadyExistException;
 import com.nekromant.zoo.model.AnimalRequest;
@@ -9,14 +11,12 @@ import com.nekromant.zoo.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.stream.Collectors;
 
@@ -58,8 +58,7 @@ public class RegistrationService {
             log.info("Пароль для пользователя {} был успешно изменен!", email);
         } else {
             log.info("Пользователь {} не прошел валидацию данных при смене пароля!", email);
-            //TODO Возвращать ошибки в едином формате там где это не сделано https://clck.ru/UgiYE
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid data!");
+            throw new InvalidChangePasswordDataException("Неверное имя пользователя или пароль");
         }
     }
 
@@ -75,9 +74,8 @@ public class RegistrationService {
         try {
             userDetails = customUserDetailService.loadUserByUsername(email);
         } catch (UsernameNotFoundException e) {
-            log.warn("User {} not found", email);
-            //TODO Возвращать ошибки в едином формате там где это не сделано https://clck.ru/UgiYE
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
+            log.warn("Пользователь {} не найден", email);
+            throw new UsernameNotFoundException("Пользователь с email`ом " + email + " не найден!");
         }
 
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
@@ -87,8 +85,7 @@ public class RegistrationService {
 
             return jwtProvider.generateToken(email, authorities);
         }
-        //TODO Возвращать ошибки в едином формате там где это не сделано https://clck.ru/UgiYE
-        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated");
+        throw new InvalidLoginException("Пользователь не авторизован");
     }
 
     /**
@@ -144,7 +141,7 @@ public class RegistrationService {
             return jwtProvider.generateToken(email, authorities);
         } else {
             log.info("Пользователь {} не прошел валидацию данных при смене пароля!", email);
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid data!");
+            throw new InvalidRegistrationDataException("Неверное имя пользователя или пароль!");
         }
     }
 

@@ -51,7 +51,7 @@ public class SMSCService {
             return restTemplate.getForEntity(SMSC_URL, String.class, params);
         } catch (Throwable exception) {
             throw new SmsSendFailedException(
-                    "Не удалось отправись смс на номера " + phones.stream().collect(Collectors.joining(",", "{", "}")),
+                    "Не удалось отправить смс на номера " + phones.stream().collect(Collectors.joining(",", "{", "}")),
                     exception);
         }
     }
@@ -74,7 +74,7 @@ public class SMSCService {
             params.put(MESSAGE_KEY, message);
             return restTemplate.getForEntity(SMSC_URL + PARAMS, String.class, params);
         } catch (Throwable exception) {
-            throw new SmsSendFailedException("Не удалось отправись смс на номер " + phone, exception);
+            throw new SmsSendFailedException("Не удалось отправить смс на номер " + phone, exception);
         }
     }
 }
