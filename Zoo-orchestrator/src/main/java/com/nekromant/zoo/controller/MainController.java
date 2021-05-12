@@ -1,11 +1,13 @@
 package com.nekromant.zoo.controller;
 
+import com.nekromant.zoo.config.aspect.Metric;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
+
 
     @GetMapping("/animalRequestPage")
     public ModelAndView animalsPage() {
@@ -25,12 +27,14 @@ public class MainController {
         return new ModelAndView("mainPage");
     }
 
+    @Metric(value = "Пользователь зашёл на главную страницу")
     @GetMapping("/mainPage")
     public ModelAndView mainPage() {
 
         return new ModelAndView("mainPage");
     }
 
+    @Metric(value = "Пользователь зашёл на страницу авторизации")
     @GetMapping("/loginPage")
     public ModelAndView loginPage() {
 
