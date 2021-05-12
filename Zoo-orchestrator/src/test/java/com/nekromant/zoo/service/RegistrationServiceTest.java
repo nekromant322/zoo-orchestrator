@@ -23,7 +23,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.reflect.Constructor;
 import java.time.LocalDate;
@@ -72,13 +71,13 @@ public class RegistrationServiceTest {
         String password = "qwerty";
 
         Mockito.when(userService.findByEmail(Mockito.any())).thenReturn(null);
-        Mockito.when(userService.getAuthorities()).thenReturn(null);
+        Mockito.when(userService.generateUserRoleAuthorities()).thenReturn(null);
 
         registrationService.register(email, password);
 
         Mockito.verify(userService).insert(new User(null, "test@email.com",
                 bCryptPasswordEncoder.encode(password), null,
-                null, Discount.NONE));
+                null, Discount.NONE, new ArrayList<>()));
     }
 
     @Test
@@ -138,7 +137,7 @@ public class RegistrationServiceTest {
         String email = "test@email.com";
         String password = "qwerty";
         String newPassword = "123";
-        User user = new User(null, email, password, "", null, Discount.NONE);
+        User user = new User(null, email, password, "", null, Discount.NONE, null);
 
         Mockito.when(userService.findByEmail(Mockito.any())).thenReturn(user);
         Mockito.when(bCryptPasswordEncoder.matches(password, password)).thenReturn(true);
@@ -157,7 +156,7 @@ public class RegistrationServiceTest {
         String email = "test@email.com";
         String password = "qwerty";
         String newPassword = "123";
-        User user = new User(null, email, password, "", null, Discount.NONE);
+        User user = new User(null, email, password, "", null, Discount.NONE, null);
 
         Mockito.when(userService.findByEmail(Mockito.any())).thenReturn(user);
         Mockito.when(bCryptPasswordEncoder.matches(password, password)).thenReturn(false);
@@ -191,7 +190,7 @@ public class RegistrationServiceTest {
         String email = "test@email.com";
         String password = "qwerty";
         String newPassword = "123";
-        User user = new User(null, email, password, "", null, Discount.NONE);
+        User user = new User(null, email, password, "", null, Discount.NONE, null);
 
         Mockito.when(userService.findByEmail(Mockito.any())).thenReturn(user);
         Mockito.when(bCryptPasswordEncoder.matches(Mockito.any(), Mockito.any())).thenReturn(true);
@@ -200,7 +199,7 @@ public class RegistrationServiceTest {
         registrationService.changePassword(email, password, newPassword);
 
         Mockito.verify(userService).insert(new User(null, "test@email.com",
-                bCryptPasswordEncoder.encode("123"), "", null, Discount.NONE));
+                bCryptPasswordEncoder.encode("123"), "", null, Discount.NONE, null));
     }
 
     @Test
@@ -212,7 +211,7 @@ public class RegistrationServiceTest {
         List<Authority> list = new ArrayList<>();
         list.add(authority);
 
-        User user = new User(null, email, password, "", list, Discount.NONE);
+        User user = new User(null, email, password, "", list, Discount.NONE, null);
         ConfirmationToken confirmationToken = new ConfirmationToken("qwe", email, LocalDate.now());
 
         Mockito.when(userService.findByEmail(Mockito.any())).thenReturn(user);
@@ -222,6 +221,6 @@ public class RegistrationServiceTest {
         registrationService.confirmReg(email, newPassword);
 
         Mockito.verify(userService).insert(new User(null, "test@email.com",
-                password, "", list, Discount.NONE));
+                password, "", list, Discount.NONE, null));
     }
 }

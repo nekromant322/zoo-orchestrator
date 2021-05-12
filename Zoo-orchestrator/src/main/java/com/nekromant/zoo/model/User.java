@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,6 +40,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Discount discount = Discount.NONE;
 
+    @OneToMany(targetEntity = AnimalRequest.class, fetch = FetchType.LAZY)
+    private List<AnimalRequest> animalRequests = new ArrayList<>();
 
     public User(String email, String password, List<Authority> authorities) {
         this.email = email;

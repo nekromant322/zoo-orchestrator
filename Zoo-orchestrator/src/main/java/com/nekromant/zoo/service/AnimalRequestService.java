@@ -4,9 +4,12 @@ import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.BlackListDAO;
 import com.nekromant.zoo.mapper.AnimalRequestMapper;
 import com.nekromant.zoo.model.AnimalRequest;
+import com.nekromant.zoo.model.User;
 import dto.AnimalRequestDTO;
 import enums.RequestStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class AnimalRequestService {
 
     @Autowired
@@ -27,6 +31,9 @@ public class AnimalRequestService {
 
     @Autowired
     private BlackListDAO blackListDAO;
+
+    @Autowired
+    private UserService userService;
 
     public void insert(AnimalRequestDTO animalRequestDTO) {
 
@@ -81,5 +88,25 @@ public class AnimalRequestService {
 
     public Optional<AnimalRequest> findByName(String name) {
         return animalRequestDAO.findByName(name);
+    }
+
+    /**
+     * Связка пользователя {@link User} с заявкой {@link AnimalRequest}
+     *
+     * @param request - заявка {@link AnimalRequest}
+     */
+    public void bindUserAndAnimalRequest(AnimalRequest request) {
+        User user = userService.findByEmail(request.getEmail());
+
+        if (user == null || user.getId() == null) {
+            throw new UsernameNotFoundException("Пользователь не найден! Заявка " + request.getId()
+                    + " не была прикреплена к пользователю " + request.getEmail());
+        }
+
+        List<AnimalRequest> requestIdList = user.getAnimalRequests();
+        requestIdList.add(request);
+
+        userService.insert(user);
+        log.info("Заявка {} успешно прикреплена к пользователю {}", request.getId(), request.getEmail());
     }
 }

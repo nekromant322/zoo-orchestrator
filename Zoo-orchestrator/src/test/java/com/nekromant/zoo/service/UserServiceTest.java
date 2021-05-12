@@ -4,6 +4,7 @@ import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
 import com.nekromant.zoo.mapper.UserMapper;
+import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Authority;
 import com.nekromant.zoo.model.User;
 import com.nekromant.zoo.service.util.AnimalRequestUtil;
@@ -28,7 +29,7 @@ public class UserServiceTest {
     UserService userService;
 
     @Mock
-    private AnimalRequestDAO animalRequestDAO;
+    private AnimalRequestService animalRequestService;
 
     @Mock
     private UserDAO userDAO;
@@ -63,8 +64,9 @@ public class UserServiceTest {
         String password = "qwerty";
         String phone = "+7(999)-(999)-(99)-(99)";
         Optional<Authority> authorities = Optional.of(new Authority("ROLE_USER"));
+        AnimalRequest request = AnimalRequestUtil.make();
 
-        Mockito.when(animalRequestDAO.findById(Mockito.any())).thenReturn(Optional.of(AnimalRequestUtil.make()));
+        Mockito.when(animalRequestService.findById(Mockito.any())).thenReturn(Optional.of(AnimalRequestUtil.make()));
         Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(null);
         Mockito.when(authorityDAO.findByAuthority(Mockito.any())).thenReturn(authorities);
         Mockito.when(passwordGeneratorService.generateStrongPassword()).thenReturn(password);
@@ -75,6 +77,6 @@ public class UserServiceTest {
 
         Mockito.verify(userDAO).save(new User(null, "test@email.com",
                 bCryptPasswordEncoder.encode(password), phone,
-                Collections.singletonList(authorities.get()), Discount.NONE));
+                Collections.singletonList(authorities.get()), Discount.NONE, Collections.singletonList(request)));
     }
 }
