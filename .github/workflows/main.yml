@@ -19,11 +19,10 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "zoohotel1"
+          heroku_app_name: "zoohotel2"
           heroku_email: "shamaneeel881@gmail.com"
           healthcheck: "https://zoohotel1.herokuapp.com/health"
           usedocker: true
-          stack: container
         env:
           HD_VK_APP_ID : ${{ secrets.VK_APP_ID }}
           HD_VK_CLIENT_ID : ${{ secrets.VK_CLIENT_ID }}
