@@ -15,7 +15,7 @@ jobs:
         with:
           java-version: 8
       - name: Build with Maven
-        run: mvn -B -DskipTests=true clean install --file pom.xml
+        run: mvn -B -DskipTests=true -Dspring.profiles.active=prod clean install --file pom.xml
       - uses: akhileshns/heroku-deploy@v3.11.10 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -32,3 +32,10 @@ jobs:
           HD_EMAIL_PASSWORD : ${{ secrets.VK_CLIENT_ID }}
           HD_SMSC_LOGIN : ${{ secrets.VK_SERVICE_TOKEN }}
           HD_SMSC_PASSWORD : ${{ secrets.YANDEX_MAP_API_KEY }}
+          HD_KEYSTORE_LOCATION : ${{ secrets.KEYSTORE_LOCATION }}
+          HD_KEYSTORE_PASSWORD : ${{ secrets.KEYSTORE_PASSWORD }}
+          HD_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          HD_PRIVATE_KEY_PASSPHRASE: ${{ secrets.PRIVATE_KEY_PASSPHRASE }}
+          HD_PROD_POSTGRE_PASSWORD: ${{ secrets.PROD_POSTGRE_PASSWORD }}
+          HD_PROD_POSTGRE_USERNAME: ${{ secrets.PROD_POSTGRE_USERNAME }}
+          HD_PROD_POSTGRE_URL: ${{ secrets.PROD_POSTGRE_URL }}

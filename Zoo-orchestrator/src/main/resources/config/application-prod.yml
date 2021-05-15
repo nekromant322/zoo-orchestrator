@@ -17,18 +17,18 @@ contacts:
 
 spring:
   h2:
-   console:
-    enabled: true
+    console:
+      enabled: false
   datasource:
-    password: root
-    username: root
-    url: jdbc:h2:mem:testdb
-    datasource:
-      driver-class-name: org.h2.Driver
+    password: ${PROD_POSTGRE_PASSWORD}
+    username: ${PROD_POSTGRE_USERNAME}
+    url: ${PROD_POSTGRE_URL}
+    driver-class-name: org.postgresql.Driver
+  #      driver-class-name: org.postgresql.Driver
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.PostgreSQL81Dialect
         show_sql: true
         format_sql: true
         use_sql_comments: true
