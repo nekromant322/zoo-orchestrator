@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class PhotoCacheService implements PhotoHolder {
+
     private List<String> urlPhotos;
     private static final String PHOTO_1 = "/img/defaultPhotogalleryImg/1.jpg";
     private static final String PHOTO_2 = "/img/defaultPhotogalleryImg/2.jpg";

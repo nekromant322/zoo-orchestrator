@@ -1,7 +1,6 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.dao.PriceDAO;
-import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Price;
 import dto.AnimalRequestDTO;
 import enums.AnimalType;
@@ -14,8 +13,15 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static enums.AnimalType.*;
-import static enums.RoomType.*;
+import static enums.AnimalType.BIRD;
+import static enums.AnimalType.CAT;
+import static enums.AnimalType.DOG;
+import static enums.AnimalType.OTHER;
+import static enums.AnimalType.REPTILE;
+import static enums.AnimalType.RODENT;
+import static enums.RoomType.COMMON;
+import static enums.RoomType.LARGE;
+import static enums.RoomType.VIP;
 import static java.lang.Math.abs;
 
 @Service
@@ -23,7 +29,6 @@ public class PriceService {
 
     @Autowired
     private PriceDAO priceDAO;
-
 
     /**
      * Получить актуальную цену
@@ -33,7 +38,6 @@ public class PriceService {
     public Price getActualPrice() {
         return priceDAO.findTopByOrderByLastUpdatedDesc();
     }
-
 
     private Map<AnimalType, Integer> getAnimalTypePriceMap(Price price) {
         Map<AnimalType, Integer> animalTypePrice = new HashMap<>();

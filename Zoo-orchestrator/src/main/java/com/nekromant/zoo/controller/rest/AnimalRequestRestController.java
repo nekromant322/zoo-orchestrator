@@ -5,9 +5,7 @@ import com.nekromant.zoo.service.AnimalRequestService;
 import com.nekromant.zoo.service.UserService;
 import dto.AnimalRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,9 +31,8 @@ public class AnimalRequestRestController {
     }
 
     @GetMapping("/onlyNew")
-    @PreAuthorize("hasRole('USER')")
-    public List<AnimalRequestDTO> onlyNewAnimalRequestPage(Authentication authentication
-            , @RequestParam(name = "Spam", required = false, defaultValue = "false") Boolean spam) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<AnimalRequestDTO> onlyNewAnimalRequest(@RequestParam(name = "Spam", required = false, defaultValue = "false") Boolean spam) {
         if (!spam)
             return animalRequestService.getAllNewAnimalRequest();
         else
@@ -43,7 +40,7 @@ public class AnimalRequestRestController {
     }
 
     @PostMapping("/onlyNew/accept/{id}")
-    public void acceptAnimalRequestPage(@PathVariable String id) {
+    public void acceptAnimalRequest(@PathVariable String id) {
         animalRequestService.acceptAnimalRequest(id);
         userService.createUser(id);
     }

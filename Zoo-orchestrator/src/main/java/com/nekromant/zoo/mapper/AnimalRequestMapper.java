@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AnimalRequestMapper {
+
     public AnimalRequestDTO entityToDto(AnimalRequest animalRequest){
         return new AnimalRequestDTO(
                 animalRequest.getId(),

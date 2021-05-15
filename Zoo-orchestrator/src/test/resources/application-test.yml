@@ -1,3 +1,11 @@
+server:
+  port: 8080
+  address: localhost
+
+app:
+  const:
+    tokenExpiredDelayInDays: 3
+    tokensRemoveSchedulerDelay: 10800
 
 contacts:
   email: abc@gmail.com
@@ -29,16 +37,17 @@ spring:
     generate-ddl: true
   security:
     jwt:
-      keystore-location: ${KEYSTORE_LOCATION}
-      keystore-password: ${KEYSTORE_PASSWORD}
-      key-alias: ${KEY_ALIAS}
-      private-key-passphrase: ${PRIVATE_KEY_PASSPHRASE}
+      keystore-location: keys/keystore.jks
+      keystore-password: password
+      key-alias: password
+      private-key-passphrase: jwtsigning
 
 
 
 mail:
-  login: ${EMAIL_LOGIN}
-  password: ${EMAIL_PASSWORD}
+  login: test@mail.ru
+  password: password
+  sendRealEmails: false
   transport:
     protocol: smtp
   smtp:
@@ -50,17 +59,17 @@ mail:
   port: 587
 
 SMSC:
-  login: ${SMSC_LOGIN}
-  password: ${SMSC_PASSWORD}
+  login: testsms
+  password: password
   url: https://smsc.ru/sys/send.php
 
 vk:
   app:
-    id: ${VK_APP_ID}
+    id: 12345678
   client:
-    id: ${VK_CLIENT_ID}
+    id: client
   service:
-    token: ${VK_SERVICE_TOKEN}
+    token: token
   owner:
     id: -198597086
   album:
@@ -68,7 +77,7 @@ vk:
 
 map:
   api:
-    key: ${YANDEX_MAP_API_KEY}
+    key: map-key
 
 logging:
   file:

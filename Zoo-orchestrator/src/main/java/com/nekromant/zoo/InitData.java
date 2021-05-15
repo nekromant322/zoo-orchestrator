@@ -64,7 +64,7 @@ public class InitData {
         authorityService.insert(adminAuthority);
         authorityService.insert(userAuthority);
 
-        List<Authority> authorities = new ArrayList<Authority>();
+        List<Authority> authorities = new ArrayList<>();
         authorities.add(adminAuthority);
 
         for (int i = 0; i < 2; i++) {

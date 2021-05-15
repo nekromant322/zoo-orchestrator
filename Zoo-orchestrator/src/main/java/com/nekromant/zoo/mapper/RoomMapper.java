@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 @Component
 public class RoomMapper {
+
     public Room dtoToEntity(RoomDTO roomDTO){
         return new Room(
                 roomDTO.getId(),

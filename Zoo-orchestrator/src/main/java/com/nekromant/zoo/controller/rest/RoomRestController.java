@@ -11,21 +11,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/roomPage")
 public class RoomRestController {
+
     @Autowired
     private RoomService roomService;
 
     @GetMapping
-    List<Room> getAll(){
+    List<Room> getAll() {
         return roomService.findAll();
     }
 
     @PostMapping
-    Room addRoom(@RequestBody Room room){
+    Room addRoom(@RequestBody Room room) {
         return roomService.insert(room);
     }
 
     @PostMapping("/spareRooms")
-    public List<Room> getSpareRoom(@RequestBody RoomDTO roomDTO){
+    public List<Room> getSpareRoom(@RequestBody RoomDTO roomDTO) {
         return roomService.findAllSpareRoom(roomDTO);
     }
 }

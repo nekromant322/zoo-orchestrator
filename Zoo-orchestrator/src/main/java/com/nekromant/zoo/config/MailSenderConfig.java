@@ -11,13 +11,16 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import java.util.Properties;
 
 @Configuration
-public class MailSender {
+public class MailSenderConfig {
 
     @Value("${mail.login}")
     private String emailLogin;
 
     @Value("${mail.password}")
     private String emailPassword;
+
+    @Value("${mail.port}")
+    private String port;
 
     @Autowired
     private Environment env;
@@ -26,7 +29,7 @@ public class MailSender {
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(env.getProperty("mail.host"));
-        mailSender.setPort(Integer.parseInt(env.getProperty("mail.port")));
+        mailSender.setPort(Integer.parseInt(port));
 
         mailSender.setUsername(emailLogin);
         mailSender.setPassword(emailPassword);

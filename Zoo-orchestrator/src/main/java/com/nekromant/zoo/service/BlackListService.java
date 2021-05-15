@@ -13,12 +13,12 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class BlackListService {
+
     @Autowired
     private BlackListDAO blackListDAO;
 
     @Autowired
     private AnimalRequestService animalRequestService;
-
 
     /**
      * Find animalRequest by id

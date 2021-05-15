@@ -4,12 +4,10 @@ import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.BlackListDAO;
 import com.nekromant.zoo.mapper.AnimalRequestMapper;
 import com.nekromant.zoo.model.AnimalRequest;
+import com.nekromant.zoo.model.User;
 import com.nekromant.zoo.service.util.AnimalRequestUtil;
 import dto.AnimalRequestDTO;
-import enums.AnimalType;
-import enums.Location;
-import enums.RequestStatus;
-import enums.RoomType;
+import enums.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,14 +16,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RunWith(MockitoJUnitRunner.class)
+@DataJpaTest
 public class AnimalRequestServiceTest {
     @InjectMocks
     AnimalRequestService animalRequestService;
