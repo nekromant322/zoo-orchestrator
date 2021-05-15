@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import static com.nekromant.zoo.constant.MetricContants.LOGIN_PAGE_METRIC;
+import static com.nekromant.zoo.constant.MetricContants.CONFIRM_REGISTRATION_PAGE_METRIC;
 import static com.nekromant.zoo.constant.MetricContants.MAIN_PAGE_METRIC;
 
 @Controller
@@ -29,7 +29,7 @@ public class MainController {
         return new ModelAndView("mainPage");
     }
 
-    @Metric(value = MAIN_PAGE_METRIC)
+    @Metric(MAIN_PAGE_METRIC)
     @GetMapping("/mainPage")
     public ModelAndView mainPage() {
 
@@ -66,7 +66,7 @@ public class MainController {
         return new ModelAndView("userProfilePage");
     }
 
-    import static com.nekromant.zoo.constant.MetricContants.LOGIN_PAGE_METRIC;
+    @Metric(CONFIRM_REGISTRATION_PAGE_METRIC)
     @GetMapping("/confirmReg")
     public ModelAndView confirmReg() {
 
