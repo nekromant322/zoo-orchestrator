@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - master # Changing the branch here would also work
+      - master
 
 jobs:
   build:
@@ -16,10 +16,10 @@ jobs:
           java-version: 8
       - name: Build with Maven
         run: mvn -B -DskipTests=true -Dspring.profiles.active=prod clean install --file pom.xml
-      - uses: akhileshns/heroku-deploy@v3.11.10 # This is the action
+      - uses: akhileshns/heroku-deploy@v3.11.10
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "zoohotel1" #Must be unique in Heroku
+          heroku_app_name: "zoohotel1"
           heroku_email: "shamaneeel881@gmail.com"
           healthcheck: "https://zoohotel1.herokuapp.com/health"
           usedocker: true  
