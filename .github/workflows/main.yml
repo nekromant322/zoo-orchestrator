@@ -22,7 +22,8 @@ jobs:
           heroku_app_name: "zoohotel1"
           heroku_email: "shamaneeel881@gmail.com"
           healthcheck: "https://zoohotel1.herokuapp.com/health"
-          usedocker: true  
+          usedocker: true
+          stack: container
         env:
           HD_VK_APP_ID : ${{ secrets.VK_APP_ID }}
           HD_VK_CLIENT_ID : ${{ secrets.VK_CLIENT_ID }}
