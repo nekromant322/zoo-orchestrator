@@ -16,7 +16,7 @@ jobs:
           java-version: 8
       - name: Build with Maven
         run: mvn -B -DskipTests=true -Dspring.profiles.active=prod clean install --file pom.xml
-      - uses: akhileshns/heroku-deploy@v3.11.10
+      - uses: akhileshns/heroku-deploy@v3.12.12 
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "zoohotel1"
