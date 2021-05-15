@@ -34,7 +34,6 @@ class MainMenu{
             "                    <a href=\"/AnimalRequestPage/onlyNew\" class=\"btn btn-secondary\" role=\"button\">Новые заявки</a>\n" +
             "                    <a href=\"/controlPage\"  class=\"btn btn-secondary\" role=\"button\">Панелька</a>\n" +
             "\n" +
-            "                    <a style=\"margin-left: 20px\" href=\"/loginPage\"  class=\"btn btn-secondary\" role=\"button\">Войти</a>\n" +
             "                </nav>\n" +
             "            </div>\n" +
             "        </div>\n" +
