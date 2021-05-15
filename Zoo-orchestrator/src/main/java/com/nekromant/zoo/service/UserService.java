@@ -1,6 +1,5 @@
 package com.nekromant.zoo.service;
 
-import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
 import com.nekromant.zoo.exception.AnimalRequestNotFoundException;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponents;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +26,6 @@ public class UserService {
 
     @Autowired
     private UserDAO userDAO;
-
-    @Autowired
-    private AnimalRequestDAO animalRequestDAO;
 
     @Autowired
     private AuthorityDAO authorityDAO;
@@ -51,6 +48,9 @@ public class UserService {
     @Autowired
     private QueryConstructorService queryConstructorService;
 
+    @Autowired
+    private AnimalRequestService animalRequestService;
+
     public void insert(User user) {
         userDAO.save(user);
     }
@@ -66,13 +66,14 @@ public class UserService {
      * @param requestId - id заявки {@link AnimalRequest}
      */
     public void createUser(String requestId) {
-        Optional<AnimalRequest> request = animalRequestDAO.findById(Long.valueOf(requestId));
+        Optional<AnimalRequest> request = animalRequestService.findById(requestId);
         if (request.isPresent()) {
             AnimalRequest requestItem = request.get();
             if (findByEmail(requestItem.getEmail()) == null) {
                 User user = userMapper.animalRequestToUser(requestItem);
                 user.setPassword(bCryptPasswordEncoder.encode(passwordGeneratorService.generateStrongPassword()));
-                user.setAuthorities(getAuthorities());
+                user.setAuthorities(generateUserRoleAuthorities());
+                user.setAnimalRequests(Collections.singletonList(requestItem));
                 insert(user);
                 log.info("Пользователь с email {} был успешно создан при подтверждении заявки!", requestItem.getEmail());
 
@@ -83,6 +84,8 @@ public class UserService {
 
                 log.info(url.toUriString());
                 emailService.sendEmail(user.getEmail(), "Подтверждение регистрации", url.toUriString());
+            } else {
+                animalRequestService.bindUserAndAnimalRequest(requestItem);
             }
         } else {
             throw new AnimalRequestNotFoundException(requestId);
@@ -94,7 +97,7 @@ public class UserService {
      *
      * @return - List<Authority> {@link User}
      */
-    protected List<Authority> getAuthorities() {
+    protected List<Authority> generateUserRoleAuthorities() {
         Optional<Authority> authority = authorityDAO.findByAuthority("ROLE_USER");
         if (authority.isPresent()) {
             List<Authority> list = new ArrayList<>();

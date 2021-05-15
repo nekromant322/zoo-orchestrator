@@ -4,8 +4,9 @@ import enums.AnimalType;
 import enums.Location;
 import enums.RequestStatus;
 import enums.RoomType;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;

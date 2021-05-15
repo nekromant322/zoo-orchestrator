@@ -102,7 +102,7 @@ public class RegistrationService {
                 User user = new User();
                 user.setEmail(email);
                 user.setPassword(bCryptPasswordEncoder.encode(password));
-                user.setAuthorities(userService.getAuthorities());
+                user.setAuthorities(userService.generateUserRoleAuthorities());
                 userService.insert(user);
                 log.info("Пользователь с email {} был успешно создан с формы регистрации!", email);
             } else {
