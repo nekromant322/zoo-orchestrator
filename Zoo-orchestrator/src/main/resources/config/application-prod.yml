@@ -24,7 +24,6 @@ spring:
     username: ${PROD_POSTGRE_USERNAME}
     url: ${PROD_POSTGRE_URL}
     driver-class-name: org.postgresql.Driver
-  #      driver-class-name: org.postgresql.Driver
   jpa:
     properties:
       hibernate:
