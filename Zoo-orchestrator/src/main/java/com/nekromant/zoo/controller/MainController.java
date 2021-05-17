@@ -72,4 +72,9 @@ public class MainController {
 
         return new ModelAndView("confirmReg");
     }
+
+    @GetMapping("/photoGalleryPage")
+    public ModelAndView photoGalleryPage() {
+        return new ModelAndView("photoGalleryPage");
+    }
 }
