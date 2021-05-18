@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Zoo-DTO</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.11</version>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>com.nekromant</groupId>
         <artifactId>Zoo</artifactId>
-        <version>0.0.5</version>
+        <version>0.0.11</version>
     </parent>
 
     <dependencies>
