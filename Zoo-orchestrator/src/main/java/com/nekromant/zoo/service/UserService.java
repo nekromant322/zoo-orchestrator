@@ -1,5 +1,6 @@
 package com.nekromant.zoo.service;
 
+import com.nekromant.zoo.client.ConfirmationZooClient;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
 import com.nekromant.zoo.exception.AnimalRequestNotFoundException;
@@ -8,6 +9,7 @@ import com.nekromant.zoo.mapper.UserMapper;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Authority;
 import com.nekromant.zoo.model.User;
+import dto.ConfirmationTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,7 +45,7 @@ public class UserService {
     private EmailService emailService;
 
     @Autowired
-    private ConfirmationTokenService confirmationTokenService;
+    private ConfirmationZooClient confirmationZooClient;
 
     @Autowired
     private QueryConstructorService queryConstructorService;
@@ -77,10 +79,10 @@ public class UserService {
                 insert(user);
                 log.info("Пользователь с email {} был успешно создан при подтверждении заявки!", requestItem.getEmail());
 
-                String secretToken = confirmationTokenService.getEncodedToken(user.getEmail(), user.getPhoneNumber());
+                String secretToken = confirmationZooClient.getEncodedToken(user.getEmail(), user.getPhoneNumber());
                 UriComponents url = queryConstructorService.buildConfirmationUrlWithToken(secretToken);
 
-                confirmationTokenService.addToken(secretToken, user.getEmail());
+                confirmationZooClient.createToken(secretToken, user.getEmail());
 
                 log.info(url.toUriString());
                 emailService.sendEmail(user.getEmail(), "Подтверждение регистрации", url.toUriString());

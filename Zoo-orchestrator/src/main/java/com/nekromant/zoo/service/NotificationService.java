@@ -2,10 +2,10 @@ package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 @Service
 public class NotificationService {
@@ -22,5 +22,11 @@ public class NotificationService {
 
     public void sendSms(User user, String message) {
         smscService.sendSms(user.getPhoneNumber(), message);
+    }
+
+    public void sendSmsWithCode(String phone) {
+        Random random = new Random();
+        int pin = random.nextInt((9999 - 100) + 1) + 10;
+        smscService.sendSms(phone, "PIN: " + pin);
     }
 }

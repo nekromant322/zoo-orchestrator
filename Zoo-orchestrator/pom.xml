@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Zoo-orchestrator</artifactId>
-    <version>0.0.11</version>
+    <version>0.0.13</version>
     <name>Zoo-orchestrator</name>
     <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
@@ -11,7 +11,7 @@
     <parent>
         <groupId>com.nekromant</groupId>
         <artifactId>Zoo</artifactId>
-        <version>0.0.11</version>
+        <version>0.0.13</version>
     </parent>
 
     <dependencies>
@@ -125,7 +125,7 @@
         <dependency>
             <groupId>com.nekromant</groupId>
             <artifactId>Zoo-DTO</artifactId>
-            <version>0.0.11</version>
+            <version>0.0.13</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

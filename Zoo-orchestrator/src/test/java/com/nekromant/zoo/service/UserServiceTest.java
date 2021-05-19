@@ -1,5 +1,6 @@
 package com.nekromant.zoo.service;
 
+import com.nekromant.zoo.client.ConfirmationZooClient;
 import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
@@ -47,7 +48,7 @@ public class UserServiceTest {
     private AuthorityDAO authorityDAO;
 
     @Mock
-    private ConfirmationTokenService confirmationTokenService;
+    private ConfirmationZooClient confirmationZooClient;
 
     @Mock
     private RegistrationService registrationService;
@@ -70,7 +71,7 @@ public class UserServiceTest {
         Mockito.when(userDAO.findByEmail(Mockito.any())).thenReturn(null);
         Mockito.when(authorityDAO.findByAuthority(Mockito.any())).thenReturn(authorities);
         Mockito.when(passwordGeneratorService.generateStrongPassword()).thenReturn(password);
-        Mockito.when(confirmationTokenService.getEncodedToken(Mockito.any(), Mockito.any())).thenReturn("qwe");
+        Mockito.when(confirmationZooClient.getEncodedToken(Mockito.any(), Mockito.any())).thenReturn("qwe");
         Mockito.when(queryConstructorService.buildConfirmationUrlWithToken(Mockito.any())).thenReturn(UriComponentsBuilder.newInstance().build());
 
         userService.createUser(requestId);

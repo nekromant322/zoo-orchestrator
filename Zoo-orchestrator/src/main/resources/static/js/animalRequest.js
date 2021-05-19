@@ -58,7 +58,7 @@ function back() {
     controlPrevBtn();
 }
 
-function controlPrevBtn(){
+function controlPrevBtn() {
     if (currentStep === 0 || currentStep === steps.length - 1)
         $("#prev-state").hide();
     else
@@ -99,6 +99,38 @@ function checkAlert(itemId, alertId) {
 
 function sendRequest() {
 
+    let data = {"phoneNumber": $("#phone-input").val()};
+
+    console.log(data);
+
+    $.ajax({
+        url: '/api/animalRequest',
+        dataType: 'json',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (response) {
+            $('.timerBlock').show();
+            let timerBlock = $('.seconds');
+            let num = response; //количество секунд
+
+            let index = num;
+            let timerId = setInterval(function () {
+                timerBlock.html(--index);
+            }, 1000);
+
+            setTimeout(function () {
+                clearInterval(timerId);
+                $('.confirm-cod').show();
+                $('.create-request').show();
+                $('.confirm-request').hide();
+            }, num * 1000);
+        },
+    })
+}
+
+function createRequest() {
+
     animalRequest.animalName = $("#animal-name-input").val();
     animalRequest.phoneNumber = $("#phone-input").val();
     animalRequest.email = $("#email-input").val();
@@ -106,6 +138,20 @@ function sendRequest() {
     animalRequest.surname = $("#surname-input").val();
     animalRequest.requestStatus = "NEW";
     animalRequest.location = $("#location-input").val();
+    animalRequest.code = $("#confirm-cod").val();
+
+    let timerBlock = $('.seconds');
+    let num = 10; //количество секунд
+
+    let index = num;
+    let timerId = setInterval(function () {
+        timerBlock.html(--index);
+    }, 1000);
+
+    setTimeout(function () {
+        clearInterval(timerId);
+        $('#timerBlock').html('<button>hello!</button>')
+    }, num * 1000);
 
     $.ajax({
         url: '/api/animalRequest',

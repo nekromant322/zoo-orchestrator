@@ -1,13 +1,14 @@
 package com.nekromant.zoo.service;
 
+import com.nekromant.zoo.client.ConfirmationZooClient;
 import com.nekromant.zoo.config.security.JwtProvider;
 import com.nekromant.zoo.exception.InvalidChangePasswordDataException;
 import com.nekromant.zoo.exception.InvalidLoginException;
 import com.nekromant.zoo.exception.InvalidRegistrationDataException;
 import com.nekromant.zoo.exception.UserAlreadyExistException;
 import com.nekromant.zoo.model.AnimalRequest;
-import com.nekromant.zoo.model.ConfirmationToken;
 import com.nekromant.zoo.model.User;
+import dto.ConfirmationTokenDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,10 @@ public class RegistrationService {
     private JwtProvider jwtProvider;
 
     @Autowired
-    private ConfirmationTokenService confirmationTokenService;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    private ConfirmationZooClient confirmationZooClient;
 
     /**
      * Смена пароля пользователя (страница с профилем юзера)
@@ -118,13 +119,13 @@ public class RegistrationService {
      * После апрува заявки {@link AnimalRequest} админом отправляется письмо на почту юзера {@link User}
      * с ссылкой на страницу с подтверждением регистрации, где юзер вводит новый пароль
      *
-     * @param token    - {@link ConfirmationToken} уникальное значение, которое содержит в себе мапу с мылом и номером телефона
+     * @param token    - уникальное значение, которое содержит в себе мапу с мылом и номером телефона
      * @param password - {@link User} новый пароль для учетки
      * @return - jwt token (запускай работягу в лк)
      */
     public String confirmReg(String token, String password) {
 
-        ConfirmationToken confirmationToken = confirmationTokenService.getToken(token);
+        ConfirmationTokenDTO confirmationToken = confirmationZooClient.getToken(token);
 
         String email = confirmationToken.getEmail();
 
@@ -132,7 +133,7 @@ public class RegistrationService {
             User user = userService.findByEmail(email);
             user.setPassword(bCryptPasswordEncoder.encode(password));
             userService.insert(user);
-            confirmationTokenService.deleteToken(confirmationToken);
+            confirmationZooClient.removeToken(confirmationToken);
             log.info("Пароль для пользователя {} был успешно изменен!", email);
 
             String authorities = user.getAuthorities().stream()

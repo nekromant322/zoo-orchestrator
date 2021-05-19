@@ -1,19 +1,28 @@
 package com.nekromant.zoo.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public interface SMSCService {
+@Profile("dev")
+@Slf4j
+public class SMSCServiceMock implements SMSCService {
+
     /**
      * Отправка SMS на список номеров
      *
      * @param phones  - список телефонов
      * @param message - отправляемое сообщение
      */
-    ResponseEntity<String> sendSms(List<String> phones, String message);
+    public ResponseEntity<String> sendSms(List<String> phones, String message) {
+        log.info("Сообщение с текстом:'{}' было успешно отправлено на номера {}", message, String.join(",", phones));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     /**
      * Отправка SMS на один номер
@@ -23,5 +32,8 @@ public interface SMSCService {
      * @return array (<id>, <количество sms>, <стоимость>, <баланс>) в случае успешной отправки
      * или массив (<id>, -<код ошибки>) в случае ошибки
      */
-    ResponseEntity<String> sendSms(String phone, String message);
+    public ResponseEntity<String> sendSms(String phone, String message) {
+        log.info("Сообщение с текстом:'{}' было успешно отправлено на номер {}", message, phone);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

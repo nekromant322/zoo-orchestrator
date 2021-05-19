@@ -3,9 +3,8 @@ server:
   address: localhost
 
 app:
-  const:
-    tokenExpiredDelayInDays: 3
-    tokensRemoveSchedulerDelay: 10800
+  url:
+    confirmationZoo: http://localhost:6060
 
 contacts:
   email: abc@gmail.com

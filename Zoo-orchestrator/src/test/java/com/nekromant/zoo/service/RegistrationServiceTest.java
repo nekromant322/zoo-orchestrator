@@ -1,5 +1,6 @@
 package com.nekromant.zoo.service;
 
+import com.nekromant.zoo.client.ConfirmationZooClient;
 import com.nekromant.zoo.config.security.JwtProvider;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
@@ -7,8 +8,8 @@ import com.nekromant.zoo.exception.InvalidRegistrationDataException;
 import com.nekromant.zoo.exception.UserAlreadyExistException;
 import com.nekromant.zoo.mapper.UserMapper;
 import com.nekromant.zoo.model.Authority;
-import com.nekromant.zoo.model.ConfirmationToken;
 import com.nekromant.zoo.model.User;
+import dto.ConfirmationTokenDTO;
 import enums.Discount;
 import lombok.SneakyThrows;
 import org.junit.Assert;
@@ -56,7 +57,7 @@ public class RegistrationServiceTest {
     private CustomUserDetailService customUserDetailService;
 
     @Mock
-    private ConfirmationTokenService confirmationTokenService;
+    private ConfirmationZooClient confirmationZooClient;
 
     @Mock
     private EmailService emailService;
@@ -212,11 +213,11 @@ public class RegistrationServiceTest {
         list.add(authority);
 
         User user = new User(null, email, password, "", list, Discount.NONE, null);
-        ConfirmationToken confirmationToken = new ConfirmationToken("qwe", email, LocalDate.now());
+        ConfirmationTokenDTO confirmationToken = new ConfirmationTokenDTO(1, "qwe", email, LocalDate.now());
 
         Mockito.when(userService.findByEmail(Mockito.any())).thenReturn(user);
         Mockito.when(bCryptPasswordEncoder.encode(Mockito.any())).thenReturn(password);
-        Mockito.when(confirmationTokenService.getToken(Mockito.any())).thenReturn(confirmationToken);
+        Mockito.when(confirmationZooClient.getToken(Mockito.any())).thenReturn(confirmationToken);
 
         registrationService.confirmReg(email, newPassword);
 
