@@ -104,7 +104,7 @@ function sendRequest() {
     console.log(data);
 
     $.ajax({
-        url: '/api/animalRequest',
+        url: '/api/animalRequest/confirm',
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',
@@ -154,7 +154,7 @@ function createRequest() {
     }, num * 1000);
 
     $.ajax({
-        url: '/api/animalRequest',
+        url: '/api/animalRequest/create',
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',

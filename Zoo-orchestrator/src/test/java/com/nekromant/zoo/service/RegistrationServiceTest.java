@@ -1,6 +1,7 @@
 package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.client.ConfirmationZooClient;
+import com.nekromant.zoo.client.NotificationZooClient;
 import com.nekromant.zoo.config.security.JwtProvider;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
@@ -60,7 +61,7 @@ public class RegistrationServiceTest {
     private ConfirmationZooClient confirmationZooClient;
 
     @Mock
-    private EmailService emailService;
+    private NotificationZooClient notificationZooClient;
 
     @Mock
     private UserService userService;

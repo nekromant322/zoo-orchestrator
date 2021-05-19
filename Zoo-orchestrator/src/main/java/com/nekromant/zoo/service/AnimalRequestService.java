@@ -1,11 +1,13 @@
 package com.nekromant.zoo.service;
 
+import com.nekromant.zoo.client.ConfirmationZooClient;
 import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.BlackListDAO;
 import com.nekromant.zoo.mapper.AnimalRequestMapper;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.User;
 import dto.AnimalRequestDTO;
+import dto.SMSCodeDTO;
 import enums.RequestStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +37,19 @@ public class AnimalRequestService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ConfirmationZooClient confirmationZooClient;
+
     public void insert(AnimalRequestDTO animalRequestDTO) {
 
         animalRequestDTO.setSpamRequest(blackListDAO.existsByPhoneNumberOrEmailIgnoreCase(animalRequestDTO.getPhoneNumber(), animalRequestDTO.getEmail()));
 
+        animalRequestDAO.save(animalRequestMapper.dtoToEntity(animalRequestDTO, priceService.calculateTotalPrice(animalRequestDTO)));
+    }
+
+    public void insert(AnimalRequestDTO animalRequestDTO, SMSCodeDTO smsCodeDTO) {
+        animalRequestDTO.setSpamRequest(blackListDAO.existsByPhoneNumberOrEmailIgnoreCase(animalRequestDTO.getPhoneNumber(), animalRequestDTO.getEmail()));
+        confirmationZooClient.verifySMSCode(smsCodeDTO);
         animalRequestDAO.save(animalRequestMapper.dtoToEntity(animalRequestDTO, priceService.calculateTotalPrice(animalRequestDTO)));
     }
 
@@ -108,5 +119,9 @@ public class AnimalRequestService {
 
         userService.insert(user);
         log.info("Заявка {} успешно прикреплена к пользователю {}", request.getId(), request.getEmail());
+    }
+
+    public Long getCode(SMSCodeDTO smsCodeDTO) {
+        return confirmationZooClient.createSMSCode(smsCodeDTO);
     }
 }
