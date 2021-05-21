@@ -22,6 +22,7 @@ jobs:
           heroku_app_name: "zoohotel1"
           heroku_email: "shamaneeel881@gmail.com"
           healthcheck: "https://zoohotel1.herokuapp.com/health"
+          stack: heroku-20
       
         env:
           HD_VK_APP_ID : ${{ secrets.VK_APP_ID }}
