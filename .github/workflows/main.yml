@@ -16,14 +16,20 @@ jobs:
           java-version: 8
       - name: Build with Maven
         run: mvn -B -DskipTests=true -Dspring.profiles.active=prod clean install --file pom.xml
-      - uses: akhileshns/heroku-deploy@v3.11.10
+      - uses: akhileshns/heroku-deploy@v3.12.12 
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "zoohotel1"
+          heroku_app_name: zoohotel1
           heroku_email: "shamaneeel881@gmail.com"
           healthcheck: "https://zoohotel1.herokuapp.com/health"
+          justlogin: true
           stack: heroku-20
-      
+
+      - name: "Login to heroku registry"
+        run: heroku container:login
+
+      - name: "Releases the container"
+        run: heroku container:release web --app zoohotel1
         env:
           HD_VK_APP_ID : ${{ secrets.VK_APP_ID }}
           HD_VK_CLIENT_ID : ${{ secrets.VK_CLIENT_ID }}
