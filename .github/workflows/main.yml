@@ -23,6 +23,7 @@ jobs:
           heroku_email: "shamaneeel881@gmail.com"
           healthcheck: "https://zoohotel1.herokuapp.com/health"
           justlogin: true
+          stack: heroku-20
 
       - name: "Login to heroku registry"
         run: heroku container:login
