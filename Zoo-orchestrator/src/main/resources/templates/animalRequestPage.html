@@ -110,12 +110,24 @@
             <p class="inputName">Стоимость</p>
             <input type="text" class="personalDataInput" id="calculatedPrice" readonly>
         </form>
-        <button class="fadeIn fourth sendRequestBtn" onclick="sendRequest()">Отправить заявку</button>
+        <button id="confirm-request" class="fadeIn fourth sendRequestBtn" onclick="sendRequest()">Подтвердить заявку
+        </button>
+
+        <div id="timerBlock">
+            <p>Ожидайте <span class="seconds">10</span> секунд</p>
+            <button class="fadeIn fourth sendRequestBtn" onclick="sendRequest()">Отправить повторно</button>
+        </div>
+
+        <label for="confirm-cod">Код из СМС</label>
+        <input class="personalDataInput" type="text" id="confirm-cod">
+        <button id="create-request" class="fadeIn fourth sendRequestBtn" onclick="createRequest()">Отправить заявку
+        </button>
     </div>
 </div>
 
 <div class="wrapper fadeInDown" id="result-data-choose">
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         crossorigin="anonymous"></script>
@@ -125,7 +137,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<!--<script type="text/javascript" src="js/jquery.noty.js"></script>-->
 
 <link rel="stylesheet" type="text/css" href="css/jquery.noty.css"/>
 <script src="/js/animalRequest.js"></script>

@@ -1,13 +1,17 @@
 package com.nekromant.zoo.service;
 
+import com.nekromant.zoo.client.ConfirmationZooClient;
 import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.BlackListDAO;
 import com.nekromant.zoo.mapper.AnimalRequestMapper;
 import com.nekromant.zoo.model.AnimalRequest;
-import com.nekromant.zoo.model.User;
 import com.nekromant.zoo.service.util.AnimalRequestUtil;
 import dto.AnimalRequestDTO;
-import enums.*;
+import dto.SMSCodeDTO;
+import enums.AnimalType;
+import enums.Location;
+import enums.RequestStatus;
+import enums.RoomType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,10 +21,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.Mockito.times;
 
 @RunWith(MockitoJUnitRunner.class)
 @DataJpaTest
@@ -40,6 +48,9 @@ public class AnimalRequestServiceTest {
     @Mock
     private PriceService priceService;
 
+    @Mock
+    private ConfirmationZooClient confirmationZooClient;
+
     @Test
     public void insertWhenRequestIsSpam() {
         AnimalRequestDTO animalRequestDTO = createDefaultAnimalRequestDTO();
@@ -51,6 +62,10 @@ public class AnimalRequestServiceTest {
         animalRequestService.insert(animalRequestDTO);
 
         Mockito.verify(animalRequestDAO).save(AnimalRequestUtil.createAnimalRequest(true));
+
+        animalRequestService.insert(animalRequestDTO, new SMSCodeDTO());
+
+        Mockito.verify(animalRequestDAO, times(2)).save(AnimalRequestUtil.createAnimalRequest(true));
     }
 
     @Test

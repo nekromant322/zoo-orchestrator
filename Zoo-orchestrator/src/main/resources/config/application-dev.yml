@@ -3,9 +3,9 @@ server:
   address: localhost
 
 app:
-  const:
-    tokenExpiredDelayInDays: 3
-    tokensRemoveSchedulerDelay: 10800
+  url:
+    confirmationZoo: http://localhost:6060
+    notificationZoo: http://localhost:6061
 
 contacts:
   email: abc@gmail.com
@@ -41,25 +41,6 @@ spring:
       keystore-password: ${KEYSTORE_PASSWORD}
       key-alias: ${KEY_ALIAS}
       private-key-passphrase: ${PRIVATE_KEY_PASSPHRASE}
-
-mail:
-  login: ${EMAIL_LOGIN}
-  password: ${EMAIL_PASSWORD}
-  sendRealEmails: false
-  transport:
-    protocol: smtp
-  smtp:
-    auth: true
-    starttls:
-      enable: true
-  debug: true
-  host: smtp.gmail.com
-  port: 587
-
-SMSC:
-  login: ${SMSC_LOGIN}
-  password: ${SMSC_PASSWORD}
-  url: https://smsc.ru/sys/send.php
 
 vk:
   app:

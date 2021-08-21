@@ -1,6 +1,5 @@
 package com.nekromant.zoo.service;
 
-import com.nekromant.zoo.model.ConfirmationToken;
 import com.nekromant.zoo.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class QueryConstructorService {
      * Вспомогательный метод генерации ссылки для изменения пароля юзера {@link User}
      * отправляется по email юзеру
      *
-     * @param token - {@link ConfirmationToken}
+     * @param token - токен
      * @return - url
      */
     public UriComponents buildConfirmationUrlWithToken(String token) {
