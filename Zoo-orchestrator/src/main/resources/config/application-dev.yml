@@ -17,8 +17,8 @@ contacts:
 
 spring:
   h2:
-   console:
-    enabled: true
+    console:
+      enabled: true
   datasource:
     password: root
     username: root

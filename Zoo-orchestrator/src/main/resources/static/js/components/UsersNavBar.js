@@ -1,5 +1,4 @@
 class UsersNavBar {
-
     constructor(props) {
         this.block = props.block;
         this.initEvents();
@@ -7,7 +6,8 @@ class UsersNavBar {
 
     initEvents() {
         let that = this;
-        this.block.innerHTML = "<nav class=\"navbar navbar-dark bg-dark navbar-expand-lg\">\n" +
+        this.block.innerHTML =
+            "<nav class=\"navbar navbar-dark bg-dark navbar-expand-lg\">\n" +
             "    <div class=\"container-fluid\">\n" +
             "        <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n" +
             "            <ul class=\"navbar-nav ms-auto mb-2 mb-lg-0\">\n" +
