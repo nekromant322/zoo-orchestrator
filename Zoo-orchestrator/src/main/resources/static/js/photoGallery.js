@@ -1,11 +1,4 @@
 $(document).ready(function () {
-    new UsersNavBar({
-        block: document.querySelector("#user-bar-block")
-    });
-    new MainMenu({
-        block: document.querySelector("#menu-block")
-    });
-
     getURLs();
 });
 
@@ -48,7 +41,7 @@ function addPhotoItem(index, url) {
         "                <img\n" +
         "                        src=\"" + url + "\"\n" +
         "                        class=\"d-block w-100\"\n" +
-         "                        style='width: 100%; max-height: 720px; object-fit: contain'" +
+        "                        style='width: 100%; max-height: 720px; object-fit: contain'" +
         "                        alt=\"...\"\n" +
         "                />\n" +
         "                <div class=\"carousel-caption d-none d-md-block\">\n" +

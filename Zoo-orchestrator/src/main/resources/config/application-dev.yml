@@ -1,24 +1,31 @@
-server:
-  port: 8080
-  address: localhost
+spring.security.jwt.keystore-location: ${KEYSTORE_LOCATION}
+spring.security.jwt.keystore-password: ${KEYSTORE_PASSWORD}
+spring.security.jwt.key-alias: ${KEY_ALIAS}
 
-app:
-  url:
-    confirmationZoo: http://localhost:6060
-    notificationZoo: http://localhost:6061
+spring.security.jwt.private-key-passphrase: ${PRIVATE_KEY_PASSPHRASE}
+app.url.notificationZoo: http://localhost:6061
+app.url.confirmationZoo: http://localhost:6060
 
-contacts:
-  email: abc@gmail.com
-  phone:
-    number: 9658008080
-  lat: 55.998564
-  lng: 37.225150
-  address: Moscow, Zelenograd
+server.port: 2000
+server.address: localhost
+
+contacts.email : abc@gmail.com
+contacts.phone.number: 9658008080
+contacts.address: Moscow, Zelenograd
+contacts.lat: 55.998564
+contacts.lng: 37.225150
+map.api.key: ${YANDEX_MAP_API_KEY}
+
+vk.app.id: ${VK_APP_ID}
+vk.client.id: ${VK_CLIENT_ID}
+vk.service.token: ${VK_SERVICE_TOKEN}
+vk.album.id: -198597086
+vk.owner.id: 276400572
 
 spring:
   h2:
-   console:
-    enabled: true
+    console:
+      enabled: true
   datasource:
     password: root
     username: root
@@ -35,28 +42,6 @@ spring:
     hibernate:
       ddl-auto: create
     generate-ddl: true
-  security:
-    jwt:
-      keystore-location: ${KEYSTORE_LOCATION}
-      keystore-password: ${KEYSTORE_PASSWORD}
-      key-alias: ${KEY_ALIAS}
-      private-key-passphrase: ${PRIVATE_KEY_PASSPHRASE}
-
-vk:
-  app:
-    id: ${VK_APP_ID}
-  client:
-    id: ${VK_CLIENT_ID}
-  service:
-    token: ${VK_SERVICE_TOKEN}
-  owner:
-    id: -198597086
-  album:
-    id: 276400572
-
-map:
-  api:
-    key: ${YANDEX_MAP_API_KEY}
 
 logging:
   file:
