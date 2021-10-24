@@ -77,4 +77,9 @@ public class MainController {
     public ModelAndView photoGalleryPage() {
         return new ModelAndView("photoGalleryPage");
     }
+
+    @GetMapping("/mailingPage")
+    public ModelAndView mailingPage() {
+        return new ModelAndView("mailingPage");
+    }
 }
