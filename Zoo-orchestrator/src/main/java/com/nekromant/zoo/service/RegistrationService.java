@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 @Service
@@ -101,6 +102,7 @@ public class RegistrationService {
         if (validator.isValid(email) && password.length() > 0) {
             if (userService.findByEmail(email) == null) {
                 User user = new User();
+                user.setLastAction(LocalDate.now());
                 user.setEmail(email);
                 user.setPassword(bCryptPasswordEncoder.encode(password));
                 user.setAuthorities(userService.generateUserRoleAuthorities());
