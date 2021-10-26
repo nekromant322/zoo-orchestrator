@@ -77,7 +77,7 @@ public class RegistrationServiceTest {
 
         registrationService.register(email, password);
 
-        Mockito.verify(userService).insert(new User(null, LocalDate.now(), "test@email.com",
+        Mockito.verify(userService).insert(new User(null, "test@email.com",
                 bCryptPasswordEncoder.encode(password), null,
                 null, Discount.NONE, new ArrayList<>()));
     }
@@ -139,7 +139,7 @@ public class RegistrationServiceTest {
         String email = "test@email.com";
         String password = "qwerty";
         String newPassword = "123";
-        User user =  new User(null, LocalDate.now(), email, password, "", null, Discount.NONE, null);
+        User user =  new User(null, email, password, "", null, Discount.NONE, null);
 
         Mockito.when(userService.findByEmail(Mockito.any())).thenReturn(user);
         Mockito.when(bCryptPasswordEncoder.matches(password, password)).thenReturn(true);
@@ -158,7 +158,7 @@ public class RegistrationServiceTest {
         String email = "test@email.com";
         String password = "qwerty";
         String newPassword = "123";
-        User user = new User(null, LocalDate.now(), email, password, "", null, Discount.NONE, null);
+        User user = new User(null, email, password, "", null, Discount.NONE, null);
 
         Mockito.when(userService.findByEmail(Mockito.any())).thenReturn(user);
         Mockito.when(bCryptPasswordEncoder.matches(password, password)).thenReturn(false);
@@ -192,7 +192,7 @@ public class RegistrationServiceTest {
         String email = "test@email.com";
         String password = "qwerty";
         String newPassword = "123";
-        User user = new User(null, LocalDate.now(), email, password, "", null, Discount.NONE, null);
+        User user = new User(null, email, password, "", null, Discount.NONE, null);
 
         Mockito.when(userService.findByEmail(Mockito.any())).thenReturn(user);
         Mockito.when(bCryptPasswordEncoder.matches(Mockito.any(), Mockito.any())).thenReturn(true);
@@ -200,7 +200,7 @@ public class RegistrationServiceTest {
 
         registrationService.changePassword(email, password, newPassword);
 
-        Mockito.verify(userService).insert(new User(null, LocalDate.now(), "test@email.com",
+        Mockito.verify(userService).insert(new User(null, "test@email.com",
                 bCryptPasswordEncoder.encode("123"), "", null, Discount.NONE, null));
     }
 
@@ -213,7 +213,7 @@ public class RegistrationServiceTest {
         List<Authority> list = new ArrayList<>();
         list.add(authority);
 
-        User user = new User(null, LocalDate.now(), email, password, "", list, Discount.NONE, null);
+        User user = new User(null, email, password, "", list, Discount.NONE, null);
         ConfirmationTokenDTO confirmationToken = new ConfirmationTokenDTO(1, "qwe", email, LocalDate.now());
 
         Mockito.when(userService.findByEmail(Mockito.any())).thenReturn(user);
@@ -222,7 +222,7 @@ public class RegistrationServiceTest {
 
         registrationService.confirmReg(email, newPassword);
 
-        Mockito.verify(userService).insert(new User(null, LocalDate.now(), "test@email.com",
+        Mockito.verify(userService).insert(new User(null, "test@email.com",
                 password, "", list, Discount.NONE, null));
     }
 }

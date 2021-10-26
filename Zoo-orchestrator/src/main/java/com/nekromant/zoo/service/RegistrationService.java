@@ -102,7 +102,6 @@ public class RegistrationService {
         if (validator.isValid(email) && password.length() > 0) {
             if (userService.findByEmail(email) == null) {
                 User user = new User();
-                user.setLastAction(LocalDate.now());
                 user.setEmail(email);
                 user.setPassword(bCryptPasswordEncoder.encode(password));
                 user.setAuthorities(userService.generateUserRoleAuthorities());

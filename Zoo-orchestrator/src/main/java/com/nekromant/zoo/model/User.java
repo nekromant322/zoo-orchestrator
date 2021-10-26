@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +18,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "last_action")
-    private LocalDate lastAction;
 
     @Column(name = "email", unique = true)
     private String email;
@@ -51,12 +47,10 @@ public class User {
         this.email = email;
         this.password = password;
         this.authorities = authorities;
-        this.lastAction = LocalDate.now();
     }
 
     public User(String email, String phoneNumber) {
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.lastAction = LocalDate.now();
     }
 }

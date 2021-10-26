@@ -38,7 +38,7 @@ public class JpaAnimalRequestServiceTest {
 
     @Test
     public void bindUserAndAnimalRequestWhenUserExist() {
-        User user = new User(null, LocalDate.now(), "test@email.com", null, null, null, Discount.NONE, new ArrayList<>());
+        User user = new User(null, "test@email.com", null, null, null, Discount.NONE, new ArrayList<>());
         AnimalRequest request = AnimalRequestUtil.make();
 
         userService.insert(user);

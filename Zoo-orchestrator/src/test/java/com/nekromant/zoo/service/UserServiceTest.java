@@ -2,7 +2,6 @@ package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.client.ConfirmationZooClient;
 import com.nekromant.zoo.client.NotificationZooClient;
-import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
 import com.nekromant.zoo.mapper.UserMapper;
@@ -19,10 +18,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -78,7 +75,7 @@ public class UserServiceTest {
 
         userService.createUser(requestId);
 
-        Mockito.verify(userDAO).save(new User(null, LocalDate.now(), "test@email.com",
+        Mockito.verify(userDAO).save(new User(null, "test@email.com",
                 bCryptPasswordEncoder.encode(password), phone,
                 Collections.singletonList(authorities.get()), Discount.NONE, Collections.singletonList(request)));
     }

@@ -11,9 +11,11 @@ import dto.SMSCodeDTO;
 import enums.RequestStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -123,5 +125,9 @@ public class AnimalRequestService {
 
     public Long getCode(SMSCodeDTO smsCodeDTO) {
         return confirmationZooClient.createSMSCode(smsCodeDTO);
+    }
+
+    public List<AnimalRequest> getPaginationRequestsWithLastDateAfter(LocalDate date, Pageable pageable) {
+        return animalRequestDAO.findAllByBeginDateAfter(date, pageable).getContent();
     }
 }

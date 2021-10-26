@@ -13,12 +13,12 @@ import java.util.Date;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class MailingMessageDTO {
+public class AdvertisementMailingMessageDTO {
     private String topic;
     private String text;
 
     /**
-     * С какой даты нужно искать пользователя по последней активности
+     * С какой даты нужно искать заявку по последней активности
      */
     private LocalDate dateFrom;
 
