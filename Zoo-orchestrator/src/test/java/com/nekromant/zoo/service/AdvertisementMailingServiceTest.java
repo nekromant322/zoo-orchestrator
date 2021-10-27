@@ -1,5 +1,6 @@
 package com.nekromant.zoo.service;
 
+import com.nekromant.zoo.ZooApplication;
 import dto.AdvertisementMailingMessageDTO;
 import enums.MailingType;
 import org.junit.Assert;
@@ -9,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,13 +21,8 @@ public class AdvertisementMailingServiceTest {
     @InjectMocks
     AdvertisementMailingService mailingService;
 
-    @Mock
-    private AnimalRequestService animalRequestService;
-
     @Test
     public void sendMailing() {
-        mailingService.setPaginationDelay(1000);
-        mailingService.setPaginationValue(5);
         try {
             mailingService.sendMailing(new AdvertisementMailingMessageDTO("topic", "text", LocalDate.now(), MailingType.TELEPHONE));
             mailingService.sendMailing(new AdvertisementMailingMessageDTO("topic", "text", LocalDate.now(), MailingType.EMAIL));

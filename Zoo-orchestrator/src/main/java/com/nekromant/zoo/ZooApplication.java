@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 @EnableAspectJAutoProxy
 @SpringBootApplication
 @PropertySource({
-        "classpath:config/application.yml"
+        "classpath:config/application-dev.yml"
 })
 public class ZooApplication {
 
