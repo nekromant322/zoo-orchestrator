@@ -193,13 +193,27 @@ public class AdvertisementMailingService {
                     message.getDateFrom(),
                     PageRequest.of(pageCount, 20)
             );
-            for (AnimalRequest animalRequest : animalRequestPage) {
-                String mail = animalRequest.getEmail();
-                String phone = animalRequest.getPhoneNumber();
-                if (mail != null || phone != null) {
-                    mailingReceiverDAO.save(new MailingReceiver(phone, mail, message.getTopic(), message.getText(), message.getType()));
+            if (message.getType() == MailingType.SMS) {
+                for (AnimalRequest animalRequest : animalRequestPage) {
+                    List<MailingReceiver> receivers = mailingReceiverDAO.getAllByPhoneNumber(animalRequest.getPhoneNumber());
+                    for (MailingReceiver receiver : receivers) {
+                        if (!receiver.getText().equals(message.getText())) {
+                            mailingReceiverDAO.save(new MailingReceiver(receiver.getPhoneNumber(), null, message.getTopic(), message.getText(), message.getType()));
+                        }
+                    }
                 }
             }
+            if (message.getType() == MailingType.EMAIL) {
+                for (AnimalRequest animalRequest : animalRequestPage) {
+                    List<MailingReceiver> receivers = mailingReceiverDAO.getAllByEmail(animalRequest.getEmail());
+                    for (MailingReceiver receiver : receivers) {
+                        if (!receiver.getText().equals(message.getText())) {
+                            mailingReceiverDAO.save(new MailingReceiver(null, animalRequest.getEmail(), message.getTopic(), message.getText(), message.getType()));
+                        }
+                    }
+                }
+            }
+
             emptyPage = animalRequestPage.size() < paginationValue;
             pageCount++;
         }
