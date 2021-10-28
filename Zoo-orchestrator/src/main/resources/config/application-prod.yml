@@ -2,6 +2,12 @@ server:
   port: 8080
   address: localhost
 
+mailing:
+  pagination:
+    value: 5
+    delay: 1000
+    threads: 3
+
 app:
   url:
     confirmationZoo: http://localhost:6060

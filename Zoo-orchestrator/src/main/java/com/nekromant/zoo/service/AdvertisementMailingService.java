@@ -6,6 +6,7 @@ import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.MailingReceiver;
 import dto.AdvertisementMailingMessageDTO;
 import dto.NotificationDTO;
+import enums.MailingType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -37,7 +37,10 @@ public class AdvertisementMailingService {
     @Value("${mailing.pagination.delay}")
     private int paginationDelay;
 
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    @Value("${mailing.pagination.threads}")
+    private int paginationThreads;
+
+    private final ExecutorService executorService = Executors.newFixedThreadPool(3);
 
 
     /**
@@ -64,26 +67,32 @@ public class AdvertisementMailingService {
      * Задержку и кол-во пользователей на одной итерации можно настроить в конфиге приложения
      * Если пользователю не пришла рассылка в первый раз он помещается в список, после всех пользователей
      * отправляется еще раз рассылка по этому списку
-     *
-     * @param message сообщение с информацией о теме, тексте и дате последней заявки после n
      */
     private void sendMailingByPhone(AdvertisementMailingMessageDTO message) {
         executorService.execute(() -> {
-            updateUniqMailingReceivers(message.getDateFrom());
-            List<String> sendUsersFailed = new ArrayList<>();
-            int pageCount = 0;
-            boolean emptyPage = false;
-            while (!emptyPage) {
-                Page<MailingReceiver> mailingReceivers = mailingReceiverDAO.findAll(PageRequest.of(pageCount, paginationValue));
+            updateUniqMailingReceivers(message);
+            List<MailingReceiver> sendUsersFailed = new ArrayList<>();
+            int pageCount = (int) Math.ceil(mailingReceiverDAO.count() / paginationValue);
+            while (pageCount > -1) {
+                Page<MailingReceiver> mailingReceivers = mailingReceiverDAO.getAllByType(
+                        MailingType.TELEPHONE,
+                        PageRequest.of(pageCount, paginationValue)
+                );
                 for (MailingReceiver receiver : mailingReceivers.getContent()) {
                     String phone = receiver.getPhoneNumber();
                     if (phone != null && !phone.isEmpty()) {
                         try {
-                            NotificationDTO notification = new NotificationDTO(phone, message.getTopic(), message.getText());
+                            NotificationDTO notification = new NotificationDTO(
+                                    phone,
+                                    receiver.getTopic(),
+                                    receiver.getText()
+                            );
                             notificationZooClient.sendSms(notification);
+                            mailingReceiverDAO.delete(receiver);
                         } catch (Exception e) {
                             log.warn("'{}' Не получил рассылку", phone);
-                            sendUsersFailed.add(phone);
+                            sendUsersFailed.add(receiver);
+                            mailingReceiverDAO.delete(receiver);
                         }
                     }
                 }
@@ -92,19 +101,20 @@ public class AdvertisementMailingService {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                emptyPage = mailingReceivers.isLast();
-                pageCount++;
+                pageCount--;
             }
-            for (String phone : sendUsersFailed) {
+            for (MailingReceiver receiver : sendUsersFailed) {
                 try {
-                    notificationZooClient.sendSms(new NotificationDTO(
-                            phone,
-                            message.getTopic(),
-                            message.getText())
+                    NotificationDTO notification = new NotificationDTO(
+                            receiver.getPhoneNumber(),
+                            receiver.getTopic(),
+                            receiver.getText()
                     );
+                    notificationZooClient.sendSms(notification);
+                    mailingReceiverDAO.delete(receiver);
                     Thread.sleep(paginationDelay);
                 } catch (Exception e) {
-                    log.error("'{}' Не получил рассылку дважды ", phone);
+                    log.error("'{}' Не получил рассылку дважды ", receiver.getPhoneNumber());
                     e.printStackTrace();
                 }
             }
@@ -116,49 +126,54 @@ public class AdvertisementMailingService {
      * Задержку и кол-во пользователей на одной итерации можно настроить в конфиге приложения
      * Если пользователю не пришла рассылка в первый раз он помещается в список, после всех пользователей
      * отправляется еще раз рассылка по этому списку
-     *
-     * @param message сообщение с информацией о теме, тексте и дате последней заявки после n
      */
     private void sendMailingByEmail(AdvertisementMailingMessageDTO message) {
         executorService.execute(() -> {
-            updateUniqMailingReceivers(message.getDateFrom());
-            List<String> sendEmailUsersFailed = new ArrayList<>();
-            int pageCount = 0;
-            boolean emptyPage = false;
-            while (!emptyPage) {
-                Page<MailingReceiver> mailingReceivers = mailingReceiverDAO.findAll(PageRequest.of(pageCount, paginationValue));
+            updateUniqMailingReceivers(message);
+            List<MailingReceiver> sendUsersFailed = new ArrayList<>();
+            int pageCount = (int) Math.ceil(mailingReceiverDAO.count() / paginationValue);
+            while (pageCount > -1) {
+                Page<MailingReceiver> mailingReceivers = mailingReceiverDAO.getAllByType(
+                        MailingType.EMAIL,
+                        PageRequest.of(pageCount, paginationValue)
+                );
                 for (MailingReceiver receiver : mailingReceivers.getContent()) {
-                    String userEmail = receiver.getEmail();
-                    if (userEmail != null && !userEmail.isEmpty())
+                    String email = receiver.getEmail();
+                    if (email != null && !email.isEmpty()) {
                         try {
-                            notificationZooClient.sendEmail(new NotificationDTO(
-                                    userEmail,
-                                    message.getTopic(),
-                                    message.getText())
+                            NotificationDTO notification = new NotificationDTO(
+                                    email,
+                                    receiver.getTopic(),
+                                    receiver.getText()
                             );
+                            notificationZooClient.sendEmail(notification);
+                            mailingReceiverDAO.delete(receiver);
                         } catch (Exception e) {
-                            log.warn("'{}' Не получил рассылку", userEmail);
-                            sendEmailUsersFailed.add(userEmail);
+                            log.warn("'{}' Не получил рассылку", email);
+                            sendUsersFailed.add(receiver);
+                            mailingReceiverDAO.delete(receiver);
                         }
+                    }
                 }
                 try {
                     Thread.sleep(paginationDelay);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                emptyPage = mailingReceivers.isLast();
-                pageCount++;
+                pageCount--;
             }
-            for (String email : sendEmailUsersFailed) {
+            for (MailingReceiver receiver : sendUsersFailed) {
                 try {
-                    notificationZooClient.sendEmail(new NotificationDTO(
-                            email,
-                            message.getTopic(),
-                            message.getText())
+                    NotificationDTO notification = new NotificationDTO(
+                            receiver.getEmail(),
+                            receiver.getTopic(),
+                            receiver.getText()
                     );
+                    notificationZooClient.sendEmail(notification);
+                    mailingReceiverDAO.delete(receiver);
                     Thread.sleep(paginationDelay);
                 } catch (Exception e) {
-                    log.error("'{}' Не получил рассылку дважды", email);
+                    log.error("'{}' Не получил рассылку дважды ", receiver.getEmail());
                     e.printStackTrace();
                 }
             }
@@ -168,32 +183,26 @@ public class AdvertisementMailingService {
     /**
      * Обновление {@link MailingReceiver} пользователей в таблице, для последующей рассылки
      *
-     * @param date дата, с которой последней заявки после n добавлять пользователей в таблицу
+     * @param message сообщение с информацией о теме, тексте и дате последней заявки после n
      */
-    private void updateUniqMailingReceivers(LocalDate date) {
-        mailingReceiverDAO.truncateTable();
+    private void updateUniqMailingReceivers(AdvertisementMailingMessageDTO message) {
         int pageCount = 0;
         boolean emptyPage = false;
         List<AnimalRequest> animalRequestPage;
         while (!emptyPage) {
-            animalRequestPage = animalRequestService.getPaginationRequestsWithLastDateAfter(date, PageRequest.of(pageCount, 20));
+            animalRequestPage = animalRequestService.getPaginationRequestsWithLastDateAfter(
+                    message.getDateFrom(),
+                    PageRequest.of(pageCount, 20)
+            );
             for (AnimalRequest animalRequest : animalRequestPage) {
-                String bufEmail = animalRequest.getEmail();
-                String bufPhone = animalRequest.getPhoneNumber();
-                String mail = mailingReceiverDAO.getByEmail(bufEmail) == null ? bufEmail : null;
-                String phone = mailingReceiverDAO.getByPhoneNumber(bufPhone) == null ? bufPhone : null;
-                mailingReceiverDAO.save(new MailingReceiver(phone, mail));
+                String mail = animalRequest.getEmail();
+                String phone = animalRequest.getPhoneNumber();
+                if (mail != null || phone != null) {
+                    mailingReceiverDAO.save(new MailingReceiver(phone, mail, message.getTopic(), message.getText(), message.getType()));
+                }
             }
             emptyPage = animalRequestPage.size() < paginationValue;
             pageCount++;
         }
-    }
-
-    public void setPaginationDelay(int val) {
-        paginationDelay = val;
-    }
-
-    public void setPaginationValue(int val) {
-        paginationValue = val;
     }
 }

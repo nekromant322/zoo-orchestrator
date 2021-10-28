@@ -1,11 +1,12 @@
 server:
-  port: 2000
+  port: 8080
   address: localhost
 
 mailing:
   pagination:
     value: 5
     delay: 1000
+    threads: 3
 
 app:
   url:
