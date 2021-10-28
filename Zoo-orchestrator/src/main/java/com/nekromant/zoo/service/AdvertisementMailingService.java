@@ -53,11 +53,10 @@ public class AdvertisementMailingService {
             case EMAIL:
                 sendMailingByEmail(message);
                 break;
-            case TELEPHONE:
+            case SMS:
                 sendMailingByPhone(message);
                 break;
             default:
-                log.warn("Что-то не так с MailingType (enum)");
                 throw new IllegalArgumentException("Что-то не так с MailingType (enum)");
         }
     }
@@ -75,7 +74,7 @@ public class AdvertisementMailingService {
             int pageCount = (int) Math.ceil(mailingReceiverDAO.count() / paginationValue);
             while (pageCount > -1) {
                 Page<MailingReceiver> mailingReceivers = mailingReceiverDAO.getAllByType(
-                        MailingType.TELEPHONE,
+                        MailingType.SMS,
                         PageRequest.of(pageCount, paginationValue)
                 );
                 for (MailingReceiver receiver : mailingReceivers.getContent()) {

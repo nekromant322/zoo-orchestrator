@@ -1,6 +1,6 @@
 package enums;
 
 public enum MailingType {
-    TELEPHONE,
+    SMS,
     EMAIL
 }
