@@ -33,6 +33,7 @@ class MainMenu{
             "                    <a href=\"/pricePage\"  class=\"btn btn-secondary\" role=\"button\">Изменить цены</a>\n" +
             "                    <a href=\"/AnimalRequestPage/onlyNew\" class=\"btn btn-secondary\" role=\"button\">Новые заявки</a>\n" +
             "                    <a href=\"/controlPage\"  class=\"btn btn-secondary\" role=\"button\">Панелька</a>\n" +
+            "                    <a href=\"/mailingPage\"  class=\"btn btn-secondary\" role=\"button\">Рассылка</a>\n" +
             "\n" +
             "                </nav>\n" +
             "            </div>\n" +

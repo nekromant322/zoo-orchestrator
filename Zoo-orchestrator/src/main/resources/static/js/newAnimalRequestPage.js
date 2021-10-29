@@ -1,13 +1,6 @@
 let globalId, globType;
 
 $(document).ready(function () {
-    console.log("ready");
-    let userBar = new UsersNavBar({
-        block: document.querySelector("#user-bar-block")
-    });
-    let menu = new MainMenu({
-        block: document.querySelector("#menu-block")
-    });
     getData();
 });
 

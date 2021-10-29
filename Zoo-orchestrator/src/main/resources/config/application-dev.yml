@@ -2,6 +2,12 @@ server:
   port: 8080
   address: localhost
 
+mailing:
+  pagination:
+    value: 5
+    delay: 1000
+    threads: 3
+
 app:
   url:
     confirmationZoo: http://localhost:6060
@@ -29,7 +35,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-        show_sql: true
+        show_sql: false
         format_sql: true
         use_sql_comments: true
     hibernate:

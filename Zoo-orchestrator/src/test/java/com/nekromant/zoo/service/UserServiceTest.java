@@ -2,7 +2,6 @@ package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.client.ConfirmationZooClient;
 import com.nekromant.zoo.client.NotificationZooClient;
-import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.AuthorityDAO;
 import com.nekromant.zoo.dao.UserDAO;
 import com.nekromant.zoo.mapper.UserMapper;
@@ -19,7 +18,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collections;

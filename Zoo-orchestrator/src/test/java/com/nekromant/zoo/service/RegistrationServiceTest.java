@@ -139,7 +139,7 @@ public class RegistrationServiceTest {
         String email = "test@email.com";
         String password = "qwerty";
         String newPassword = "123";
-        User user = new User(null, email, password, "", null, Discount.NONE, null);
+        User user =  new User(null, email, password, "", null, Discount.NONE, null);
 
         Mockito.when(userService.findByEmail(Mockito.any())).thenReturn(user);
         Mockito.when(bCryptPasswordEncoder.matches(password, password)).thenReturn(true);
