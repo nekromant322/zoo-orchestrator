@@ -149,6 +149,7 @@ function getRoomsForRequest(data) {
     post.begin = data.beginDate;
     post.end = data.endDate;
     post.videoSupported = data.videoNeeded;
+    post.location = data.location;
 
     $.ajax({
         url: '/api/roomPage/spareRooms',
@@ -188,6 +189,7 @@ function addRoom(data) {
     let acceptBtn = document.createElement("button");
     acceptBtn.className = "btn btn-success";
     acceptBtn.innerHTML = "Choose";
+    acceptBtn.setAttribute("data-bs-dismiss", "modal");
     acceptBtn.type = "submit";
     acceptBtn.addEventListener("click", () => {
         acceptRequest(data.id);

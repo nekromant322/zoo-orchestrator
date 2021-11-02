@@ -144,25 +144,25 @@ public class InitData {
     }
 
     private void initRooms() {
-        Room room1 = new Room(0L, AnimalType.DOG, RoomType.COMMON, true, "");
-        Room room2 = new Room(0L, AnimalType.DOG, RoomType.LARGE, true, "");
-        Room room3 = new Room(0L, AnimalType.DOG, RoomType.VIP, true, "");
-        Room room4 = new Room(0L, AnimalType.BIRD, RoomType.COMMON, true, "");
-        Room room5 = new Room(0L, AnimalType.BIRD, RoomType.LARGE, true, "");
-        Room room6 = new Room(0L, AnimalType.BIRD, RoomType.VIP, true, "");
-        Room room7 = new Room(0L, AnimalType.OTHER, RoomType.COMMON, true, "");
-        Room room8 = new Room(0L, AnimalType.OTHER, RoomType.LARGE, true, "");
-        Room room9 = new Room(0L, AnimalType.OTHER, RoomType.VIP, true, "");
-        Room room10 = new Room(0L, AnimalType.OTHER, RoomType.COMMON, true, "");
-        Room room11 = new Room(0L, AnimalType.DOG, RoomType.COMMON, false, "");
-        Room room12 = new Room(0L, AnimalType.DOG, RoomType.LARGE, false, "");
-        Room room13 = new Room(0L, AnimalType.DOG, RoomType.VIP, false, "");
-        Room room14 = new Room(0L, AnimalType.BIRD, RoomType.COMMON, false, "");
-        Room room15 = new Room(0L, AnimalType.BIRD, RoomType.LARGE, false, "");
-        Room room16 = new Room(0L, AnimalType.BIRD, RoomType.VIP, false, "");
-        Room room17 = new Room(0L, AnimalType.OTHER, RoomType.COMMON, false, "");
-        Room room18 = new Room(0L, AnimalType.OTHER, RoomType.LARGE, false, "");
-        Room room19 = new Room(0L, AnimalType.OTHER, RoomType.VIP, false, "");
+        Room room1 = new Room(0L, AnimalType.DOG, RoomType.COMMON, Location.MOSCOW, true, "");
+        Room room2 = new Room(0L, AnimalType.DOG, RoomType.LARGE, Location.MOSCOW, true, "");
+        Room room3 = new Room(0L, AnimalType.DOG, RoomType.VIP, Location.MOSCOW, true, "");
+        Room room4 = new Room(0L, AnimalType.BIRD, RoomType.COMMON, Location.MOSCOW, true, "");
+        Room room5 = new Room(0L, AnimalType.BIRD, RoomType.LARGE, Location.MOSCOW, true, "");
+        Room room6 = new Room(0L, AnimalType.BIRD, RoomType.VIP, Location.MOSCOW, true, "");
+        Room room7 = new Room(0L, AnimalType.OTHER, RoomType.COMMON, Location.MOSCOW, true, "");
+        Room room8 = new Room(0L, AnimalType.OTHER, RoomType.LARGE, Location.MOSCOW, true, "");
+        Room room9 = new Room(0L, AnimalType.OTHER, RoomType.VIP, Location.MOSCOW, true, "");
+        Room room10 = new Room(0L, AnimalType.OTHER, RoomType.COMMON, Location.MOSCOW, true, "");
+        Room room11 = new Room(0L, AnimalType.DOG, RoomType.COMMON, Location.MOSCOW, false, "");
+        Room room12 = new Room(0L, AnimalType.DOG, RoomType.LARGE, Location.MOSCOW, false, "");
+        Room room13 = new Room(0L, AnimalType.DOG, RoomType.VIP, Location.MOSCOW, false, "");
+        Room room14 = new Room(0L, AnimalType.BIRD, RoomType.COMMON, Location.MOSCOW, false, "");
+        Room room15 = new Room(0L, AnimalType.BIRD, RoomType.LARGE, Location.MOSCOW, false, "");
+        Room room16 = new Room(0L, AnimalType.BIRD, RoomType.VIP, Location.MOSCOW, false, "");
+        Room room17 = new Room(0L, AnimalType.OTHER, RoomType.COMMON, Location.MOSCOW, false, "");
+        Room room18 = new Room(0L, AnimalType.OTHER, RoomType.LARGE, Location.MOSCOW, false, "");
+        Room room19 = new Room(0L, AnimalType.OTHER, RoomType.VIP, Location.MOSCOW, false, "");
 
         roomDAO.save(room1);
         roomDAO.save(room2);

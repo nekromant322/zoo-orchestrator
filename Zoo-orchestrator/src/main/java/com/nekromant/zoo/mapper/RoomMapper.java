@@ -14,6 +14,7 @@ public class RoomMapper {
                 roomDTO.getId(),
                 roomDTO.getAnimalType(),
                 roomDTO.getRoomType(),
+                roomDTO.getLocation(),
                 roomDTO.getVideoSupported(),
                 roomDTO.getDescription()
         );
@@ -26,6 +27,7 @@ public class RoomMapper {
                 room.getRoomType(),
                 room.getVideoSupported(),
                 room.getDescription(),
+                room.getLocation(),
                 LocalDate.now(),
                 LocalDate.now()
         );

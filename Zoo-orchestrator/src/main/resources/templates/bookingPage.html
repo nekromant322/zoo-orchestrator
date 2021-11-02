@@ -33,6 +33,12 @@
 
 <div class="container">
     <p class="input_logo">Получить свободные комнаты при условии:</p>
+    <p class="input_logo">Локация</p>
+    <select id="room-location" class="roomInfoInput">
+        <option th:value="MOSCOW">Москва</option>
+        <option th:value="SPB">Санкт-Петербург</option>
+    </select>
+    <p class="input_logo">Тип животного</p>
     <select id="room-animal-type" class="roomInfoInput">
         <option th:value="DOG">Собака</option>
         <option th:value="CAT">Кошка</option>

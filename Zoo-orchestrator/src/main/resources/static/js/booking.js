@@ -56,6 +56,8 @@ function getRooms() {
         return;
     if (checkAlert("room-date-to", "room-date-to-alert"))
         return;
+    if (checkAlert("room-location", "room-location-alert"))
+        return;
 
     let data = {};
 
@@ -64,6 +66,7 @@ function getRooms() {
     data.begin = $("#room-date-from").val();
     data.end = $("#room-date-to").val();
     data.videoSupported = $("#room-video").val() === "on";
+    data.location = $("#room-location").val();
 
     $.ajax({
         url: '/api/roomPage/spareRooms',

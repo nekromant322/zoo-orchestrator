@@ -1,6 +1,7 @@
 package com.nekromant.zoo.model;
 
 import enums.AnimalType;
+import enums.Location;
 import enums.RoomType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,9 @@ public class Room {
 
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
+
+    @Column
+    private Location location;
 
     @Column
     private Boolean videoSupported;

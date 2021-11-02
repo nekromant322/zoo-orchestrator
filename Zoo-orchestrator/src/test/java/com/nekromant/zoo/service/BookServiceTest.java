@@ -42,6 +42,7 @@ public class BookServiceTest {
                 RoomType.VIP,
                 true,
                 "",
+                Location.MOSCOW,
                 LocalDate.now(),
                 LocalDate.now()
         );

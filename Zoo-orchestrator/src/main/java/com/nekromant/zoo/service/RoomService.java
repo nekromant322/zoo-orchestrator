@@ -5,6 +5,7 @@ import com.nekromant.zoo.model.Book;
 import com.nekromant.zoo.model.Room;
 import dto.RoomDTO;
 import enums.AnimalType;
+import enums.Location;
 import enums.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,10 +36,12 @@ public class RoomService {
      */
     public List<Room> findByParameters(AnimalType animalType,
                                        RoomType roomType,
+                                       Location location,
                                        boolean video) {
         return roomDAO.findAllByParameters(
                 animalType,
                 roomType,
+                location,
                 video
         );
     }
@@ -52,10 +55,12 @@ public class RoomService {
      * @return list of rooms, metching parameters
      */
     public List<Room> findByParameters(AnimalType animalType,
-                                       RoomType roomType) {
+                                       RoomType roomType,
+                                       Location location) {
         return roomDAO.findAllByParameters(
                 animalType,
-                roomType
+                roomType,
+                location
         );
     }
 
@@ -71,9 +76,9 @@ public class RoomService {
         List<Room> spareRooms = new ArrayList<>();
         List<Room> rooms;
         if (roomDTO.getVideoSupported()) {
-            rooms = findByParameters(roomDTO.getAnimalType(), roomDTO.getRoomType(), true);
+            rooms = findByParameters(roomDTO.getAnimalType(), roomDTO.getRoomType(), roomDTO.getLocation(), true);
         } else {
-            rooms = findByParameters(roomDTO.getAnimalType(), roomDTO.getRoomType());
+            rooms = findByParameters(roomDTO.getAnimalType(), roomDTO.getRoomType(), roomDTO.getLocation());
         }
         for (Room room : rooms) {
             List<Book> books = bookService.findByRoomIdAndDate(
