@@ -1,8 +1,12 @@
 package com.nekromant.zoo.controller.rest;
 
 import com.nekromant.zoo.mapper.AnimalRequestMapper;
+import com.nekromant.zoo.mapper.RoomMapper;
 import com.nekromant.zoo.model.AnimalRequest;
+import com.nekromant.zoo.model.Room;
 import com.nekromant.zoo.service.AnimalRequestService;
+import com.nekromant.zoo.service.BookService;
+import com.nekromant.zoo.service.RoomService;
 import com.nekromant.zoo.service.UserService;
 import dto.AnimalRequestDTO;
 import dto.SMSCodeDTO;
@@ -26,6 +30,15 @@ public class AnimalRequestRestController {
 
     @Autowired
     private AnimalRequestMapper animalRequestMapper;
+
+    @Autowired
+    private RoomService roomService;
+
+    @Autowired
+    private RoomMapper roomMapper;
+
+    @Autowired
+    private BookService bookService;
 
     @PostMapping()
     public Long newRequest(@RequestBody AnimalRequestDTO animalRequestDTO) {
@@ -60,8 +73,10 @@ public class AnimalRequestRestController {
     }
 
     @PostMapping("/onlyNew/accept/{id}")
-    public void acceptAnimalRequest(@PathVariable String id) {
+    public void acceptAnimalRequest(@PathVariable String id, long roomId) {
         animalRequestService.acceptAnimalRequest(id);
+        Room room = roomService.findRoomById(roomId);
+        bookService.bookAnimalRequest(Long.valueOf(roomId).toString(), roomMapper.entityToDto(room));
         userService.createUser(id);
     }
 

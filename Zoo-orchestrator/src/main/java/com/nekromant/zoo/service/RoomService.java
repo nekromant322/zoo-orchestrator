@@ -21,24 +21,41 @@ public class RoomService {
     @Autowired
     private BookService bookService;
 
-    public Room insert(Room room){
+    public Room insert(Room room) {
         return roomDAO.save(room);
     }
 
     /**
      * Find List {@link Room} by -
+     *
      * @param animalType {@link enums.AnimalType}
-     * @param roomType {@link enums.RoomType}
-     * @param video boolean need to record in a room
+     * @param roomType   {@link enums.RoomType}
+     * @param video      boolean need to record in a room
      * @return list of rooms, metching parameters
      */
     public List<Room> findByParameters(AnimalType animalType,
                                        RoomType roomType,
-                                       boolean video){
-        return roomDAO.findAllByParametrs(
+                                       boolean video) {
+        return roomDAO.findAllByParameters(
                 animalType,
                 roomType,
                 video
+        );
+    }
+
+
+    /**
+     * Find List {@link Room} by -
+     *
+     * @param animalType {@link enums.AnimalType}
+     * @param roomType   {@link enums.RoomType}
+     * @return list of rooms, metching parameters
+     */
+    public List<Room> findByParameters(AnimalType animalType,
+                                       RoomType roomType) {
+        return roomDAO.findAllByParameters(
+                animalType,
+                roomType
         );
     }
 
@@ -50,21 +67,26 @@ public class RoomService {
      * @param roomDTO - {@link RoomDTO}
      * @return List spare {@link Room} or empty list
      */
-    public List<Room> findAllSpareRoom(RoomDTO roomDTO){
+    public List<Room> findAllSpareRoom(RoomDTO roomDTO) {
         List<Room> spareRooms = new ArrayList<>();
-        List<Room> rooms = findByParameters(
-                roomDTO.getAnimalType(),
-                roomDTO.getRoomType(),
-                roomDTO.getVideoSupported()
-        );
-        for(Room room : rooms) {
+        List<Room> rooms;
+        if (roomDTO.getVideoSupported()) {
+            rooms = findByParameters(roomDTO.getAnimalType(), roomDTO.getRoomType(), true);
+        } else {
+            rooms = findByParameters(roomDTO.getAnimalType(), roomDTO.getRoomType());
+        }
+        for (Room room : rooms) {
             List<Book> books = bookService.findByRoomIdAndDate(
                     String.valueOf(room.getId()),
                     roomDTO.getBegin(),
                     roomDTO.getEnd()
             );
-            if(books.size() == 0) spareRooms.add(room);
+            if (books.size() == 0) spareRooms.add(room);
         }
         return spareRooms;
+    }
+
+    public Room findRoomById(long id) {
+        return roomDAO.findById(id).orElseGet(() -> null);
     }
 }

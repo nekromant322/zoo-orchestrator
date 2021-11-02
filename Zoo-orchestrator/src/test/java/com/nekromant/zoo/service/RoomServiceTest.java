@@ -37,7 +37,7 @@ public class RoomServiceTest {
         RoomType roomType = RoomType.VIP;
         boolean video = true;
 
-        Mockito.when(roomDAO.findAllByParametrs(animalType, roomType, video)).thenReturn(
+        Mockito.when(roomDAO.findAllByParameters(animalType, roomType, video)).thenReturn(
                 Arrays.asList(new Room(0L, AnimalType.DOG, RoomType.VIP, true, ""))
         );
 
