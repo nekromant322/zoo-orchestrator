@@ -13,63 +13,53 @@ public class MainController {
 
     @GetMapping("/animalRequestPage")
     public ModelAndView animalsPage() {
-
         return new ModelAndView("animalRequestPage");
     }
 
     @GetMapping("/AnimalRequestPage/onlyNew")
     public ModelAndView animalControlPage() {
-
         return new ModelAndView("admin/animalRequestControlPage");
     }
 
     @GetMapping("/")
     public ModelAndView index() {
-
         return new ModelAndView("mainPage");
     }
 
     @Metric(MAIN_PAGE_METRIC)
     @GetMapping("/mainPage")
     public ModelAndView mainPage() {
-
         return new ModelAndView("mainPage");
     }
 
     @GetMapping("/videoPage")
     public ModelAndView testVideoPage() {
-
         return new ModelAndView("videoPage");
     }
 
     @GetMapping("/chartPage")
     public ModelAndView testChartPage() {
-
         return new ModelAndView("chartPage");
     }
 
     @GetMapping("/pricePage")
     public ModelAndView testPricePage() {
-
         return new ModelAndView("admin/pricePage");
     }
 
     @GetMapping("controlPage")
     public ModelAndView controlPage() {
-
         return new ModelAndView("control/controlPage");
     }
 
     @GetMapping("/userProfilePage")
     public ModelAndView userProfilePage() {
-
         return new ModelAndView("userProfilePage");
     }
 
     @Metric(CONFIRM_REGISTRATION_PAGE_METRIC)
     @GetMapping("/confirmReg")
     public ModelAndView confirmReg() {
-
         return new ModelAndView("confirmReg");
     }
 
@@ -81,5 +71,10 @@ public class MainController {
     @GetMapping("/mailingPage")
     public ModelAndView mailingPage() {
         return new ModelAndView("mailingPage");
+    }
+
+    @GetMapping("/bookingPage")
+    public ModelAndView bookingPage() {
+        return new ModelAndView("bookingPage");
     }
 }
