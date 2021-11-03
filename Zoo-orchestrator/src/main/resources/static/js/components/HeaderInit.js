@@ -158,10 +158,19 @@ class MainMenu {
     constructor(props) {
         this.block = props.block;
         this.initEvents();
-    }
+    };
+
+    count = 0;
 
     initEvents() {
-        let that = this;
+        $.ajax({
+            url: '/api/callRequest/count',
+            type: 'GET',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            }
+        })
         this.block.innerHTML = "<div class=\"container-fluid\" style=\"background: #8d06cc; /* Old browsers */\n" +
             "    background: -moz-linear-gradient(top,  #8d06cc 0%, #220051 87%, #1c0049 100%); /* FF3.6-15 */\n" +
             "    background: -webkit-linear-gradient(top,  #8d06cc 0%,#220051 87%,#1c0049 100%); /* Chrome10-25,Safari5.1-6 */\n" +
@@ -191,7 +200,8 @@ class MainMenu {
             "                    <a href=\"/controlPage\"  class=\"btn btn-secondary\" role=\"button\">Панелька</a>\n" +
             "                    <a href=\"/mailingPage\"  class=\"btn btn-secondary\" role=\"button\">Рассылка</a>\n" +
             "                    <a href=\"/bookingPage\"  class=\"btn btn-secondary\" role=\"button\">Букинг комнат</a>\n" +
-            "\n" +
+            "                    <a href=\"/callRequestPage\"  class=\"btn btn-secondary\" role=\"button\">Оставить заявку</a>\n" +
+            "                    <a href=\"/allCallRequestsPage\"  class=\"btn btn-secondary\" role=\"button\">Заяв очка: " + this.count + "</a>\n" +
             "                </nav>\n" +
             "            </div>\n" +
             "        </div>\n" +
