@@ -13,16 +13,20 @@ import java.util.Optional;
 
 public interface RoomDAO extends CrudRepository<Room, Long> {
 
-    @Query("select distinct r from Room r where r.animalType = :animalType and r.roomType = :roomType and r.videoSupported = :video and r.location = :location")
-    List<Room> findAllByParameters(@Param("animalType") AnimalType animalType,
-                                   @Param("roomType") RoomType roomType,
-                                   @Param("location") Location location,
-                                   @Param("video") Boolean videoNeeded);
+//    @Query("select distinct r from Room r where r.animalType = :animalType and r.roomType = :roomType and r.videoSupported = :video and r.location = :location")
+//    List<Room> findAllByParameters(@Param("animalType") AnimalType animalType,
+//                                   @Param("roomType") RoomType roomType,
+//                                   @Param("location") Location location,
+//                                   @Param("video") Boolean videoNeeded);
+//
+//    @Query("select distinct r from Room r where r.animalType = :animalType and r.roomType = :roomType and r.location = :location")
+//    List<Room> findAllByParameters(@Param("animalType") AnimalType animalType,
+//                                   @Param("roomType") RoomType roomType,
+//                                   @Param("location") Location location);
 
-    @Query("select distinct r from Room r where r.animalType = :animalType and r.roomType = :roomType and r.location = :location")
-    List<Room> findAllByParameters(@Param("animalType") AnimalType animalType,
-                                   @Param("roomType") RoomType roomType,
-                                   @Param("location") Location location);
+    List<Room> findDistinctByAnimalTypeAndRoomTypeAndLocationAndVideoSupported(AnimalType animalType, RoomType roomType, Location location, Boolean videoNeeded);
+
+    List<Room> findDistinctByAnimalTypeAndRoomTypeAndLocation(AnimalType animalType, RoomType roomType, Location location);
 
     @Override
     List<Room> findAll();

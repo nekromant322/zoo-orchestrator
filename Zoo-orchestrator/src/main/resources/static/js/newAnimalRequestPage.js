@@ -125,13 +125,15 @@ function insertTd(value, parent) {
 }
 
 function acceptRequest(value) {
-    let data = {roomId: value};
+    let data = {roomId: value, animalRequestId: globalId};
 
     $.ajax({
         method: 'POST',
-        url: "/api/animalRequest/onlyNew/accept/" + globalId,
-        async: false,
-        data: data,
+        url: "/api/animalRequest/onlyNew/accept",
+        dataType: 'json',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
         success: function (response) {
             console.log(response);
             getData();

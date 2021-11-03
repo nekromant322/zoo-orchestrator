@@ -87,4 +87,13 @@ public class AnimalRequestDTO {
         private Integer code;
         private Integer price;
     }
+
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    public static class AcceptAnimalRequestDTO {
+        private long animalRequestId;
+        private long roomId;
+
+    }
 }

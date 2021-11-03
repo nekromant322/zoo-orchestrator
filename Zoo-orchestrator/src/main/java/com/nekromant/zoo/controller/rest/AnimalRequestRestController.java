@@ -72,12 +72,12 @@ public class AnimalRequestRestController {
             return animalRequestService.getAllBlockedNewAnimalRequest();
     }
 
-    @PostMapping("/onlyNew/accept/{id}")
-    public void acceptAnimalRequest(@PathVariable String id, long roomId) {
-        animalRequestService.acceptAnimalRequest(id);
-        Room room = roomService.findRoomById(roomId);
-        bookService.bookAnimalRequest(Long.valueOf(roomId).toString(), roomMapper.entityToDto(room));
-        userService.createUser(id);
+    @PostMapping("/onlyNew/accept")
+    public void acceptAnimalRequest(@RequestBody AnimalRequestDTO.AcceptAnimalRequestDTO requestDTO) {
+        animalRequestService.acceptAnimalRequest(String.valueOf(requestDTO.getAnimalRequestId()));
+        Room room = roomService.findRoomById(requestDTO.getRoomId());
+        bookService.bookAnimalRequest(String.valueOf(requestDTO.getAnimalRequestId()), roomMapper.entityToDto(room));
+        userService.createUser(String.valueOf(requestDTO.getAnimalRequestId()));
     }
 
     @PostMapping("/onlyNew/decline/{id}")

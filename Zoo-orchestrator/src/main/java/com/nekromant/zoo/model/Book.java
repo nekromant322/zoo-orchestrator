@@ -28,11 +28,4 @@ public class Book {
 
     @Column(columnDefinition = "DATE")
     private LocalDate endDate;
-
-    public Book(long animalRequestId, long roomId, LocalDate beginDate, LocalDate endDate) {
-        this.animalRequestId = animalRequestId;
-        this.roomId = roomId;
-        this.beginDate = beginDate;
-        this.endDate = endDate;
-    }
 }

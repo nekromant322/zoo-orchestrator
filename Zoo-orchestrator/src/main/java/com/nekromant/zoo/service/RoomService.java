@@ -38,7 +38,7 @@ public class RoomService {
                                        RoomType roomType,
                                        Location location,
                                        boolean video) {
-        return roomDAO.findAllByParameters(
+        return roomDAO.findDistinctByAnimalTypeAndRoomTypeAndLocationAndVideoSupported(
                 animalType,
                 roomType,
                 location,
@@ -57,7 +57,7 @@ public class RoomService {
     public List<Room> findByParameters(AnimalType animalType,
                                        RoomType roomType,
                                        Location location) {
-        return roomDAO.findAllByParameters(
+        return roomDAO.findDistinctByAnimalTypeAndRoomTypeAndLocation(
                 animalType,
                 roomType,
                 location
