@@ -56,10 +56,44 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <button type="submit" onclick="decl()" class="btn btn-primary" data-bs-dismiss="modal">Decline
+                    <button type="submit" onclick="decl()" class="btn btn-primary" data-bs-dismiss="modal"
+                            style="margin-bottom: 1rem;">Decline
                     </button>
                     <button type="submit" onclick="bl()" class="btn btn-primary" data-bs-dismiss="modal">Black list
                     </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="choose-room-modal" aria-labelledby="exampleModalCenterTitle"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Choose room</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <table class="table table-hover" id="rooms-table">
+                        <thead class="table-light">
+                        <tr role="row">
+                            <th scope="col"> id</th>
+                            <th scope="col"> Animal type</th>
+                            <th scope="col"> Room type</th>
+                            <th scope="col"> Video support</th>
+                            <th scope="col"> Description</th>
+                            <th scope="col"> Action</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-light">
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">

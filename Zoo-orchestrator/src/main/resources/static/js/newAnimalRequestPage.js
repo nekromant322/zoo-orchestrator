@@ -95,8 +95,11 @@ function addRow(data) {
         acceptBtn.className = "btn btn-success";
         acceptBtn.innerHTML = "Accept";
         acceptBtn.type = "submit";
+        acceptBtn.setAttribute("href", "#choose-room-modal");
+        acceptBtn.setAttribute("data-bs-toggle", "modal");
         acceptBtn.addEventListener("click", () => {
-            acceptRequest(data.id);
+            getRoomsForRequest(data)
+            globalId = data.id;
         });
         td = tr.insertCell(12);
         td.insertAdjacentElement("beforeend", acceptBtn);
@@ -122,13 +125,15 @@ function insertTd(value, parent) {
 }
 
 function acceptRequest(value) {
-    let data = {id: value};
+    let data = {roomId: value, animalRequestId: globalId};
 
     $.ajax({
         method: 'POST',
-        url: "/api/animalRequest/onlyNew/accept/" + value,
-        async: false,
-        data: data,
+        url: "/api/animalRequest/onlyNew/accept",
+        dataType: 'json',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
         success: function (response) {
             console.log(response);
             getData();
@@ -137,6 +142,62 @@ function acceptRequest(value) {
             console.log(error);
         }
     });
+}
+
+function getRoomsForRequest(data) {
+    let post = {};
+    post.animalType = data.animalType;
+    post.roomType = data.roomType;
+    post.begin = data.beginDate;
+    post.end = data.endDate;
+    post.videoSupported = data.videoNeeded;
+    post.location = data.location;
+
+    $.ajax({
+        url: '/api/roomPage/spareRooms',
+        dataType: 'json',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(post),
+        success: function (response) {
+            console.log(response);
+            drawRooms(response);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+}
+
+function drawRooms(data) {
+    while (document.getElementById("rooms-table").getElementsByTagName("tbody")[0].rows[0])
+    document.getElementById("rooms-table").getElementsByTagName("tbody")[0].deleteRow(0);
+    for (let i = 0; i < data.length; i++) {
+        addRoom(data[i]);
+    }
+}
+
+function addRoom(data) {
+    let table = document.getElementById("rooms-table").getElementsByTagName("tbody")[0];
+    let tr = table.insertRow(table.rows.length);
+    let td;
+
+    insertTd(data.id, tr);
+    insertTd(data.animalType, tr);
+    insertTd(data.roomType, tr);
+    insertTd(data.videoSupported, tr);
+    insertTd(data.description, tr);
+
+    let acceptBtn = document.createElement("button");
+    acceptBtn.className = "btn btn-success";
+    acceptBtn.innerHTML = "Choose";
+    acceptBtn.setAttribute("data-bs-dismiss", "modal");
+    acceptBtn.type = "submit";
+    acceptBtn.addEventListener("click", () => {
+        acceptRequest(data.id);
+    });
+    td = tr.insertCell(5);
+    td.insertAdjacentElement("beforeend", acceptBtn);
 }
 
 function getCookie(name) {

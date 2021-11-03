@@ -1,6 +1,7 @@
 package dto;
 
 import enums.AnimalType;
+import enums.Location;
 import enums.RoomType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,8 @@ public class RoomDTO {
     private Boolean videoSupported;
 
     private String description;
+
+    private Location location;
 
     private LocalDate begin;
 

@@ -5,6 +5,7 @@ import com.nekromant.zoo.model.Book;
 import com.nekromant.zoo.model.Room;
 import dto.RoomDTO;
 import enums.AnimalType;
+import enums.Location;
 import enums.RoomType;
 import org.junit.Assert;
 import org.junit.Test;
@@ -37,20 +38,21 @@ public class RoomServiceTest {
         RoomType roomType = RoomType.VIP;
         boolean video = true;
 
-        Mockito.when(roomDAO.findAllByParametrs(animalType, roomType, video)).thenReturn(
-                Arrays.asList(new Room(0L, AnimalType.DOG, RoomType.VIP, true, ""))
+        Mockito.when(roomDAO.findDistinctByAnimalTypeAndRoomTypeAndLocationAndVideoSupported(animalType, roomType, Location.MOSCOW, video)).thenReturn(
+                Arrays.asList(new Room(0L, AnimalType.DOG, RoomType.VIP, Location.MOSCOW, true, ""))
         );
 
-        Assert.assertNotNull((roomService.findByParameters(AnimalType.DOG, RoomType.VIP, true)));
+        Assert.assertNotNull((roomService.findByParameters(AnimalType.DOG, RoomType.VIP, Location.MOSCOW, true)));
     }
 
     @Test
     public void findAllSpareRoom() {
         Mockito.when(bookService.findByRoomIdAndDate(any(), any(), any())).thenReturn(Collections.emptyList());
-        Mockito.when(roomService.findByParameters(AnimalType.DOG, RoomType.VIP, true)).thenReturn(
+        Mockito.when(roomService.findByParameters(AnimalType.DOG, RoomType.VIP, Location.MOSCOW, true)).thenReturn(
                 Arrays.asList(new Room(0L,
                         AnimalType.DOG,
                         RoomType.VIP,
+                        Location.MOSCOW,
                         true,
                         ""))
         );
@@ -61,6 +63,7 @@ public class RoomServiceTest {
                         RoomType.VIP,
                         true,
                         "",
+                        Location.MOSCOW,
                         LocalDate.now(),
                         LocalDate.now()
                 )
@@ -102,10 +105,11 @@ public class RoomServiceTest {
                                 LocalDate.of(2020, 4, 27))
                 )
         );
-        Mockito.when(roomService.findByParameters(AnimalType.DOG, RoomType.VIP, true)).thenReturn(
+        Mockito.when(roomService.findByParameters(AnimalType.DOG, RoomType.VIP, Location.MOSCOW, true)).thenReturn(
                 Arrays.asList(new Room(0L,
                         AnimalType.DOG,
                         RoomType.VIP,
+                        Location.MOSCOW,
                         true,
                         ""))
         );
@@ -117,6 +121,7 @@ public class RoomServiceTest {
                                 RoomType.VIP,
                                 true,
                                 "",
+                                Location.MOSCOW,
                                 LocalDate.of(2020, 4, 14),
                                 LocalDate.of(2002, 4, 21))).size(), 0);
     }

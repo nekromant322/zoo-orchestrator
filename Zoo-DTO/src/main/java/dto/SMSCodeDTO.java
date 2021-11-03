@@ -16,4 +16,8 @@ public class SMSCodeDTO {
     private String phoneNumber;
     private LocalDateTime expiredDate;
 
+    public SMSCodeDTO(Integer code, String phoneNumber) {
+        this.code = code;
+        this.phoneNumber = phoneNumber;
+    }
 }

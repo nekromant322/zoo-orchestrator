@@ -45,4 +45,21 @@ public class AnimalRequestMapper {
                 animalRequestDTO.getSpamRequest()
         );
     }
+
+    public AnimalRequestDTO newAnimalRequestDTOToAnimalRequestDTO(AnimalRequestDTO.NewAnimalRequestDTO requestDTO) {
+        return new AnimalRequestDTO(
+                requestDTO.getRequestStatus(),
+                requestDTO.getAnimalType(),
+                requestDTO.getBeginDate(),
+                requestDTO.getEndDate(),
+                requestDTO.getRoomType(),
+                requestDTO.getEmail(),
+                requestDTO.getVideoNeeded(),
+                requestDTO.getPhoneNumber(),
+                requestDTO.getName(),
+                requestDTO.getSurname(),
+                requestDTO.getAnimalName(),
+                requestDTO.getLocation()
+        );
+    }
 }
