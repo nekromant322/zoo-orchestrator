@@ -8,7 +8,7 @@ import com.nekromant.zoo.mapper.UserMapper;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.Authority;
 import com.nekromant.zoo.model.User;
-import com.nekromant.zoo.service.util.AnimalRequestUtil;
+import com.nekromant.zoo.AnimalRequestUtil;
 import enums.Discount;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -5,7 +5,7 @@ import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.dao.BlackListDAO;
 import com.nekromant.zoo.mapper.AnimalRequestMapper;
 import com.nekromant.zoo.model.AnimalRequest;
-import com.nekromant.zoo.service.util.AnimalRequestUtil;
+import com.nekromant.zoo.AnimalRequestUtil;
 import dto.AnimalRequestDTO;
 import dto.SMSCodeDTO;
 import enums.AnimalType;

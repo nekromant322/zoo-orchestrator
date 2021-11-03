@@ -2,10 +2,16 @@ server:
   port: 8080
   address: localhost
 
+mailing:
+  pagination:
+    value: 5
+    delay: 1000
+    threads: 3
+
 app:
   url:
-    confirmationZoo: http://localhost:6060
-    notificationZoo: http://localhost:6061
+    confirmationZoo: http://localhost:8900
+    notificationZoo: http://localhost:8900
 
 contacts:
   email: abc@gmail.com
@@ -17,8 +23,8 @@ contacts:
 
 spring:
   h2:
-   console:
-    enabled: true
+    console:
+      enabled: true
   datasource:
     password: root
     username: root
@@ -29,7 +35,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-        show_sql: true
+        show_sql: false
         format_sql: true
         use_sql_comments: true
     hibernate:
@@ -37,18 +43,18 @@ spring:
     generate-ddl: true
   security:
     jwt:
-      keystore-location: keys/keystore.jks
-      keystore-password: password
-      key-alias: password
-      private-key-passphrase: jwtsigning
+      keystore-location: ${KEYSTORE_LOCATION}
+      keystore-password: ${KEYSTORE_PASSWORD}
+      key-alias: ${KEY_ALIAS}
+      private-key-passphrase: ${PRIVATE_KEY_PASSPHRASE}
 
 vk:
   app:
-    id: 12345678
+    id: ${VK_APP_ID}
   client:
-    id: client
+    id: ${VK_CLIENT_ID}
   service:
-    token: token
+    token: ${VK_SERVICE_TOKEN}
   owner:
     id: -198597086
   album:
@@ -56,7 +62,7 @@ vk:
 
 map:
   api:
-    key: map-key
+    key: ${YANDEX_MAP_API_KEY}
 
 logging:
   file:

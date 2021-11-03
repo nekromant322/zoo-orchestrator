@@ -1,6 +1,7 @@
-package com.nekromant.zoo.service.util;
+package com.nekromant.zoo;
 
 import com.nekromant.zoo.model.AnimalRequest;
+import dto.AnimalRequestDTO;
 import enums.AnimalType;
 import enums.Location;
 import enums.RequestStatus;
@@ -59,5 +60,24 @@ public class AnimalRequestUtil {
         animalRequest.setBeginDate(beginDate);
         animalRequest.setRequestPrice(price);
         return animalRequest;
+    }
+
+    public static AnimalRequestDTO createAnimalRequestDTO() {
+        return new AnimalRequestDTO(
+                1L,
+                RequestStatus.NEW,
+                AnimalType.DOG,
+                LocalDate.now(),
+                LocalDate.now(),
+                RoomType.VIP,
+                true,
+                "79999999999",
+                "test@email.com",
+                "name",
+                "surname",
+                "dog-dog",
+                Location.MOSCOW,
+                false
+        );
     }
 }

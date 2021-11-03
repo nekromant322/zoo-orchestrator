@@ -35,6 +35,7 @@
         <java-jwt>3.11.0</java-jwt>
         <io.jsonwebtoken>0.9.1</io.jsonwebtoken>
         <commons-validator>1.7</commons-validator>
+        <wiremock.version>2.27.2</wiremock.version>
         <repsy.login>zoo-hotel</repsy.login>
         <repsy.repo>zoo</repsy.repo>
     </properties>

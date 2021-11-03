@@ -4,7 +4,7 @@ import com.nekromant.zoo.ZooApplication;
 import com.nekromant.zoo.dao.AnimalRequestDAO;
 import com.nekromant.zoo.model.AnimalRequest;
 import com.nekromant.zoo.model.User;
-import com.nekromant.zoo.service.util.AnimalRequestUtil;
+import com.nekromant.zoo.AnimalRequestUtil;
 import enums.Discount;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +17,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
