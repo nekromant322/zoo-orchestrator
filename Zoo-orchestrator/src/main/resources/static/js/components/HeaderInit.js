@@ -1,3 +1,17 @@
+let count = 0;
+
+ws = new WebSocket("ws://localhost:2000/callsCount")
+
+ws.onmessage = (event) => {
+    count = event.data
+    new UsersNavBar({
+        block: document.querySelector("#user-bar-block")
+    });
+    new MainMenu({
+        block: document.querySelector("#menu-block")
+    });
+}
+
 $(document).ready(function () {
     new UsersNavBar({
         block: document.querySelector("#user-bar-block")
@@ -160,17 +174,7 @@ class MainMenu {
         this.initEvents();
     };
 
-    count = 0;
-
     initEvents() {
-        $.ajax({
-            url: '/api/callRequest/count',
-            type: 'GET',
-            contentType: 'application/json',
-            success: function (response) {
-                console.log(response);
-            }
-        })
         this.block.innerHTML = "<div class=\"container-fluid\" style=\"background: #8d06cc; /* Old browsers */\n" +
             "    background: -moz-linear-gradient(top,  #8d06cc 0%, #220051 87%, #1c0049 100%); /* FF3.6-15 */\n" +
             "    background: -webkit-linear-gradient(top,  #8d06cc 0%,#220051 87%,#1c0049 100%); /* Chrome10-25,Safari5.1-6 */\n" +
@@ -201,7 +205,7 @@ class MainMenu {
             "                    <a href=\"/mailingPage\"  class=\"btn btn-secondary\" role=\"button\">Рассылка</a>\n" +
             "                    <a href=\"/bookingPage\"  class=\"btn btn-secondary\" role=\"button\">Букинг комнат</a>\n" +
             "                    <a href=\"/callRequestPage\"  class=\"btn btn-secondary\" role=\"button\">Оставить заявку</a>\n" +
-            "                    <a href=\"/allCallRequestsPage\"  class=\"btn btn-secondary\" role=\"button\">Заяв очка: " + this.count + "</a>\n" +
+            "                    <a href=\"/allCallRequestsPage\"  class=\"btn btn-secondary\" role=\"button\">Заяв очка: " + count + "</a>\n" +
             "                </nav>\n" +
             "            </div>\n" +
             "        </div>\n" +
