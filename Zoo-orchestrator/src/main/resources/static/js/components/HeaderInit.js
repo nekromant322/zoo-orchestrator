@@ -1,6 +1,6 @@
 let count = 0;
 
-ws = new WebSocket("ws://localhost:2000/callsCount")
+let ws = new WebSocket("ws://host/callsCount");
 
 ws.onmessage = (event) => {
     count = event.data
@@ -12,7 +12,26 @@ ws.onmessage = (event) => {
     });
 }
 
+
 $(document).ready(function () {
+    $.ajax({
+        url: '/api/callRequest/address',
+        type: 'GET',
+        contentType: 'application/json',
+        success: function (response) {
+            ws = new WebSocket("ws://" + response + "/callsCount")
+            ws.onmessage = (event) => {
+                count = event.data
+                new MainMenu({
+                    block: document.querySelector("#menu-block")
+                });
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+
     new UsersNavBar({
         block: document.querySelector("#user-bar-block")
     });
@@ -20,6 +39,8 @@ $(document).ready(function () {
         block: document.querySelector("#menu-block")
     });
 });
+
+
 
 class UsersNavBar {
     constructor(props) {
@@ -204,8 +225,8 @@ class MainMenu {
             "                    <a href=\"/controlPage\"  class=\"btn btn-secondary\" role=\"button\">Панелька</a>\n" +
             "                    <a href=\"/mailingPage\"  class=\"btn btn-secondary\" role=\"button\">Рассылка</a>\n" +
             "                    <a href=\"/bookingPage\"  class=\"btn btn-secondary\" role=\"button\">Букинг комнат</a>\n" +
-            "                    <a href=\"/callRequestPage\"  class=\"btn btn-secondary\" role=\"button\">Оставить заявку</a>\n" +
-            "                    <a href=\"/allCallRequestsPage\"  class=\"btn btn-secondary\" role=\"button\">Заяв очка: " + count + "</a>\n" +
+            "                    <a href=\"/callRequestPage\"  class=\"btn btn-secondary\" role=\"button\">Обратный звонок</a>\n" +
+            "                    <a href=\"/allCallRequestsPage\"  class=\"btn btn-secondary\" role=\"button\">Обратные звонки: " + count + "</a>\n" +
             "                </nav>\n" +
             "            </div>\n" +
             "        </div>\n" +

@@ -4,6 +4,7 @@ package com.nekromant.zoo.controller.rest;
 import com.nekromant.zoo.dao.CallRequestDAO;
 import com.nekromant.zoo.model.CallRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,12 @@ public class CallRequestRestController {
 
     @Autowired
     private CallRequestDAO callRequestDAO;
+
+    @Value("${server.address}")
+    private String address;
+
+    @Value("${server.port}")
+    private String port;
 
     @PostMapping
     @RequestMapping("/create")
@@ -36,6 +43,12 @@ public class CallRequestRestController {
     @RequestMapping("/all")
     public List<CallRequest> getAllRequests() {
         return callRequestDAO.findAll();
+    }
+
+    @GetMapping
+    @RequestMapping("/address")
+    public String getWebSocketAddress() {
+        return address + ":" + port;
     }
 
 
