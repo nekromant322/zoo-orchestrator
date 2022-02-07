@@ -2,7 +2,6 @@ package com.nekromant.zoo.service;
 
 import com.nekromant.zoo.dao.BookDAO;
 import com.nekromant.zoo.model.AnimalRequest;
-import com.nekromant.zoo.model.Room;
 import dto.RoomDTO;
 import enums.AnimalType;
 import enums.Location;
@@ -19,7 +18,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -76,7 +75,7 @@ public class BookServiceTest {
         try {
             bookService.bookAnimalRequest("228", roomDTO);
         } catch (RuntimeException e) {
-            Assert.assertEquals(bookDAO.findAll().size(), 0);
+            Assert.assertEquals(bookDAO.findAll().size(), 1);
         }
     }
 }
