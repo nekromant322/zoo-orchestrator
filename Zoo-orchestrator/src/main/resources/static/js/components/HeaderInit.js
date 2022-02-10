@@ -1,4 +1,37 @@
+let count = 0;
+
+let ws = new WebSocket("ws://host/callsCount");
+
+ws.onmessage = (event) => {
+    count = event.data
+    new UsersNavBar({
+        block: document.querySelector("#user-bar-block")
+    });
+    new MainMenu({
+        block: document.querySelector("#menu-block")
+    });
+}
+
+
 $(document).ready(function () {
+    $.ajax({
+        url: '/api/callRequest/address',
+        type: 'GET',
+        contentType: 'application/json',
+        success: function (response) {
+            ws = new WebSocket("ws://" + response + "/callsCount")
+            ws.onmessage = (event) => {
+                count = event.data
+                new MainMenu({
+                    block: document.querySelector("#menu-block")
+                });
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+
     new UsersNavBar({
         block: document.querySelector("#user-bar-block")
     });
@@ -6,6 +39,8 @@ $(document).ready(function () {
         block: document.querySelector("#menu-block")
     });
 });
+
+
 
 class UsersNavBar {
     constructor(props) {
@@ -158,10 +193,9 @@ class MainMenu {
     constructor(props) {
         this.block = props.block;
         this.initEvents();
-    }
+    };
 
     initEvents() {
-        let that = this;
         this.block.innerHTML = "<div class=\"container-fluid\" style=\"background: #8d06cc; /* Old browsers */\n" +
             "    background: -moz-linear-gradient(top,  #8d06cc 0%, #220051 87%, #1c0049 100%); /* FF3.6-15 */\n" +
             "    background: -webkit-linear-gradient(top,  #8d06cc 0%,#220051 87%,#1c0049 100%); /* Chrome10-25,Safari5.1-6 */\n" +
@@ -191,7 +225,8 @@ class MainMenu {
             "                    <a href=\"/controlPage\"  class=\"btn btn-secondary\" role=\"button\">Панелька</a>\n" +
             "                    <a href=\"/mailingPage\"  class=\"btn btn-secondary\" role=\"button\">Рассылка</a>\n" +
             "                    <a href=\"/bookingPage\"  class=\"btn btn-secondary\" role=\"button\">Букинг комнат</a>\n" +
-            "\n" +
+            "                    <a href=\"/callRequestPage\"  class=\"btn btn-secondary\" role=\"button\">Обратный звонок</a>\n" +
+            "                    <a href=\"/allCallRequestsPage\"  class=\"btn btn-secondary\" role=\"button\">Обратные звонки: " + count + "</a>\n" +
             "                </nav>\n" +
             "            </div>\n" +
             "        </div>\n" +

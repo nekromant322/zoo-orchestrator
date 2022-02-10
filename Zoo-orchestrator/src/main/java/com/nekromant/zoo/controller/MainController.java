@@ -77,4 +77,14 @@ public class MainController {
     public ModelAndView bookingPage() {
         return new ModelAndView("bookingPage");
     }
+
+    @GetMapping("/callRequestPage")
+    public ModelAndView callRequestPage() {
+        return new ModelAndView("callRequestPage");
+    }
+
+    @GetMapping("/allCallRequestsPage")
+    public ModelAndView allCallRequestsPage() {
+        return new ModelAndView("allCallRequestsPage");
+    }
 }
